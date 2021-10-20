@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\deps\SDL2-2.0.1\lib\x86\SDL2.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <None Include="..\gba.specs" />
+    <None Include="..\gba_cart.ld" />
+    <None Include="..\Makefile" />
+    <None Include="..\README.md" />
+    <ClCompile Include="..\source\common\audio\audio.sfx.c" />
+    <ClCompile Include="..\source\common\audio\audio.mixer.gba.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\audio\audio.mixer.win32.c" />
+    <ClCompile Include="..\source\common\audio\audio.stream.c" />
+    <ClCompile Include="..\source\common\audio\audio.system.c" />
+    <ClCompile Include="..\source\common\compression\lz77.gba.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\compression\lz77.win32.c" />
+    <ClCompile Include="..\source\common\compression\lz77.decompress.gba.s">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.clip_polygon.win32.c" />
+    <ClCompile Include="..\source\common\graphics\graphics.draw_spans.gba.s">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\containers\sort.gba.s">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.create_edge_and_calculate_deltas.gba.s">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.draw_spans.depth.gba.s">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.draw_spans.win32.c" />
+    <ClCompile Include="..\source\common\graphics\model.c" />
+    <ClCompile Include="..\source\common\platform\gba\interrupt.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_audio_stream.c" />
+    <ClCompile Include="..\source\common\states\debug\state_highlightfield.c" />
+    <ClCompile Include="..\source\common\utils\coroutine.c" />
+    <ClCompile Include="..\source\common\utils\random1k.c" />
+    <ClCompile Include="..\source\common\utils\ringbuffer.c" />
+    <ClCompile Include="..\source\common\video\smacker.render_video.gba.s">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\platform\gba\interrupt.gba.s">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smacker.render_audio.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <None Include="..\source\common\audio\audio.mixer.mix_samples.gba.s">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\source\common\graphics\graphics.clip_polygon.gba.s">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\source\common\video\smacker.hufftree.gba.s">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\common\application\argparse.c" />
+    <ClCompile Include="..\source\common\collision\collision.c" />
+    <ClCompile Include="..\source\common\containers\list.c" />
+    <ClCompile Include="..\source\common\containers\sort.win32.c" />
+    <ClCompile Include="..\source\common\debug\debug.gba.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\debug\debug_helper.c" />
+    <ClCompile Include="..\source\common\debug\debug.win32.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\camera.c" />
+    <ClCompile Include="..\source\common\graphics\graphics.c" />
+    <ClCompile Include="..\source\common\graphics\graphics.gba.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.win32.c" />
+    <ClCompile Include="..\source\common\graphics\image.c" />
+    <ClCompile Include="..\source\common\graphics\overlay.c" />
+    <ClCompile Include="..\source\common\graphics\overlay.gba.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\overlay.win32.c" />
+    <ClCompile Include="..\source\common\graphics\text.c" />
+    <ClCompile Include="..\source\common\input\input.gba.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\input\input.win32.c" />
+    <ClCompile Include="..\source\common\math\fixed16.c" />
+    <ClCompile Include="..\source\common\math\trigonometry.c" />
+    <ClCompile Include="..\source\common\memory.c" />
+    <ClCompile Include="..\source\common\memory.gba.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\memory.win32.c" />
+    <ClCompile Include="..\source\common\resources\resources.c" />
+    <ClCompile Include="..\source\common\resources\resources.gba.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\resources\resources.win32.c" />
+    <ClCompile Include="..\source\common\savegame\savegame.c" />
+    <ClCompile Include="..\source\common\savegame\savegame.gba.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\savegame\savegame.win32.c" />
+    <ClCompile Include="..\source\common\states\debug\state_analysis.c" />
+    <ClCompile Include="..\source\common\states\debug\state_depthmap.c" />
+    <ClCompile Include="..\source\common\states\debug\state_image.c" />
+    <ClCompile Include="..\source\common\states\debug\state_model.c" />
+    <ClCompile Include="..\source\common\states\debug\state_palette.c" />
+    <ClCompile Include="..\source\common\states\debug\state_resources_inspector.c" />
+    <ClCompile Include="..\source\common\states\debug\state_audio_sfx.c" />
+    <ClCompile Include="..\source\common\states\debug\state_stringstore.c" />
+    <ClCompile Include="..\source\common\states\debug\state_tiledimage.c" />
+    <ClCompile Include="..\source\common\states\debug\state_video.c" />
+    <ClCompile Include="..\source\common\states\state.c" />
+    <ClCompile Include="..\source\common\string.c" />
+    <ClCompile Include="..\source\common\stringstore.c" />
+    <ClCompile Include="..\source\common\utils\bitstream.c" />
+    <ClCompile Include="..\source\common\utils\profiler.gba.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\common\utils\profiler.win32.c" />
+    <ClCompile Include="..\source\common\utils\timer.c" />
+    <ClCompile Include="..\source\common\video\smacker.c" />
+    <ClCompile Include="..\source\common\video\smacker.win32.c" />
+    <ClCompile Include="..\source\common\video\smacker.patch.win32.c" />
+    <ClCompile Include="..\source\common\video\smk_hufftree.c" />
+    <ClCompile Include="..\source\common\video\smk_hufftree_v5.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\entities\animation.c" />
+    <ClCompile Include="..\source\games\7days\entities\model_entity.c" />
+    <ClCompile Include="..\source\games\7days\entities\player_entity.c" />
+    <ClCompile Include="..\source\games\7days\inventory.c" />
+    <ClCompile Include="..\source\games\7days\itemstore.c" />
+    <ClCompile Include="..\source\games\7days\navigation.c" />
+    <ClCompile Include="..\source\games\7days\sequence.c" />
+    <ClCompile Include="..\source\games\7days\states\state_credits.c" />
+    <ClCompile Include="..\source\games\7days\states\state_dialogue.c" />
+    <ClCompile Include="..\source\games\7days\states\state_elevator.c" />
+    <ClCompile Include="..\source\games\7days\states\state_gameover.c" />
+    <ClCompile Include="..\source\games\7days\states\state_inventory.c" />
+    <ClCompile Include="..\source\games\7days\states\state_language_select.c" />
+    <ClCompile Include="..\source\games\7days\states\state_pause.c" />
+    <ClCompile Include="..\source\games\7days\states\state_play.c" />
+    <ClCompile Include="..\source\games\7days\states\state_level.c" />
+    <ClCompile Include="..\source\games\7days\states\state_sandbox.c" />
+    <ClCompile Include="..\source\games\7days\states\state_savegame.c" />
+    <ClCompile Include="..\source\games\7days\states\state_settings.c" />
+    <ClCompile Include="..\source\games\7days\states\state_splash.c" />
+    <ClCompile Include="..\source\games\7days\states\state_terminal.c" />
+    <ClCompile Include="..\source\games\7days\states\state_title.c" />
+    <ClCompile Include="..\source\games\7days\widgets\widget_quickaction.c" />
+    <ClCompile Include="..\source\games\7days\world.c" />
+    <ClCompile Include="..\source\games\7days\world_sequence.c" />
+    <ClCompile Include="..\source\main.gba.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\main.win32.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\common\application\argparse.h" />
+    <ClInclude Include="..\source\common\audio\audio.h" />
+    <ClInclude Include="..\source\common\audio\audio.internal.h" />
+    <ClInclude Include="..\source\common\codegen\codegen_armv4.h" />
+    <ClInclude Include="..\source\common\collision\collision.h" />
+    <ClInclude Include="..\source\common\compression\lz77.h" />
+    <ClInclude Include="..\source\common\containers\list.h" />
+    <ClInclude Include="..\source\common\containers\sort.h" />
+    <ClInclude Include="..\source\common\debug\debug.h" />
+    <ClInclude Include="..\source\common\debug\debug_helper.h" />
+    <ClInclude Include="..\source\common\graphics\camera.h" />
+    <ClInclude Include="..\source\common\graphics\graphics.h" />
+    <ClInclude Include="..\source\common\graphics\highlight_field.h" />
+    <ClInclude Include="..\source\common\graphics\image.h" />
+    <ClInclude Include="..\source\common\graphics\model.h" />
+    <ClInclude Include="..\source\common\graphics\overlay.h" />
+    <ClInclude Include="..\source\common\graphics\obj_attr.h" />
+    <ClInclude Include="..\source\common\graphics\text.h" />
+    <ClInclude Include="..\source\common\math\easing.h" />
+    <ClInclude Include="..\source\common\math\math.h" />
+    <ClInclude Include="..\source\common\memory.h" />
+    <ClInclude Include="..\source\common\input\input.h" />
+    <ClInclude Include="..\source\common\math\fixed16.h" />
+    <ClInclude Include="..\source\common\math\matrix.h" />
+    <ClInclude Include="..\source\common\math\point.h" />
+    <ClInclude Include="..\source\common\math\trigonometry.h" />
+    <ClInclude Include="..\source\common\math\vector.h" />
+    <ClInclude Include="..\source\common\platform\gba\gba.h" />
+    <ClCompile Include="..\source\common\platform\win32\app_sdl.c">
+      <FileType>CppCode</FileType>
+    </ClCompile>
+    <ClInclude Include="..\source\common\platform\win32\app_sdl.h" />
+    <ClInclude Include="..\source\common\platform\win32\resource.h" />
+    <ClInclude Include="..\source\common\resources\resources.h" />
+    <ClInclude Include="..\source\common\savegame\savegame.h" />
+    <ClInclude Include="..\source\common\states\debug\states.h" />
+    <ClInclude Include="..\source\common\states\state.h" />
+    <ClInclude Include="..\source\common\string.h" />
+    <ClInclude Include="..\source\common\stringstore.h" />
+    <ClInclude Include="..\source\common\types.h" />
+    <ClInclude Include="..\source\common\utils\bitstream.h" />
+    <ClInclude Include="..\source\common\utils\coroutine.h" />
+    <ClInclude Include="..\source\common\utils\profiler.h" />
+    <ClInclude Include="..\source\common\utils\random1k.h" />
+    <ClInclude Include="..\source\common\utils\ringbuffer.h" />
+    <ClInclude Include="..\source\common\utils\span.h" />
+    <ClInclude Include="..\source\common\utils\timer.h" />
+    <ClInclude Include="..\source\common\video\smacker.h" />
+    <ClInclude Include="..\source\common\video\smk_hufftree.h" />
+    <ClInclude Include="..\source\common\video\smk_hufftree_v5.h" />
+    <ClInclude Include="..\source\common\video\video.h" />
+    <ClInclude Include="..\source\games\7days\dialogue.h" />
+    <ClInclude Include="..\source\games\7days\entities\entity.h" />
+    <ClInclude Include="..\source\games\7days\inventory.h" />
+    <ClInclude Include="..\source\games\7days\itemstore.h" />
+    <ClInclude Include="..\source\games\7days\navigation.h" />
+    <ClInclude Include="..\source\games\7days\level.h" />
+    <ClInclude Include="..\source\games\7days\states\states.h" />
+    <ClInclude Include="..\source\games\7days\sequence.h" />
+    <ClInclude Include="..\source\games\7days\widgets\widget_quickaction.h" />
+    <ClInclude Include="..\source\games\7days\world.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\source\common\platform\win32\resources.rc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D04176DF-1A65-4C66-82A7-454ACB067E12}</ProjectGuid>
+    <RootNamespace>gba3d</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>gba-demo</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\build\out\$(Configuration)\</OutDir>
+    <IntDir>..\build\tmp\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\build\out\$(Configuration)\</OutDir>
+    <IntDir>..\build\tmp\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\source;..\deps\SDL2-2.0.1\include;..\data</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PROFILER_ENABLE;__DEBUG__;DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\deps\SDL2-2.0.1\lib\x86;</AdditionalLibraryDirectories>
+      <SubSystem>NotSet</SubSystem>
+    </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\source;..\deps\SDL2-2.0.1\include;..\data</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\deps\SDL2-2.0.1\lib\x86;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  </ImportGroup>
+</Project>

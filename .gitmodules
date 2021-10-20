@@ -1,0 +1,3 @@
+[submodule "content"]
+	path = content
+	url = git@github.com:timleader/gba-demo-content.git

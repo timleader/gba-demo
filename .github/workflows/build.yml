@@ -1,0 +1,50 @@
+
+name: Build
+
+on:
+  push:
+    branches: 
+    - master 
+
+  workflow_dispatch:
+
+jobs:
+  build-win32:
+    
+    runs-on: windows-2019
+    steps:
+          
+    - uses: actions/checkout@v2
+      
+    - name: Setup MSBuild and add to PATH
+      id: setup_msbuild
+      uses: microsoft/setup-msbuild@v1.0.0
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+
+    - name: Run MSBuild
+      id: run_msbuild
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild ./project/gba-demo.vcxproj /p:configuration=release /p:platform=win32
+      
+    - uses: actions/upload-artifact@v2
+      with:
+        name: gba-demo-win32
+        path: ./build/out/Release/gba-demo.exe
+
+
+  build-gba:
+    
+    runs-on: ubuntu-20.04
+    steps:
+          
+    - uses: actions/checkout@v2
+      
+    - uses: ./.github/workflows/devkitarm-docker-action
+
+    - run: mv workspace.gba gba-demo.gba
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: gba-demo
+        path: ./gba-demo.gba

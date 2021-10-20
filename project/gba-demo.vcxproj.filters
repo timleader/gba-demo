@@ -1,0 +1,610 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{994c4c88-73dd-4352-9586-0ffd315dad57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common">
+      <UniqueIdentifier>{de5735fd-1d69-49f3-a699-b4c1a793d0de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\games">
+      <UniqueIdentifier>{0c65f76c-9a54-4aff-a63f-ad18fad0e920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\graphics">
+      <UniqueIdentifier>{9818d664-4b23-474b-bcf2-a55f682b44e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\math">
+      <UniqueIdentifier>{a9f78120-9154-4c66-9dcf-f809013a56cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\games\7days">
+      <UniqueIdentifier>{19a66525-e7f9-4930-8104-4c5557b8c267}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\games\7days\states">
+      <UniqueIdentifier>{9096d2d0-62fd-43d1-a8c9-8c9d5ee5ab9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\resources">
+      <UniqueIdentifier>{f378479d-7e57-455b-aff3-54dc802d6975}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\collision">
+      <UniqueIdentifier>{316f9d99-8579-4d81-afc1-45e5319147b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\input">
+      <UniqueIdentifier>{bf10a195-3802-4657-a08e-b650d230f1d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\platform">
+      <UniqueIdentifier>{a882b6f6-918f-43d8-9a66-388cec97560d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\platform\gba">
+      <UniqueIdentifier>{73c266f3-6314-42b7-83fe-67cf9df7d6ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\platform\win32">
+      <UniqueIdentifier>{8b4ffc2c-1cee-4c87-93cd-bc359bcd2ca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\states">
+      <UniqueIdentifier>{32aa8ce5-5345-4f85-9a02-f781b4b7cdc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\utils">
+      <UniqueIdentifier>{b9ed8166-e34c-4dfc-ace0-000ee6622bbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\debug">
+      <UniqueIdentifier>{3d0c2f20-f33e-4c64-9f0f-80269970611d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\video">
+      <UniqueIdentifier>{b1fbfd30-c049-4462-a008-e935a6a6fb6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\application">
+      <UniqueIdentifier>{295aa30e-166e-4158-9aae-329c4f5b5eec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\states\debug">
+      <UniqueIdentifier>{eafaeede-8df0-443e-9426-a2c53105061a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps">
+      <UniqueIdentifier>{1d5d8920-417d-4c20-849a-bc6ccf95bff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\SDL2-2.0.1">
+      <UniqueIdentifier>{54acc1d2-ccfd-4fc3-b725-43548cfb5943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\SDL2-2.0.1\lib">
+      <UniqueIdentifier>{c6b1b417-4e27-411a-8261-c9ba66b60f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\SDL2-2.0.1\lib\x86">
+      <UniqueIdentifier>{f8bd2bbd-4c39-49d9-990d-9671eb49664b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\games\7days\widgets">
+      <UniqueIdentifier>{4068bf07-9b59-43ca-952a-1f23bd2030ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\containers">
+      <UniqueIdentifier>{78dd1c98-ab62-4057-addc-e305b8546b9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\games\7days\entities">
+      <UniqueIdentifier>{ef0209c0-c35d-4b90-9158-e68ddea28e57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\savegame">
+      <UniqueIdentifier>{fd42a94c-8647-4e95-a9c3-90d42df57b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\codegen">
+      <UniqueIdentifier>{6849d53d-6216-4b70-8679-d01d99bac9c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\compression">
+      <UniqueIdentifier>{4f799326-2923-49fd-9b4e-d81ab9b9e10b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\audio">
+      <UniqueIdentifier>{9cf371c0-7b6f-4db5-9e0b-e48a7d1f34bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\video\patcher">
+      <UniqueIdentifier>{0d63db6e-ae04-4542-af73-39271257e3c8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Makefile" />
+    <None Include="..\README.md" />
+    <None Include="..\gba_cart.ld" />
+    <None Include="..\gba.specs" />
+    <None Include="..\source\common\audio\audio.mixer.mix_samples.gba.s">
+      <Filter>source\common\audio</Filter>
+    </None>
+    <None Include="..\source\common\video\smacker.hufftree.gba.s">
+      <Filter>source\common\video</Filter>
+    </None>
+    <None Include="..\source\common\graphics\graphics.clip_polygon.gba.s">
+      <Filter>source\common\graphics</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\games\7days\states\state_play.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_splash.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\camera.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\math\fixed16.c">
+      <Filter>source\common\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\math\trigonometry.c">
+      <Filter>source\common\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\collision\collision.c">
+      <Filter>source\common\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\state.c">
+      <Filter>source\common\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\resources\resources.c">
+      <Filter>source\common\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\text.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\overlay.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smacker.c">
+      <Filter>source\common\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\application\argparse.c">
+      <Filter>source\common\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smk_hufftree_v5.c">
+      <Filter>source\common\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\platform\win32\app_sdl.c">
+      <Filter>source\common\platform\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\utils\timer.c">
+      <Filter>source\common\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_analysis.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_video.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\string.c">
+      <Filter>source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\memory.c">
+      <Filter>source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\utils\bitstream.c">
+      <Filter>source\common\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_resources_inspector.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_image.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_model.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_palette.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_depthmap.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_stringstore.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\stringstore.c">
+      <Filter>source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_tiledimage.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_credits.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\world.c">
+      <Filter>source\games\7days</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\inventory.c">
+      <Filter>source\games\7days</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\sequence.c">
+      <Filter>source\games\7days</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_gameover.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_inventory.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\widgets\widget_quickaction.c">
+      <Filter>source\games\7days\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\debug\debug_helper.c">
+      <Filter>source\common\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_dialogue.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_title.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_pause.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\itemstore.c">
+      <Filter>source\games\7days</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_terminal.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\navigation.c">
+      <Filter>source\games\7days</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\containers\list.c">
+      <Filter>source\common\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_elevator.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_language_select.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_level.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\image.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_savegame.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\entities\model_entity.c">
+      <Filter>source\games\7days\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\savegame\savegame.c">
+      <Filter>source\common\savegame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\entities\player_entity.c">
+      <Filter>source\games\7days\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\world_sequence.c">
+      <Filter>source\games\7days</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.gba.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.win32.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\main.gba.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\main.win32.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\overlay.win32.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\overlay.gba.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\memory.gba.c">
+      <Filter>source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\memory.win32.c">
+      <Filter>source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\debug\debug.gba.c">
+      <Filter>source\common\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\debug\debug.win32.c">
+      <Filter>source\common\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\input\input.gba.c">
+      <Filter>source\common\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\input\input.win32.c">
+      <Filter>source\common\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\savegame\savegame.gba.c">
+      <Filter>source\common\savegame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\savegame\savegame.win32.c">
+      <Filter>source\common\savegame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\resources\resources.gba.c">
+      <Filter>source\common\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\resources\resources.win32.c">
+      <Filter>source\common\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\utils\profiler.win32.c">
+      <Filter>source\common\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\utils\profiler.gba.c">
+      <Filter>source\common\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\containers\sort.gba.s">
+      <Filter>source\common\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\containers\sort.win32.c">
+      <Filter>source\common\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.create_edge_and_calculate_deltas.gba.s">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.draw_spans.depth.gba.s">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smacker.win32.c">
+      <Filter>source\common\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smacker.render_video.gba.s">
+      <Filter>source\common\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.draw_spans.gba.s">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\platform\gba\interrupt.c">
+      <Filter>source\common\platform\gba</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\platform\gba\interrupt.gba.s">
+      <Filter>source\common\platform\gba</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_highlightfield.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\compression\lz77.decompress.gba.s">
+      <Filter>source\common\compression</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\audio\audio.mixer.gba.c">
+      <Filter>source\common\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\audio\audio.mixer.win32.c">
+      <Filter>source\common\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\compression\lz77.win32.c">
+      <Filter>source\common\compression</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\audio\audio.sfx.c">
+      <Filter>source\common\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\audio\audio.stream.c">
+      <Filter>source\common\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\utils\random1k.c">
+      <Filter>source\common\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_audio_sfx.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\states\debug\state_audio_stream.c">
+      <Filter>source\common\states\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\utils\ringbuffer.c">
+      <Filter>source\common\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\audio\audio.system.c">
+      <Filter>source\common\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smacker.render_audio.c">
+      <Filter>source\common\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smk_hufftree.c">
+      <Filter>source\common\video\patcher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smacker.patch.win32.c">
+      <Filter>source\common\video\patcher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_sandbox.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\utils\coroutine.c">
+      <Filter>source\common\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\model.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.draw_spans.win32.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\graphics\graphics.clip_polygon.win32.c">
+      <Filter>source\common\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\states\state_settings.c">
+      <Filter>source\games\7days\states</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\compression\lz77.gba.c">
+      <Filter>source\common\compression</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\games\7days\entities\animation.c">
+      <Filter>source\games\7days\entities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\games\7days\dialogue.h">
+      <Filter>source\games\7days</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\games\7days\inventory.h">
+      <Filter>source\games\7days</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\graphics\camera.h">
+      <Filter>source\common\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\graphics\graphics.h">
+      <Filter>source\common\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\graphics\image.h">
+      <Filter>source\common\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\graphics\model.h">
+      <Filter>source\common\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\graphics\text.h">
+      <Filter>source\common\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\math\fixed16.h">
+      <Filter>source\common\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\math\matrix.h">
+      <Filter>source\common\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\math\trigonometry.h">
+      <Filter>source\common\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\math\vector.h">
+      <Filter>source\common\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\collision\collision.h">
+      <Filter>source\common\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\input\input.h">
+      <Filter>source\common\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\states\state.h">
+      <Filter>source\common\states</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\platform\gba\gba.h">
+      <Filter>source\common\platform\gba</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\resources\resources.h">
+      <Filter>source\common\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\utils\profiler.h">
+      <Filter>source\common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\games\7days\sequence.h">
+      <Filter>source\games\7days</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\math\point.h">
+      <Filter>source\common\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\graphics\overlay.h">
+      <Filter>source\common\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\graphics\obj_attr.h">
+      <Filter>source\common\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\video\smacker.h">
+      <Filter>source\common\video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\application\argparse.h">
+      <Filter>source\common\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\video\smk_hufftree_v5.h">
+      <Filter>source\common\video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\utils\timer.h">
+      <Filter>source\common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\platform\win32\app_sdl.h">
+      <Filter>source\common\platform\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\types.h">
+      <Filter>source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\memory.h">
+      <Filter>source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\string.h">
+      <Filter>source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\debug\debug.h">
+      <Filter>source\common\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\utils\bitstream.h">
+      <Filter>source\common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\math\math.h">
+      <Filter>source\common\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\math\easing.h">
+      <Filter>source\common\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\stringstore.h">
+      <Filter>source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\video\video.h">
+      <Filter>source\common\video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\games\7days\world.h">
+      <Filter>source\games\7days</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\platform\win32\resource.h">
+      <Filter>source\common\platform\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\games\7days\states\states.h">
+      <Filter>source\games\7days\states</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\games\7days\widgets\widget_quickaction.h">
+      <Filter>source\games\7days\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\debug\debug_helper.h">
+      <Filter>source\common\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\states\debug\states.h">
+      <Filter>source\common\states\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\games\7days\itemstore.h">
+      <Filter>source\games\7days</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\games\7days\navigation.h">
+      <Filter>source\games\7days</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\containers\list.h">
+      <Filter>source\common\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\games\7days\level.h">
+      <Filter>source\games\7days</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\games\7days\entities\entity.h">
+      <Filter>source\games\7days\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\savegame\savegame.h">
+      <Filter>source\common\savegame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\containers\sort.h">
+      <Filter>source\common\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\codegen\codegen_armv4.h">
+      <Filter>source\common\codegen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\utils\span.h">
+      <Filter>source\common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\compression\lz77.h">
+      <Filter>source\common\compression</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\graphics\highlight_field.h">
+      <Filter>source\common\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\audio\audio.h">
+      <Filter>source\common\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\audio\audio.internal.h">
+      <Filter>source\common\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\utils\random1k.h">
+      <Filter>source\common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\utils\ringbuffer.h">
+      <Filter>source\common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\utils\coroutine.h">
+      <Filter>source\common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\video\smk_hufftree.h">
+      <Filter>source\common\video\patcher</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\deps\SDL2-2.0.1\lib\x86\SDL2.dll">
+      <Filter>deps\SDL2-2.0.1\lib\x86</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\source\common\platform\win32\resources.rc">
+      <Filter>source\common\platform\win32</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
