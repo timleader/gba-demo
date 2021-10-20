@@ -51,7 +51,7 @@ typedef struct st_video_context_s
 
 	uint8_t* frame_buffer;
 
-	perf_timer_t video_sequence_timer;
+	game_timer_t video_sequence_timer;
 	int8_t video_sequence_timer_completion_flag;
 
 	int8_t video_play_mode;

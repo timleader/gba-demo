@@ -55,9 +55,9 @@ typedef struct st_terminal_context_s
 	uint16_t reserved2;
 
 	point2_t terminal_cursor_position;
-	perf_timer_t terminal_cursor_blink_timer;
+	game_timer_t terminal_cursor_blink_timer;
 
-	perf_timer_t terminal_sequence_timer;
+	game_timer_t terminal_sequence_timer;
 
 
 	uint8_t terminal_readout_idx;

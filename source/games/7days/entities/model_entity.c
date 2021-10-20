@@ -8,14 +8,6 @@
 //-----------------------------------------------------------------------------
 void model_entity_update(entity_ptr entity)
 {
-	//if (++entity->frame >= 71)
-	// entity->frame = 0;
-
-	//	animation controller to switch between animation states 
-
-	//	animation controller to listen for animation events ... 
-
-
 	/*
 	*	animations just listens to the movement controller and uses the right animation 
 	* 
@@ -49,7 +41,7 @@ void entity_draw(entity_ptr entity, matrix4x4_t* wvp)
 
 	//	move this palette write to only happen once 
 	palette_ptr pal = resources_find_palette(img->palette_id);
-	//graphics_write_palette(pal);
+	graphics_write_palette(pal);
 
 	graphics_draw_model(model, entity->animation_id, entity->frame, &M);
 }

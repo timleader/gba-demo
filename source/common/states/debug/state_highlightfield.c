@@ -13,7 +13,7 @@
 typedef struct st_highlightfield_context_s
 {
 	highlight_field_ptr highlight;
-	perf_timer_t highlight_scroll_timer; 
+	game_timer_t highlight_scroll_timer; 
 
 } st_highlightfield_context_t;
 

@@ -56,9 +56,9 @@ typedef struct st_dialogue_context_s
 	int16_t g_dialogue_option_idx;
 	int16_t g_dialogue_option_count;
 
-	perf_timer_t g_dialogue_timer;
+	game_timer_t g_dialogue_timer;
 
-	perf_timer_t g_dialogue_animation_timer;
+	game_timer_t g_dialogue_animation_timer;
 
 	palette_ptr ui_palette;
 

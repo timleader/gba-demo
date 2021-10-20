@@ -24,14 +24,17 @@
 
 } sequence_event_t;*/
 
+//-----------------------------------------------------------------------------
 typedef uint32_t sequence_event_t;
 
 
+//-----------------------------------------------------------------------------
 #define SEQUENCE_EVENT_NEXT(x) ((x & 0x00000010) ? ((int32_t)((x & 0x0000000F) | 0xFFFFFFF0)) : (int32_t)(x & 0x0000000F))
 //#define SEQUENCE_EVENT_NEXT(x) ((x & 0x00000010) ? (-(int32_t)~(x & 0x0000000F)) : (int32_t)(x & 0x0000000F))
 #define SEQUENCE_EVENT_TYPE(x) ((x >> 5) & 0x0000001F)
 #define SEQUENCE_EVENT_EXTRA(x) (x >> 10)
 
+//-----------------------------------------------------------------------------
 typedef enum sequence_completion_mode_e
 {
 	SEQUENCE_COMPLETION_IMMEDIATE,
@@ -40,6 +43,7 @@ typedef enum sequence_completion_mode_e
 
 } sequence_completion_mode_t;
 
+//-----------------------------------------------------------------------------
 typedef enum sequence_player_state_e
 {
 	PLAYER_STATE_IDLE, 
@@ -48,12 +52,14 @@ typedef enum sequence_player_state_e
 
 } sequence_player_state_t;
 
+//-----------------------------------------------------------------------------
 struct sequence_player_s;
 typedef struct sequence_player_s sequence_player_t;
 typedef sequence_player_t* sequence_player_ptr;
 
 typedef sequence_completion_mode_t(*sequence_event_handler_t)(sequence_player_ptr player, sequence_event_t event);
 
+//-----------------------------------------------------------------------------
 typedef struct sequence_store_s
 {
 	uint16_t event_count;
@@ -65,27 +71,33 @@ typedef struct sequence_store_s
 
 typedef sequence_store_t* sequence_store_ptr;
 
-typedef struct sequence_player_state_persistent_s
+//-----------------------------------------------------------------------------
+typedef struct sequence_channel_persistent_s
 {
-	int16_t scheduled_event;	
-	int16_t current_event;	
+	int16_t scheduled_event;
+	int16_t current_event;
 
-	uint32_t state[4];
+} sequence_channel_persistent_t;
 
-} sequence_player_state_persistent_t;
+//-----------------------------------------------------------------------------
+typedef struct sequence_channel_ephermeral_s
+{
+	sequence_player_state_t state;					
+	int8_t* completion_flag;						
 
-typedef sequence_player_state_persistent_t* sequence_player_state_persistent_ptr;
+} sequence_channel_ephermeral_t;
 
+//-----------------------------------------------------------------------------
 typedef struct sequence_player_s
 {
-	sequence_player_state_persistent_ptr persistent;	//	PERSISTENT 
+	uint32_t* persistent_state;							//	PERSISTENT 
+	sequence_channel_persistent_t* persistent_channels;	//	PERSISTENT
 	
-	sequence_store_ptr store;							//	EPHERMERAL	/  PERSISTENT
-	sequence_player_state_t state;						//	EPHERMERAL
-	int8_t* completion_flag;							//	EPHERMERAL
+	sequence_channel_ephermeral_t* ephermeral_channels;	//	EPHERMERAL
  
+	sequence_store_ptr store;							//	CONSTANT
 	sequence_event_handler_t* event_handlers;			//	CONSTANT
-	uint16_t event_handler_count;						//	CONSTANT
+	uint16_t channel_count;								//	CONSTANT
 	void_ptr context;									//	CONSTANT
 
 } sequence_player_t;
@@ -98,10 +110,13 @@ typedef struct sequence_player_s
 //	=============================
 
 
+//-----------------------------------------------------------------------------
 void sequence_reset(sequence_player_ptr player);
 
+//-----------------------------------------------------------------------------
 void sequence_schedule(sequence_player_ptr player, int16_t sequence_id);
 
+//-----------------------------------------------------------------------------
 void sequence_update(sequence_player_ptr player);		//	this runs only in st_play / world update
 
 
