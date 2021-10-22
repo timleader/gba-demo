@@ -77,7 +77,7 @@ sequence_completion_mode_t sequence_event_handler_wait(sequence_player_ptr playe
 	g_main_world->ephermeral.sequencer_timer = timer_start((uint16_t)waitFrameCount, TIMER_MODE_ONCE);
 	g_main_world->ephermeral.sequencer_timer_completion_flag = 0;
 
-	player->completion_flag = &g_main_world->ephermeral.sequencer_timer_completion_flag;
+	player->ephermeral_channels[0].completion_flag = &g_main_world->ephermeral.sequencer_timer_completion_flag;
 
 	return SEQUENCE_COMPLETION_WAIT_ON_FLAG;
 }
@@ -252,7 +252,7 @@ sequence_completion_mode_t sequence_event_handler_entity_path(sequence_player_pt
 
 	navigation_generate_path(origin, destination, &nav_agent->path);
 
-	player->completion_flag = &nav_agent->completion_flag;	//	this should be optional !!! 
+	player->ephermeral_channels[0].completion_flag = &nav_agent->completion_flag;	//	this should be optional !!! 
 
 	return SEQUENCE_COMPLETION_WAIT_ON_FLAG;
 }
@@ -386,19 +386,16 @@ sequence_event_handler_t g_world_sequence_event_handlers[] =
 //-----------------------------------------------------------------------------
 void world_sequence_player_initialize(sequence_player_ptr player, uint32_t* state)
 {
-	player->channel_count = 1;
+	player->persistent_state = state;
 
-	uint32_t size_in_bytes = sizeof(sequence_event_handler_t*) * player->event_handler_count;
-	uint8_t* memory_chunk = (uint8_t*)memory_allocate(size_in_bytes, MEMORY_EWRAM);
-
-	player->memory_chunk = memory_chunk;
 
 	player->event_handlers = &g_world_sequence_event_handlers;
 
-	memory_chunk += sizeof(sequence_event_handler_t*) * player->event_handler_count;
-	
-	player->persistent_state = state;
 
+	player->channel_count = 1;
+
+
+	/*
 	player->ephermeral_channels = 
 
 	player->persistent->current_event = -1;
@@ -406,7 +403,7 @@ void world_sequence_player_initialize(sequence_player_ptr player, uint32_t* stat
 
 	player->state = PLAYER_STATE_IDLE;
 
-	player->channel_count = 1;
+	player->channel_count = 1;*/
 	//player->ephermeral_channels = //	
 
 }
@@ -414,5 +411,4 @@ void world_sequence_player_initialize(sequence_player_ptr player, uint32_t* stat
 //-----------------------------------------------------------------------------
 void world_sequence_player_delete(sequence_player_ptr player)
 {
-	memory_free(player->event_handlers);
 }

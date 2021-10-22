@@ -197,6 +197,8 @@ typedef struct world_ephemeral_s		//	need to add appropriate padding  to struct 
 	//	SEQUENCER
 
 	sequence_player_t sequencer;
+	sequence_channel_ephermeral_t sequencer_channel;
+
 	game_timer_t sequencer_timer;
 	int8_t sequencer_timer_completion_flag;
 

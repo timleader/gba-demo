@@ -72,6 +72,7 @@ void world_load_level(world_ptr world, uint16_t resource_id)
 
 	debug_assert(level->numView <= 16, "level contains too many views");
 
+	//	try using a pointer patched version of the level, 
 	world->ephermeral.views = (view_t*)(ptr + level->viewPtrOffset);			//	might be able to resolve these pointers at build-time .. 
 	world->ephermeral.numCollision = level->numCollision;
 	world->ephermeral.collision = (collider_t*)(ptr + level->collisionPtrOffset);
