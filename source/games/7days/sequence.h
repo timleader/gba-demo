@@ -90,8 +90,8 @@ typedef struct sequence_channel_ephermeral_s
 //-----------------------------------------------------------------------------
 typedef struct sequence_player_s
 {
-	uint32_t* persistent_state;							//	PERSISTENT 
-	sequence_channel_persistent_t* persistent_channels;	//	PERSISTENT
+	uint32_t* persistent_state;							//	PERSISTENT (Shared Persistent State)
+	sequence_channel_persistent_t* persistent_channels;	//	PERSISTENT (Multi-Channel Support)
 	
 	sequence_channel_ephermeral_t* ephermeral_channels;	//	EPHERMERAL
  
@@ -114,7 +114,7 @@ typedef struct sequence_player_s
 void sequence_reset(sequence_player_ptr player);
 
 //-----------------------------------------------------------------------------
-void sequence_schedule(sequence_player_ptr player, int16_t sequence_id);
+void sequence_schedule(sequence_player_ptr player, int8_t channel_id, int16_t sequence_id);
 
 //-----------------------------------------------------------------------------
 void sequence_update(sequence_player_ptr player);		//	this runs only in st_play / world update
