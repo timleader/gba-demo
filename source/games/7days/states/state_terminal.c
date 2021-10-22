@@ -274,7 +274,7 @@ void st_terminal_enter(st_terminal_context_ptr context, uint32_t parameter)
 	context->sequence_player.context = context;
 
 	
-	sequence_schedule(&context->sequence_player, 0);
+	sequence_schedule(&context->sequence_player, 0, 0);
 
 
 	/*

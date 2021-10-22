@@ -20,8 +20,19 @@ void world_initialize(world_ptr world)
 	world->ephermeral.view_rendertarget = rendertarget_new(graphics_screen_width, graphics_screen_height, MEMORY_EWRAM);
 
 	/* Sequencer Initialization */
+	world->ephermeral.sequencer.persistent_state = &world->persistent.sequencer_state[0];
 
-	world_sequence_player_initialize(&world->ephermeral.sequencer, &world->persistent.sequencer_state);
+	world->ephermeral.sequencer.persistent_channels = &world->persistent.sequencer_channel;
+	world->persistent.sequencer_channel.current_event = -1;
+	world->persistent.sequencer_channel.scheduled_event = -1;
+
+	world->ephermeral.sequencer.ephermeral_channels = &world->ephermeral.sequencer_channel;
+	world->ephermeral.sequencer_channel.state = PLAYER_STATE_IDLE;
+
+	world->ephermeral.sequencer.channel_count = 1;
+
+
+	world_sequence_player_assign_event_handlers(&world->ephermeral.sequencer);
 	
 	/* World Initialize fields  */
 
@@ -54,8 +65,6 @@ void world_initialize(world_ptr world)
 void world_delete(world_ptr world)
 {
 	rendertarget_delete(world->ephermeral.view_rendertarget);
-
-	world_sequence_player_delete(&world->ephermeral.sequencer);
 }
 
 //-----------------------------------------------------------------------------
@@ -274,7 +283,7 @@ void trigger_check(world_ptr world, entity_ptr entity)
 					trigger_state |= (1 << i);
 					debug_printf(DEBUG_LOG_DEBUG, "world::on_enter %u", i);
 
-					sequence_schedule(&world->ephermeral.sequencer, trigger->on_enter);
+					sequence_schedule(&world->ephermeral.sequencer, 0, trigger->on_enter);
 				}
 			}
 		}
@@ -286,7 +295,7 @@ void trigger_check(world_ptr world, entity_ptr entity)
 				trigger_state &= ~(1 << i);
 				debug_printf(DEBUG_LOG_DEBUG, "world::on_exit %u", i);
 
-				sequence_schedule(&world->ephermeral.sequencer, trigger->on_exit);
+				sequence_schedule(&world->ephermeral.sequencer, 0, trigger->on_exit);
 			}
 		}
 	}
@@ -742,7 +751,7 @@ void world_newgame(world_ptr world, uint16_t resource_id)
 	{
 		sequence_store_ptr store = resources_find_sequencestore(level->sequence_store_id);	//	this need to come from somewhere sensible
 		world->ephermeral.sequencer.store = store;
-		sequence_schedule(&world->ephermeral.sequencer, level->on_load_sequence);	//	should this be based on spawn point ? 
+		sequence_schedule(&world->ephermeral.sequencer, 0, level->on_load_sequence);	//	should this be based on spawn point ? 
 	}
 }
 

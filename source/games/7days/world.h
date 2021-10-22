@@ -85,9 +85,9 @@ typedef struct world_persistent_s
 	//	entity mask
 
 	inventory_t inventory;			//	this is more of a play_context than world
-	uint32_t sequencer_state[4];	//	potentially 2 of these
 
-
+	uint32_t sequencer_state[4];	
+	sequence_channel_persistent_t sequencer_channel;	//	potentially 2 of these
 
 	uint16_t level_resource_id;		//	if this changes the game should too
 
@@ -249,7 +249,7 @@ inline static entity_ptr world_find_entity(world_ptr world, int8_t idx)
 //-----------------------------------------------------------------------------
 void world_initialize(world_ptr world);
 
-void world_sequence_player_initialize(sequence_player_ptr player, uint32_t* state);
+void world_sequence_player_assign_event_handlers(sequence_player_ptr player);
 
 void world_load_level(world_ptr world, uint16_t resource_id);
 
@@ -262,8 +262,6 @@ void world_update(world_ptr world);
 void world_draw(world_ptr world);
 
 void world_delete(world_ptr world);
-
-void world_sequence_player_delete(sequence_player_ptr player);
 
 void world_set_scanlines_dirty(world_ptr world);
 

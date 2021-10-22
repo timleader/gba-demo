@@ -384,31 +384,8 @@ sequence_event_handler_t g_world_sequence_event_handlers[] =
 };
 
 //-----------------------------------------------------------------------------
-void world_sequence_player_initialize(sequence_player_ptr player, uint32_t* state)
+void world_sequence_player_assign_event_handlers(sequence_player_ptr player)
 {
-	player->persistent_state = state;
-
-
 	player->event_handlers = &g_world_sequence_event_handlers;
 
-
-	player->channel_count = 1;
-
-
-	/*
-	player->ephermeral_channels = 
-
-	player->persistent->current_event = -1;
-	player->persistent->scheduled_event = -1;
-
-	player->state = PLAYER_STATE_IDLE;
-
-	player->channel_count = 1;*/
-	//player->ephermeral_channels = //	
-
-}
-
-//-----------------------------------------------------------------------------
-void world_sequence_player_delete(sequence_player_ptr player)
-{
 }
