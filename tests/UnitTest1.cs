@@ -14,7 +14,32 @@ namespace GBA.Tests
             Console.Out.WriteLine(lFormat);
 
             //  errors are bad 
+
+            //  detect system logs, like enterirng a gamestate, 
+
+            
         }
+
+
+        /*
+         * Navigate through game 
+         *  Launch
+         *  Wait for Language Select
+         *  Press A
+         *  Wait for Title
+         *  Press A
+         *  Wait for Play -- and sequence finished 
+         *  Pause Game
+         *  Save Game
+         *  Exit 
+         *  Load Game
+         *  
+         * Visual Comparison
+         *  
+         *  
+         * 
+         */
+
 
         //---------------------------------------------------------------------
         [SetUp]
