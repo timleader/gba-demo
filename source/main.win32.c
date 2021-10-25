@@ -129,7 +129,7 @@ int main(int argc, char** argv)
 	itemstore_initialize();
 	savegame_initialize();
 	
-	state_initialize(4, 1024, MEMORY_IWRAM);
+	state_initialize(4, 1536, MEMORY_IWRAM);
 	state_goto(&st_splash, 0);
 
 	uint32_t ewram_used = 0, iwram_used = 0;

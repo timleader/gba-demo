@@ -5,16 +5,30 @@ VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gba-demo", "gba-demo.vcxproj", "{D04176DF-1A65-4C66-82A7-454ACB067E12}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gba-tests", "..\tests\gba-tests.csproj", "{B89A054C-E45F-483A-AE2C-BF055AE7765F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D04176DF-1A65-4C66-82A7-454ACB067E12}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{D04176DF-1A65-4C66-82A7-454ACB067E12}.Debug|x86.ActiveCfg = Debug|Win32
 		{D04176DF-1A65-4C66-82A7-454ACB067E12}.Debug|x86.Build.0 = Debug|Win32
+		{D04176DF-1A65-4C66-82A7-454ACB067E12}.Release|Any CPU.ActiveCfg = Release|Win32
 		{D04176DF-1A65-4C66-82A7-454ACB067E12}.Release|x86.ActiveCfg = Release|Win32
 		{D04176DF-1A65-4C66-82A7-454ACB067E12}.Release|x86.Build.0 = Release|Win32
+		{B89A054C-E45F-483A-AE2C-BF055AE7765F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B89A054C-E45F-483A-AE2C-BF055AE7765F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B89A054C-E45F-483A-AE2C-BF055AE7765F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B89A054C-E45F-483A-AE2C-BF055AE7765F}.Debug|x86.Build.0 = Debug|Any CPU
+		{B89A054C-E45F-483A-AE2C-BF055AE7765F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B89A054C-E45F-483A-AE2C-BF055AE7765F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B89A054C-E45F-483A-AE2C-BF055AE7765F}.Release|x86.ActiveCfg = Release|Any CPU
+		{B89A054C-E45F-483A-AE2C-BF055AE7765F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

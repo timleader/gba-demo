@@ -43,7 +43,7 @@ int main(void)
 	itemstore_initialize();
 	savegame_initialize();
 
-	state_initialize(4, 1024, MEMORY_EWRAM);
+	state_initialize(4, 2048, MEMORY_EWRAM);
 	state_goto(&st_splash, 0);
 
 	profiler_sample_handle_t profile_handle_01, profile_handle_02;

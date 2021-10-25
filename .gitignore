@@ -65,3 +65,4 @@ dkms.conf
 /reference
 /gba3d.sav
 /log.txt
+/tests/obj

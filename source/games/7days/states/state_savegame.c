@@ -147,6 +147,8 @@ void st_savegame_create_screenshot_coroutine(st_savegame_context_ptr context)
 //-----------------------------------------------------------------------------
 void st_savegame_enter(st_savegame_context_ptr context, uint32_t parameter)
 {
+	debug_printf(DEBUG_LOG_INFO, "st_savegame_enter `1");
+
 	context->st_savegame_mode = parameter & 0x03;
 
 	context->screenshot_coroutine = NULL;
@@ -181,6 +183,7 @@ void st_savegame_enter(st_savegame_context_ptr context, uint32_t parameter)
 
 	for (uint8_t idx = 0; idx < SAVEGAME_SLOT_COUNT; ++idx)
 	{
+		debug_printf(DEBUG_LOG_INFO, "st_savegame_enter `2");
 		uint8_t panel_label_id = overlay_create_panel(4, 3);
 		overlay_clear(panel_label_id, 0);
 		{
@@ -189,6 +192,7 @@ void st_savegame_enter(st_savegame_context_ptr context, uint32_t parameter)
 		}
 		context->panel_savegame_label[idx] = panel_label_id;
 
+		debug_printf(DEBUG_LOG_INFO, "st_savegame_enter `3");
 		uint8_t panel_preview_id = overlay_create_panel(2, 5);
 		overlay_clear(panel_preview_id, 0);
 		{
@@ -210,6 +214,7 @@ void st_savegame_enter(st_savegame_context_ptr context, uint32_t parameter)
 
 	st_savegame_draw_save_slots(context);
 
+	debug_printf(DEBUG_LOG_INFO, "st_savegame_enter `4");
 	context->panel_savegame_controls = overlay_create_panel(5, 3);
 
 	{
