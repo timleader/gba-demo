@@ -1,15 +1,15 @@
-﻿
+using NUnit.Framework;
+
 using System;
 using System.Runtime.InteropServices;
 
-namespace GBA.Tests.source
+namespace GBA.Tests
 {
-
-    public static class Program
+    public class Tests
     {
 
         //---------------------------------------------------------------------
-        private static void Log(IntPtr lLoggerStructPtr, int lCategory, mGBA.Log.LogLevel lLevel, string lFormat, IntPtr lArgs)
+        private void Log(IntPtr lLoggerStructPtr, int lCategory, mGBA.Log.LogLevel lLevel, string lFormat, IntPtr lArgs)
         {
             Console.Out.WriteLine(lFormat);
 
@@ -17,7 +17,14 @@ namespace GBA.Tests.source
         }
 
         //---------------------------------------------------------------------
-        public unsafe static void Main(string[] lArgs)
+        [SetUp]
+        public void Setup()
+        {
+        }
+
+        //---------------------------------------------------------------------
+        [Test]
+        public void Test1()
         {
             mGBA.Log.Logger lLogger = new mGBA.Log.Logger { LogFunc = Log };
             IntPtr lLoggerPtr = Marshal.AllocHGlobal(Marshal.SizeOf(lLogger));
@@ -29,7 +36,7 @@ namespace GBA.Tests.source
             IntPtr lCoreStructPtr = mGBA.Core.Find("G:/workspace/git/gba-demo/gba-demo.gba");
             mGBA.Core.CoreStruct lCore = Marshal.PtrToStructure<mGBA.Core.CoreStruct>(lCoreStructPtr);
 
-            bool lResult = lCore.Init(lCoreStructPtr); 
+            bool lResult = lCore.Init(lCoreStructPtr);
             if (!lResult)
             {
                 Console.Out.WriteLine("SHIT");
@@ -51,10 +58,9 @@ namespace GBA.Tests.source
                 //  runFrame
 
                 //  getVideoOutput 
+
+                return;
             }
-
         }
-
     }
-
 }
