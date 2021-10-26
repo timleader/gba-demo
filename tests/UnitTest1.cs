@@ -27,8 +27,19 @@ namespace GBA.Tests
             if (lLength > 0)
             {
                 var lOutput = lBuffer.ToString();
+                switch (lLevel)
+                {
+                    case mGBA.Log.LogLevel.FATAL:
+                    case mGBA.Log.LogLevel.ERROR:
+                    case mGBA.Log.LogLevel.GAME_ERROR:
+                        Assert.Fail(lOutput);
+                        break;
+                }
+
                 Console.Out.WriteLine(lOutput);
             }
+
+
             //  errors are bad 
             
             //  detect system logs, like enterirng a gamestate, 
