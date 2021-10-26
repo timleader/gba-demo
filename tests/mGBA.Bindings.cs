@@ -29,7 +29,7 @@ namespace GBA.Tests
             };
 
             //---------------------------------------------------------------------
-            [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+            [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
             public delegate void LogFunction(IntPtr lLoggerStructPtr, int lCategory, LogLevel lLevel, string lFormat, IntPtr lArgs);
 
             //---------------------------------------------------------------------
@@ -41,32 +41,61 @@ namespace GBA.Tests
             }
 
             //---------------------------------------------------------------------
-            [DllImport(NativeSymbolLocation, EntryPoint = "mLogSetDefaultLogger")]
+            [DllImport(NativeSymbolLocation, EntryPoint = "mLogSetDefaultLogger", CallingConvention = CallingConvention.Cdecl)]
             public static extern void SetDefaultLogger(IntPtr lLoggerStructPtr);
-/*
-            //---------------------------------------------------------------------
-            [DllImport(NativeSymbolLocation, EntryPoint = "mLogFilterSet")]
-            public static extern void FilterSet(IntPtr lLoggerStructPtr, string lCategory, LogLevel lLevel);
-            //
-            //mLogFilterTest*/
 
-        }
+			//---------------------------------------------------------------------
+			[DllImport(NativeSymbolLocation, EntryPoint = "mLog", CallingConvention = CallingConvention.Cdecl)]
+			public static extern void SendLog(int lCategory, LogLevel lLevel, string lFormat, __arglist);
 
-        //---------------------------------------------------------------------
-        public static class Core
+
+
+			/*
+			 * 
+						//---------------------------------------------------------------------
+						[DllImport(NativeSymbolLocation, EntryPoint = "mLogFilterSet")]
+						public static extern void FilterSet(IntPtr lLoggerStructPtr, string lCategory, LogLevel lLevel);
+						//
+						//mLogFilterTest*/
+
+		}
+
+		//---------------------------------------------------------------------
+		public static class Core
 		{
 
 			//---------------------------------------------------------------------
-			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool InitFunction(IntPtr lCoreStructPtr);
 
 			//---------------------------------------------------------------------
-			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate void DeinitFunction(IntPtr lCoreStructPtr);
 
 			//---------------------------------------------------------------------
-			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate void DesiredVideoDimensionsFunction(IntPtr lCoreStructPtr, [Out] out uint width, [Out] out uint height);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void SetVideoBufferFunction(IntPtr lCoreStructPtr, IntPtr lBuffer, int lStride);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void ResetFunction(IntPtr lCoreStructPtr);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void RunFrameFunction(IntPtr lCoreStructPtr);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void RunLoopFunction(IntPtr lCoreStructPtr);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void StepFunction(IntPtr lCoreStructPtr);
+
 
 			//---------------------------------------------------------------------
 			[StructLayout(LayoutKind.Sequential)]
@@ -107,7 +136,7 @@ namespace GBA.Tests
 				//	SizeOf(Configuration) = 40
 				//	SizeOf(mCoreConfig) = 124
 				[MarshalAs(UnmanagedType.ByValArray, SizeConst = 124)]
-				public byte[] config;
+				public byte[] Config;
 
 				//	SizeOf(mCoreOptions) = 88
 				[MarshalAs(UnmanagedType.ByValArray, SizeConst = 88)]
@@ -136,7 +165,7 @@ namespace GBA.Tests
 				//	void (* desiredVideoDimensions) (const struct mCore*, unsigned* width, unsigned* height);
 				public DesiredVideoDimensionsFunction DesiredVideoDimensions;
 				//	void (* setVideoBuffer) (struct mCore*, color_t* buffer, size_t stride);
-				public IntPtr SetVideoBuffer;
+				public SetVideoBufferFunction SetVideoBuffer;
 				//	void (* setVideoGLTex) (struct mCore*, unsigned texid);
 				public IntPtr SetVideoGLTex;
 
@@ -181,13 +210,13 @@ namespace GBA.Tests
 				public IntPtr LoadPatch;
 
 				//	void (* reset) (struct mCore*);
-				public IntPtr Reset;
+				public ResetFunction Reset;
 				//	void (* runFrame) (struct mCore
-				public IntPtr RunFrame;
+				public RunFrameFunction RunFrame;
 				//	void (* runLoop) (struct mCore*);
-				public IntPtr RunLoop;
+				public RunLoopFunction RunLoop;
 				//	void (* step) (struct mCore
-				public IntPtr Step;
+				public StepFunction Step;
 
 				//	size_t(*stateSize)(struct mCore*);
 				public IntPtr StateSize;
@@ -301,29 +330,31 @@ namespace GBA.Tests
 			}
 
 			//---------------------------------------------------------------------
-			[DllImport(NativeSymbolLocation, EntryPoint = "mCoreFind")]
-            public static extern IntPtr Find(string lPath);
+			[DllImport(NativeSymbolLocation, EntryPoint = "mCoreFind", CallingConvention = CallingConvention.Cdecl)]
+			public static extern IntPtr Find(string lPath);
 
             //---------------------------------------------------------------------
-            [DllImport(NativeSymbolLocation, EntryPoint = "mCoreLoadFile")]
-            public static extern bool LoadFile(IntPtr lCoreStructPtr, string lPath);
+            [DllImport(NativeSymbolLocation, EntryPoint = "mCoreLoadFile", CallingConvention = CallingConvention.Cdecl)]
+			public static extern bool LoadFile(IntPtr lCoreStructPtr, string lPath);
 
             //---------------------------------------------------------------------
-            [DllImport(NativeSymbolLocation, EntryPoint = "mCoreConfigInit")]
-            public static extern void ConfigInit(IntPtr lCoreConfigStructPtr, string lPort);
+            [DllImport(NativeSymbolLocation, EntryPoint = "mCoreConfigInit", CallingConvention = CallingConvention.Cdecl)]
+			public static extern void ConfigInit(IntPtr lCoreConfigStructPtr, string lPort);
 
             //---------------------------------------------------------------------
-            [DllImport(NativeSymbolLocation, EntryPoint = "mCoreConfigLoad")]
-            public static extern bool ConfigLoad(IntPtr lCoreConfigStructPtr);
+            [DllImport(NativeSymbolLocation, EntryPoint = "mCoreConfigLoad", CallingConvention = CallingConvention.Cdecl)]
+			public static extern bool ConfigLoad(IntPtr lCoreConfigStructPtr);
 
-            //mCoreConfigSetDefaultValue
+			//mCoreConfigSetDefaultValue
 
-            //mCoreLoadConfig
+			//---------------------------------------------------------------------
+			[DllImport(NativeSymbolLocation, EntryPoint = "mCoreLoadConfig", CallingConvention = CallingConvention.Cdecl)]
+			public static extern void LoadConfig(IntPtr lCoreConfigStructPtr);
 
-            //mCoreConfigGetIntValue
+			//mCoreConfigGetIntValue
 
-            //mCoreConfigDeinit
-        }
+			//mCoreConfigDeinit
+		}
 
     }
 

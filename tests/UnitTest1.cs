@@ -1,7 +1,9 @@
-using NUnit.Framework;
 
 using System;
+using System.Text;
 using System.Runtime.InteropServices;
+
+using NUnit.Framework;
 
 namespace GBA.Tests
 {
@@ -9,15 +11,28 @@ namespace GBA.Tests
     {
 
         //---------------------------------------------------------------------
+        [DllImport("msvcrt.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int vsprintf(
+           [MarshalAs(UnmanagedType.LPStr)] StringBuilder lOutput,
+            string format,
+            IntPtr args);
+
+        //---------------------------------------------------------------------
         private void Log(IntPtr lLoggerStructPtr, int lCategory, mGBA.Log.LogLevel lLevel, string lFormat, IntPtr lArgs)
         {
-            Console.Out.WriteLine(lFormat);
+            var lBuffer = new StringBuilder(1024);
+            var lLength = vsprintf(lBuffer, lFormat, lArgs);
+            //  maybe call C code to format the string ... 
 
+            if (lLength > 0)
+            {
+                var lOutput = lBuffer.ToString();
+                Console.Out.WriteLine(lOutput);
+            }
             //  errors are bad 
-
+            
             //  detect system logs, like enterirng a gamestate, 
 
-            
         }
 
 
@@ -51,6 +66,8 @@ namespace GBA.Tests
         [Test]
         public void Test1()
         {
+            //  pre-allocate a buffer 
+
             mGBA.Log.Logger lLogger = new mGBA.Log.Logger { LogFunc = Log };
             IntPtr lLoggerPtr = Marshal.AllocHGlobal(Marshal.SizeOf(lLogger));
             Marshal.StructureToPtr(lLogger, lLoggerPtr, false);
@@ -70,22 +87,43 @@ namespace GBA.Tests
             uint lWidth, lHeight;
             lCore.DesiredVideoDimensions(lCoreStructPtr, out lWidth, out lHeight);
 
+            //IntPtr lVideoOutputBuffer = Marshal.AllocHGlobal((int)(lWidth * lHeight * 4));
+            //lCore.SetVideoBuffer(lCoreStructPtr, lVideoOutputBuffer, (int)(lWidth * 4));
+
             lResult = mGBA.Core.LoadFile(lCoreStructPtr, "G:/workspace/git/gba-demo/gba-demo.gba");
             if (!lResult)
             {
                 Console.Out.WriteLine("SHIT");
             }
 
-            while (true)
+            IntPtr lConfigPtr = new IntPtr(lCoreStructPtr.ToInt64() + Marshal.OffsetOf<mGBA.Core.CoreStruct>("Config").ToInt64());
+
+            mGBA.Core.ConfigInit(lConfigPtr, "test");
+            mGBA.Core.ConfigLoad(lConfigPtr); 
+
+            //applyArguments(args, NULL, &core->config);
+            //mCoreConfigSetDefaultValue(&core->config, "idleOptimization", "detect");
+
+            mGBA.Core.LoadConfig(lCoreStructPtr);
+
+            //mCoreConfigGetIntValue(&core->config, "logLevel", &_logLevel);
+
+            //mGBA.Log.SendLog(0, mGBA.Log.LogLevel.WARN, "Test Log", __arglist());
+
+            lCore.Reset(lCoreStructPtr);       
+
+            for (int lIdx = 0; lIdx < 2000; ++lIdx)
             {
                 //  setKeys 
 
                 //  runFrame
+                lCore.RunFrame(lCoreStructPtr);
 
                 //  getVideoOutput 
-
-                return;
             }
+
+            //mCoreConfigDeinit(&core->config);
+            //core->deinit(core);
         }
     }
 }
