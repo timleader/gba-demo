@@ -9,6 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
+
+
   build-win32:
     
     runs-on: windows-2019
@@ -49,6 +51,7 @@ jobs:
         name: gba-demo
         path: ./gba-demo.gba
 
+
   test-gba:
     
     needs: build-gba
@@ -72,6 +75,11 @@ jobs:
       id: restore_nuget
       run: nuget restore ./tests/gba-test.csproj
       
+    - name: Run MSBuild
+      id: run_msbuild
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild ./tests/gba-test.csproj /p:platform=win32
+      
     - name: download built gba rom
       id: download_artifact
       uses: actions/download-artifact@v2.0.10
@@ -79,11 +87,8 @@ jobs:
         name: gba-demo
         path: ./gba-demo.gba
         
-    # write the test config file 
+    - name: Run Tests
+      id: run_tests
+      run: nunit3-console gba-test.dll --params:rom=./gba-demo.gba
 
-    - name: Run MSBuild
-      id: run_msbuild
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild ./tests/gba-test.csproj /p:platform=win32
-      
    

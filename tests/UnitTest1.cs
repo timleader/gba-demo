@@ -20,7 +20,7 @@ namespace GBA.Tests
         //---------------------------------------------------------------------
         private void Log(IntPtr lLoggerStructPtr, int lCategory, mGBA.Log.LogLevel lLevel, string lFormat, IntPtr lArgs)
         {
-            var lBuffer = new StringBuilder(1024);
+            var lBuffer = new StringBuilder(1024); 
             var lLength = vsprintf(lBuffer, lFormat, lArgs);
             //  maybe call C code to format the string ... 
 
@@ -66,6 +66,8 @@ namespace GBA.Tests
          * 
          */
 
+        //---------------------------------------------------------------------
+
 
         //---------------------------------------------------------------------
         [SetUp]
@@ -77,6 +79,8 @@ namespace GBA.Tests
         [Test]
         public void Test1()
         {
+            var lRomPath = TestContext.Parameters.Get("rom", "G:/workspace/git/gba-demo/gba-demo.gba");
+
             //  pre-allocate a buffer 
 
             mGBA.Log.Logger lLogger = new mGBA.Log.Logger { LogFunc = Log };
@@ -86,7 +90,7 @@ namespace GBA.Tests
             mGBA.Log.SetDefaultLogger(lLoggerPtr);
 
 
-            IntPtr lCoreStructPtr = mGBA.Core.Find("G:/workspace/git/gba-demo/gba-demo.gba");
+            IntPtr lCoreStructPtr = mGBA.Core.Find(lRomPath);
             mGBA.Core.CoreStruct lCore = Marshal.PtrToStructure<mGBA.Core.CoreStruct>(lCoreStructPtr);
 
             bool lResult = lCore.Init(lCoreStructPtr);
@@ -101,7 +105,7 @@ namespace GBA.Tests
             //IntPtr lVideoOutputBuffer = Marshal.AllocHGlobal((int)(lWidth * lHeight * 4));
             //lCore.SetVideoBuffer(lCoreStructPtr, lVideoOutputBuffer, (int)(lWidth * 4));
 
-            lResult = mGBA.Core.LoadFile(lCoreStructPtr, "G:/workspace/git/gba-demo/gba-demo.gba");
+            lResult = mGBA.Core.LoadFile(lCoreStructPtr, lRomPath);
             if (!lResult)
             {
                 Console.Out.WriteLine("SHIT");
