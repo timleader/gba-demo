@@ -51,6 +51,8 @@ jobs:
 
   test-gba:
     
+    needs: build-gba
+    
     runs-on: windows-2019
     steps:
           
