@@ -78,7 +78,7 @@ jobs:
     - name: Run MSBuild
       id: run_msbuild
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild ./tests/gba-test.csproj /p:platform=win32
+      run: msbuild ./tests/gba-test.csproj /p:configuration=release /p:platform=win32
       
     - name: download built gba rom
       id: download_artifact
@@ -93,6 +93,6 @@ jobs:
         
     - name: Run Tests
       id: run_tests
-      run: nunit3-console gba-test.dll --params:rom=./gba-demo.gba
+      run: packages\NUnit.ConsoleRunner.3.12.0\tools\nunit3-console.exe tests\bin\Release\gba-test.dll --params:rom=./gba-demo.gba
 
    
