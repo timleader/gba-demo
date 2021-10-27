@@ -61,6 +61,10 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.0
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        
+    - name: nuget setup
+    - uses: nuget/setup-nuget@v1
+    - run: nuget restore ./tests/gba-test.csproj
 
     - name: Run MSBuild
       id: run_msbuild
