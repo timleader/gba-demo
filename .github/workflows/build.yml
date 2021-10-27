@@ -48,3 +48,21 @@ jobs:
       with:
         name: gba-demo
         path: ./gba-demo.gba
+
+  test-gba:
+    
+    runs-on: windows-2019
+    steps:
+          
+    - uses: actions/checkout@v2
+      
+    - name: Setup MSBuild and add to PATH
+      id: setup_msbuild
+      uses: microsoft/setup-msbuild@v1.0.0
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+
+    - name: Run MSBuild
+      id: run_msbuild
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild ./tests/gba-test.csproj /p:platform=win32
