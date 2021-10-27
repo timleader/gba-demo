@@ -71,8 +71,19 @@ jobs:
     - name: nuget restore
       id: restore_nuget
       run: nuget restore ./tests/gba-test.csproj
+      
+    - name: download built gba rom
+      id: download_artifact
+      uses: actions/download-artifact@v2.0.10
+      with:
+        name: gba-demo
+        path: ./gba-demo.gba
+        
+    # write the test config file 
 
     - name: Run MSBuild
       id: run_msbuild
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild ./tests/gba-test.csproj /p:platform=win32
+      
+   
