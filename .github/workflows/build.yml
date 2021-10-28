@@ -89,7 +89,7 @@ jobs:
 
     - name: Run Tests
       id: run_tests
-      working-directory: ${{env.GITHUB_WORKSPACE}}/tests
+      working-directory: tests/
       run: dotnet test ./bin/win32/release/netcoreapp3.1/gba-test.dll -s ./test_run.runsettings
 
    
