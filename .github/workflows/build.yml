@@ -61,25 +61,6 @@ jobs:
           
     - uses: actions/checkout@v2
       
-    - name: Setup MSBuild and add to PATH
-      id: setup_msbuild
-      uses: microsoft/setup-msbuild@v1.0.0
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-        
-    - name: nuget setup
-      id: setup_nuget
-      uses: nuget/setup-nuget@v1
-      
-    - name: nuget restore
-      id: restore_nuget
-      run: nuget restore ./tests/gba-test.csproj
-      
-    - name: Run MSBuild
-      id: run_msbuild
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild ./tests/gba-test.csproj /p:configuration=release /p:platform=win32
-      
     - name: download built gba rom
       id: download_artifact
       uses: actions/download-artifact@v2.0.10
@@ -89,6 +70,6 @@ jobs:
 
     - name: Run Tests
       id: run_tests
-      run: dotnet test ./tests/bin/win32/release/netcoreapp3.1/gba-test.dll -s ./tests/test_run.runsettings
+      run: dotnet test ./tests/gba-test.csproj --arch x86 --settings ./tests/test_run.runsettings
 
    
