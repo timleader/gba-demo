@@ -78,7 +78,7 @@ jobs:
     - name: Run MSBuild
       id: run_msbuild
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild ./tests/gba-test.csproj /p:configuration=release /p:platform=win32
+      run: msbuild ./tests/gba-test.csproj /p:configuration=debug /p:platform=win32
       
     - name: download built gba rom
       id: download_artifact
@@ -90,6 +90,6 @@ jobs:
     - name: Run Tests
       id: run_tests
       working-directory: tests/
-      run: dotnet test ./bin/win32/release/netcoreapp3.1/gba-test.dll -s ./test_run.runsettings
+      run: dotnet test ./bin/win32/debug/netcoreapp3.1/gba-test.dll -s ./test_run.runsettings
 
    
