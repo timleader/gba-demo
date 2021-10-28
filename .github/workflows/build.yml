@@ -89,6 +89,6 @@ jobs:
 
     - name: Run Tests
       id: run_tests
-      run: dotnet test ./tests/bin/win32/release/netcoreapp3.1/gba-test.dll -s test_run.runsettings
+      run: dotnet test ./tests/bin/win32/release/netcoreapp3.1/gba-test.dll -s ./tests/test_run.runsettings
 
    
