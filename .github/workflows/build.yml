@@ -95,6 +95,6 @@ jobs:
         
     - name: Run Tests
       id: run_tests
-      run: ./NUnit.ConsoleRunner.3.12.0/tools/nunit3-console.exe ./tests/bin/win32/release/netcoreapp3.1/gba-test.dll --params:rom=./gba-demo.gba
+      run: dotnet test ./tests/bin/win32/release/netcoreapp3.1/gba-test.dll --params:rom=./gba-demo.gba
 
    
