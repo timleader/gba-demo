@@ -79,7 +79,7 @@ namespace GBA.Tests
         [Test]
         public void Test1()
         {
-            var lRomPath = "gba-demo.gba";//TestContext.Parameters.Get("rom", "gba-demo.gba");
+            var lRomPath = " D:/a/gba-demo/gba-demo/tests/gba-demo.gba";//TestContext.Parameters.Get("rom", "gba-demo.gba");
 
             //  pre-allocate a buffer 
 
