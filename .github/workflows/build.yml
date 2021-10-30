@@ -85,7 +85,7 @@ jobs:
       uses: actions/download-artifact@v2.0.10
       with:
         name: gba-demo
-        path: ./tests/gba-demo.gba
+        path: ./tests
         
     - working-directory: tests/
       run: dir
