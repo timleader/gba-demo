@@ -4,13 +4,13 @@
 #include "common/graphics/graphics.h"
 
 
-perf_timer_t timer_start(uint16_t duration, timer_mode_t mode)		//	rename to game_timer_t
+game_timer_t timer_start(uint16_t duration, timer_mode_t mode)		//	rename to game_timer_t
 {
-	perf_timer_t timer = { g_graphics_context.vblank_total_count, duration, mode };
+	game_timer_t timer = { g_graphics_context.vblank_total_count, duration, mode };
 	return timer;
 }
 
-fixed16_t timer_progress(perf_timer_t timer)
+fixed16_t timer_progress(game_timer_t timer)
 {
 	uint32_t progress_frame = g_graphics_context.vblank_total_count - timer.start;
 	fixed16_t progress = fixed16_zero;
@@ -69,7 +69,7 @@ uint32_t timer_get_frame_count(void)
 	return g_graphics_context.vblank_total_count;
 }
 
-int8_t timer_expired(perf_timer_t timer)
+int8_t timer_expired(game_timer_t timer)
 {
 	return g_graphics_context.vblank_total_count > (timer.start + timer.duration);
 }

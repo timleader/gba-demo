@@ -117,6 +117,8 @@ void st_title_pause(st_title_context_ptr context)
 {
 	overlay_destroy_panel(context->panel_start);
 	overlay_destroy_panel(context->panel_start_title);
+
+	debug_printf(DEBUG_LOG_INFO, "st_title_pause");
 }
 
 //-----------------------------------------------------------------------------

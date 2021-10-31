@@ -4,11 +4,13 @@ name: Build
 on:
   push:
     branches: 
-    - main 
+    - '**' 
 
   workflow_dispatch:
 
 jobs:
+
+
   build-win32:
     
     runs-on: windows-2019
@@ -48,3 +50,46 @@ jobs:
       with:
         name: gba-demo
         path: ./gba-demo.gba
+
+
+  test-gba:
+    
+    needs: build-gba
+    
+    runs-on: windows-2019
+    steps:
+          
+    - uses: actions/checkout@v2
+      
+    - name: Setup MSBuild and add to PATH
+      id: setup_msbuild
+      uses: microsoft/setup-msbuild@v1.0.0
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        
+    - name: nuget setup
+      id: setup_nuget
+      uses: nuget/setup-nuget@v1
+      
+    - name: nuget restore
+      id: restore_nuget
+      run: nuget restore ./tests/gba-test.csproj
+      
+    - name: Run MSBuild
+      id: run_msbuild
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild ./tests/gba-test.csproj /p:configuration=debug /p:platform=x86
+      
+    - name: download built gba rom
+      id: download_artifact
+      uses: actions/download-artifact@v2.0.10
+      with:
+        name: gba-demo
+        path: ./tests
+        
+    - name: Run Tests
+      id: run_tests
+      working-directory: tests/
+      run: dotnet test ./bin/x86/debug/netcoreapp3.1/gba-test.dll -s ./test_run.runsettings
+
+   

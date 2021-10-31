@@ -34,7 +34,7 @@ typedef struct widget_quickaction_state_s
 
 	uint8_t reserved[2];
 
-	perf_timer_t timer;
+	game_timer_t timer;
 
 	interaction_point_ptr current_interaction;
 	interaction_point_ptr next_interaction;

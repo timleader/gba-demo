@@ -43,7 +43,10 @@ typedef enum video_sequence_event_type_s
 //-----------------------------------------------------------------------------
 typedef struct st_video_context_s
 {
-	sequence_player_ptr video_sequence_player;
+	sequence_player_t sequence_player;
+	sequence_channel_persistent_t sequence_channel_persistent;
+	sequence_channel_ephermeral_t sequence_channel_ephermeral;
+
 	uint8_t video_panel_id;
 
 	smacker_handle_ptr smk_handle;
@@ -51,7 +54,7 @@ typedef struct st_video_context_s
 
 	uint8_t* frame_buffer;
 
-	perf_timer_t video_sequence_timer;
+	game_timer_t video_sequence_timer;
 	int8_t video_sequence_timer_completion_flag;
 
 	int8_t video_play_mode;
@@ -97,7 +100,7 @@ sequence_completion_mode_t st_video_sequence_event_handler_wait(sequence_player_
 	context->video_sequence_timer = timer_start((uint16_t)waitFrameCount, TIMER_MODE_ONCE);
 	context->video_sequence_timer_completion_flag = 0;
 
-	player->completion_flag = &context->video_sequence_timer_completion_flag;
+	player->ephermeral_channels[0].completion_flag = &context->video_sequence_timer_completion_flag;
 
 	return SEQUENCE_COMPLETION_WAIT_ON_FLAG;
 }
@@ -130,7 +133,7 @@ sequence_completion_mode_t st_video_sequence_event_handler_text(sequence_player_
 	context->video_sequence_timer = timer_start(duration, TIMER_MODE_ONCE);
 	context->video_sequence_timer_completion_flag = 0;
 
-	player->completion_flag = &context->video_sequence_timer_completion_flag;
+	player->ephermeral_channels[0].completion_flag = &context->video_sequence_timer_completion_flag;
 
 	return SEQUENCE_COMPLETION_NEXT_TICK;
 }
@@ -165,6 +168,13 @@ sequence_completion_mode_t st_video_sequence_event_handler_image(sequence_player
 	return SEQUENCE_COMPLETION_NEXT_TICK;
 }
 
+//-----------------------------------------------------------------------------
+sequence_event_handler_t g_video_sequence_event_handlers[] =
+{
+	st_video_sequence_event_handler_wait,
+	st_video_sequence_event_handler_text,
+	st_video_sequence_event_handler_image
+};
 
 //-----------------------------------------------------------------------------
 int32_t st_video_fill_buffer(audiostream_t* stream, int8_t* dest, int32_t length)	//	do we need this ?? 
@@ -206,7 +216,7 @@ void st_video_update(st_video_context_ptr context, fixed16_t dt)
 		context->video_sequence_timer_completion_flag = 1;
 	}
 
-	sequence_update(context->video_sequence_player);
+	sequence_update(&context->sequence_player);
 }
 
 //-----------------------------------------------------------------------------
@@ -315,28 +325,28 @@ void st_video_enter(st_video_context_ptr context, uint32_t parameter)
 
 	/*
 		create video sequencer
-	*/
-	context->video_sequence_player = (sequence_player_ptr)memory_allocate(sizeof(sequence_player_t), MEMORY_EWRAM);
+	*/ 
+	context->sequence_player.persistent_state = NULL;
 
-	context->video_sequence_player->state = PLAYER_STATE_IDLE;
-	context->video_sequence_player->event_handler_count = 3;
-	context->video_sequence_player->event_handlers = (sequence_event_handler_t*)memory_allocate(sizeof(sequence_event_handler_t*) * 3, MEMORY_EWRAM);
-	context->video_sequence_player->event_handlers[VIDEO_WAIT] = st_video_sequence_event_handler_wait;
-	context->video_sequence_player->event_handlers[VIDEO_TEXT] = st_video_sequence_event_handler_text;
-	context->video_sequence_player->event_handlers[VIDEO_IMAGE] = st_video_sequence_event_handler_image;
+	context->sequence_player.persistent_channels = &context->sequence_channel_persistent;
+	context->sequence_channel_persistent.current_event = -1;
+	context->sequence_channel_persistent.scheduled_event = -1;
 
-	context->video_sequence_player->persistent = (sequence_player_state_persistent_t*)memory_allocate(sizeof(sequence_player_state_persistent_t), MEMORY_EWRAM);
-	context->video_sequence_player->persistent->current_event = -1;
-	context->video_sequence_player->persistent->scheduled_event = -1;
+	context->sequence_player.ephermeral_channels = &context->sequence_channel_ephermeral;
+	context->sequence_channel_ephermeral.state = PLAYER_STATE_IDLE;
 
-	context->video_sequence_player->context = context;
+	context->sequence_player.channel_count = 1;
 
-	if (video->sequeunce_collection_id >= 0) 
-	{
-		sequence_store_ptr store = resources_find_sequencestore(video->sequeunce_collection_id);
-		context->video_sequence_player->store = store;
-		sequence_schedule(context->video_sequence_player, 0);
-	}
+	if (video->sequeunce_collection_id >= 0)
+		context->sequence_player.store = resources_find_sequencestore(video->sequeunce_collection_id);
+
+	context->sequence_player.event_handlers = &g_video_sequence_event_handlers;
+
+	context->sequence_player.context = context;
+
+	if (video->sequeunce_collection_id >= 0)
+		sequence_schedule(&context->sequence_player, 0, 0);
+
 
 	/*
 		load ui palette
@@ -361,20 +371,6 @@ void st_video_exit(st_video_context_ptr context)
 	audio_stream_close(0);
 
 	smk_close(context->smk_handle);
-
-	if (context->video_sequence_player != NULL)
-	{
-		if (context->video_sequence_player->event_handlers != NULL)
-		{
-			memory_free(context->video_sequence_player->event_handlers);
-		}
-		if (context->video_sequence_player->persistent != NULL)
-		{
-			memory_free(context->video_sequence_player->persistent);
-		}
-		memory_free(context->video_sequence_player);
-		context->video_sequence_player = NULL;
-	}
 
 	overlay_destroy_panel(context->video_panel_id);
 

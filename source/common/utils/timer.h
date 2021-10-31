@@ -20,20 +20,20 @@ typedef struct perf_timer_s
 	uint32_t duration;
 	timer_mode_t mode;
 
-} perf_timer_t;
+} game_timer_t;
 
 
 //-----------------------------------------------------------------------------
-perf_timer_t timer_start(uint16_t duration, timer_mode_t mode);
+game_timer_t timer_start(uint16_t duration, timer_mode_t mode);
 
 //-----------------------------------------------------------------------------
-fixed16_t timer_progress(perf_timer_t timer);
+fixed16_t timer_progress(game_timer_t timer);
 
 //-----------------------------------------------------------------------------
 uint32_t timer_get_frame_count(void);
 
 //-----------------------------------------------------------------------------
-int8_t timer_expired(perf_timer_t timer);
+int8_t timer_expired(game_timer_t timer);
 
 
 #endif

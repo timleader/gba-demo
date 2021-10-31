@@ -20,7 +20,7 @@
 //-----------------------------------------------------------------------------
 typedef struct st_gameover_context_s
 {
-	uint8_t panel_gameover;
+	int8_t panel_gameover;
 
 	uint8_t reserved[3];
 

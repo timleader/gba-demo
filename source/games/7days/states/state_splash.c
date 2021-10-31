@@ -26,7 +26,7 @@ typedef struct st_splash_context_s
 	palette_ptr bg_palette;
 	image_ptr bg_image;
 
-	perf_timer_t bg_timer;
+	game_timer_t bg_timer;
 
 	st_splash_state_t bg_inner_state;
 

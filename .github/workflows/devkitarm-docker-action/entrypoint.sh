@@ -1,3 +1,3 @@
 #!/bin/sh -l
 
-make
+make DEBUG=1

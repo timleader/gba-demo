@@ -109,7 +109,7 @@ typedef struct audiostream_s
 	int32_t read_position;
 	int32_t chunk_idx;
 
-	perf_timer_t timer;
+	game_timer_t timer;
 	int16_t volume_source;
 	int16_t volume_target;
 

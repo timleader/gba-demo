@@ -187,7 +187,7 @@ void st_level_resume(st_level_context_ptr context, uint32_t parameter)
 	{
 		int16_t sequence_id = parameter & 0x0000FFFF;
 
-		sequence_schedule(&g_main_world->ephermeral.sequencer, sequence_id);
+		sequence_schedule(&g_main_world->ephermeral.sequencer, 0, sequence_id);
 	}
 	else if (command == 2)	//	item ->	from inventory !!!		//	 if we pass interaction item to st_inventory then this might be cleaner 
 	{
@@ -206,7 +206,7 @@ void st_level_resume(st_level_context_ptr context, uint32_t parameter)
 			}
 		}
 
-		sequence_schedule(&g_main_world->ephermeral.sequencer, sequence_id);		//	ideally don't want to render anything until the next sequence step is processed 
+		sequence_schedule(&g_main_world->ephermeral.sequencer, 0, sequence_id);		//	ideally don't want to render anything until the next sequence step is processed 
 	}
 	else if (command == 3)	//	load levels !!!		//	this could just be a sequence playback thing
 	{

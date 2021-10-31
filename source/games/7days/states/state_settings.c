@@ -62,4 +62,4 @@ EWRAM_DATA state_t st_settings =
 
 //	credits, 
 //	clear saves 
-//	
+//	color mode { normal, backlit } 

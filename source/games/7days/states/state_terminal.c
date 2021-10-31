@@ -42,7 +42,10 @@ typedef enum terminal_sequence_event_type_s
 //-----------------------------------------------------------------------------
 typedef struct st_terminal_context_s
 {
-	sequence_player_ptr terminal_sequence_player;
+	sequence_player_t sequence_player;
+	sequence_channel_persistent_t sequence_channel_persistent;
+	sequence_channel_ephermeral_t sequence_channel_ephermeral;
+
 	palette_ptr terminal_ui_palette;
 	uint8_t terminal_panel_id;
 	uint8_t reserved[3];
@@ -55,9 +58,9 @@ typedef struct st_terminal_context_s
 	uint16_t reserved2;
 
 	point2_t terminal_cursor_position;
-	perf_timer_t terminal_cursor_blink_timer;
+	game_timer_t terminal_cursor_blink_timer;
 
-	perf_timer_t terminal_sequence_timer;
+	game_timer_t terminal_sequence_timer;
 
 
 	uint8_t terminal_readout_idx;
@@ -112,7 +115,7 @@ sequence_completion_mode_t st_terminal_sequence_event_handler_wait(sequence_play
 	uint32_t waitFrameCount = SEQUENCE_EVENT_EXTRA(event);
 
 	context->terminal_sequence_timer = timer_start((uint16_t)waitFrameCount, TIMER_MODE_ONCE);
-	player->completion_flag = &context->terminal_sequence_timer_completion_flag;
+	player->ephermeral_channels[0].completion_flag = &context->terminal_sequence_timer_completion_flag;
 	context->terminal_sequence_timer_completion_flag = 0;
 
 	return SEQUENCE_COMPLETION_WAIT_ON_FLAG;
@@ -238,33 +241,41 @@ sequence_completion_mode_t st_terminal_sequence_event_handler_write_command(sequ
 }
 
 //-----------------------------------------------------------------------------
+sequence_event_handler_t g_terminal_sequence_event_handlers[] =
+{
+	st_terminal_sequence_event_handler_wait,
+	st_terminal_sequence_event_handler_clear,
+	st_terminal_sequence_event_handler_write_output,
+	st_terminal_sequence_event_handler_newline,
+	st_terminal_sequence_event_handler_write_command,
+	st_terminal_sequence_event_handler_exit
+};
+
+//-----------------------------------------------------------------------------
 void st_terminal_enter(st_terminal_context_ptr context, uint32_t parameter)
 {
 	int16_t sequence_id = parameter & 0x0000FFFF;	//	this should probably be the resource id
 
-	sequence_player_ptr player = (sequence_player_ptr)memory_allocate(sizeof(sequence_player_t), MEMORY_EWRAM);
 
-	player->state = PLAYER_STATE_IDLE;
-	player->event_handler_count = 6;
-	player->event_handlers = (sequence_event_handler_t*)memory_allocate(sizeof(sequence_event_handler_t*) * 6, MEMORY_EWRAM);
-	player->event_handlers[0] = st_terminal_sequence_event_handler_wait;
-	player->event_handlers[1] = st_terminal_sequence_event_handler_clear;
-	player->event_handlers[2] = st_terminal_sequence_event_handler_write_output;
-	player->event_handlers[3] = st_terminal_sequence_event_handler_newline;
-	player->event_handlers[4] = st_terminal_sequence_event_handler_write_command;
-	player->event_handlers[5] = st_terminal_sequence_event_handler_exit;
+	context->sequence_player.persistent_state = NULL;
 
-	player->persistent = (sequence_player_state_persistent_t*)memory_allocate(sizeof(sequence_player_state_persistent_t), MEMORY_EWRAM);
-	player->persistent->current_event = -1;
-	player->persistent->scheduled_event = -1;
+	context->sequence_player.persistent_channels = &context->sequence_channel_persistent;
+	context->sequence_channel_persistent.current_event = -1;
+	context->sequence_channel_persistent.scheduled_event = -1;
 
-	player->context = context;
+	context->sequence_player.ephermeral_channels = &context->sequence_channel_ephermeral;
+	context->sequence_channel_ephermeral.state = PLAYER_STATE_IDLE;
+
+	context->sequence_player.channel_count = 1;
+
+	context->sequence_player.store = resources_find_sequencestore(sequence_id);
+	context->sequence_player.event_handlers = &g_terminal_sequence_event_handlers;
+
+	context->sequence_player.context = context;
+
 	
-	sequence_store_ptr store = resources_find_sequencestore(sequence_id);
-	player->store = store;
-	sequence_schedule(player, 0);
+	sequence_schedule(&context->sequence_player, 0, 0);
 
-	context->terminal_sequence_player = player;
 
 	/*
 		load background img
@@ -334,20 +345,6 @@ void st_terminal_exit(st_terminal_context_ptr context)
 
 	overlay_destroy_panel(context->terminal_panel_id);
 
-	sequence_player_ptr player = context->terminal_sequence_player;
-	if (player != NULL)
-	{
-		if (player->persistent != NULL)
-		{
-			memory_free(player->persistent);
-		}
-		if (player->event_handlers != NULL)
-		{
-			memory_free(player->event_handlers);
-		}
-		memory_free(player);
-	}
-
 	if (context->terminal_ui_palette != NULL)
 	{
 		memory_free(context->terminal_ui_palette);
@@ -371,7 +368,7 @@ void st_terminal_update(st_terminal_context_ptr context, fixed16_t dt)
 			context->terminal_sequence_timer_completion_flag = 1;
 		}
 
-		sequence_update(context->terminal_sequence_player);
+		sequence_update(&context->sequence_player);
 	}
 	else if (context->terminal_state == 1)	//	entering command
 	{

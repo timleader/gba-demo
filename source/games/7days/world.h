@@ -15,16 +15,8 @@
 #include "games/7days/sequence.h"
 #include "games/7days/entities/entity.h"
 
-/*
-	interaction point {
-		circle_t area;
 
-		map<item -> sequence_id> // if no default use a fallback
-
-		// what can I do with it, eg. talk, hand, other inventory item
-	}
-*/
-
+//-----------------------------------------------------------------------------
 #define WORLD_MODEL_ENTITY_COUNT 4
 #define WORLD_IMAGE_ENTITY_COUNT 8
 #define WORLD_NAVIGATION_AGENT_COUNT 4
@@ -34,6 +26,7 @@
 #define WORLD_MAX_VIEWS_PER_LEVEL 8
 
 
+//-----------------------------------------------------------------------------
 typedef struct level_persistent_s
 {
 	uint16_t layer;
@@ -64,13 +57,6 @@ typedef struct level_persistent_s
 
 	navigation_agent_t nav_agents[WORLD_NAVIGATION_AGENT_COUNT];		//	should this be per levels ... if they are not are they just ephermal 
 
-	//	dialogue persistence 
-
-	//	just a general purpose blob, that sequencer can read for gating, 
-	//		and sequencer can write to 
-
-	//	sequence 'if' event with 2 possible nexts 
-
 } level_persistent_t;
 
 typedef level_persistent_t* level_persistent_ptr;
@@ -81,8 +67,11 @@ typedef level_persistent_t* level_persistent_ptr;
 	persistent data. 
 */
 
+//-----------------------------------------------------------------------------
 typedef struct world_persistent_s
 {
+	//	dialogue persistence 
+
 
 	int16_t ambient_resource_id;
 	int16_t music_resource_id;
@@ -95,19 +84,19 @@ typedef struct world_persistent_s
 	//	interaction mask
 	//	entity mask
 
-	inventory_t inventory;		//	this is more of a play_context than world
-	sequence_player_state_persistent_t sequencer_state;	
+	inventory_t inventory;			//	this is more of a play_context than world
 
-
+	uint32_t sequencer_state[4];	
+	sequence_channel_persistent_t sequencer_channel;	//	potentially 2 of these
 
 	uint16_t level_resource_id;		//	if this changes the game should too
 
-	uint8_t level_idx;		//	take index from level_t
-	uint8_t view_idx;	//	should be a limit of 16 views per scene 
+	uint8_t level_idx;				//	take index from level_t
+	uint8_t view_idx;				//	should be a limit of 16 views per scene 
 
-	uint32_t trigger_check_state;		
+	uint32_t trigger_check_state;	//	multiple of these ?? 	
 
-	player_entity_t player;	//	this should control an entity ... as then it is easier for sequencer to take control
+	player_entity_t player;			//	this should control an entity ... as then it is easier for sequencer to take control
 
 
 	level_persistent_t levels[WORLD_LEVEL_COUNT];
@@ -132,6 +121,7 @@ typedef struct world_persistent_s
 
 } world_persistent_t;
 
+//-----------------------------------------------------------------------------
 typedef struct world_ephemeral_s		//	need to add appropriate padding  to struct for Align4
 {
 	//	LEVEL
@@ -145,7 +135,6 @@ typedef struct world_ephemeral_s		//	need to add appropriate padding  to struct 
 		LIMITATIONS:
 			max views per scene = 16
 			max triggers per scene = 32
-
 	*/ 
 
 	uint16_t loaded_level_resource_id;		//	not needed
@@ -202,13 +191,15 @@ typedef struct world_ephemeral_s		//	need to add appropriate padding  to struct 
 
 
 	highlight_field_ptr active_highlight;
-	perf_timer_t highlight_timer;
+	game_timer_t highlight_timer;
 
 
 	//	SEQUENCER
 
 	sequence_player_t sequencer;
-	perf_timer_t sequencer_timer;
+	sequence_channel_ephermeral_t sequencer_channel;
+
+	game_timer_t sequencer_timer;
 	int8_t sequencer_timer_completion_flag;
 
 
@@ -218,6 +209,7 @@ typedef struct world_ephemeral_s		//	need to add appropriate padding  to struct 
 
 } world_ephemeral_t;
 
+//-----------------------------------------------------------------------------
 typedef struct world_s
 {
 	world_persistent_t persistent;
@@ -228,14 +220,17 @@ typedef struct world_s
 
 typedef world_t* world_ptr;
 
+//-----------------------------------------------------------------------------
 extern world_ptr g_main_world;
 
+//-----------------------------------------------------------------------------
 inline static level_persistent_ptr world_current_level(world_ptr world)
 {
 	uint16_t level_idx = world->persistent.level_idx;
 	return &world->persistent.levels[level_idx];
 }
 
+//-----------------------------------------------------------------------------
 inline static entity_ptr world_find_entity(world_ptr world, int8_t idx)
 {
 	if (idx == 0x1F)
@@ -251,9 +246,10 @@ inline static entity_ptr world_find_entity(world_ptr world, int8_t idx)
 }
 
 
+//-----------------------------------------------------------------------------
 void world_initialize(world_ptr world);
 
-void world_sequence_player_initialize(sequence_player_ptr player, sequence_player_state_persistent_ptr state);
+void world_sequence_player_assign_event_handlers(sequence_player_ptr player);
 
 void world_load_level(world_ptr world, uint16_t resource_id);
 
@@ -266,8 +262,6 @@ void world_update(world_ptr world);
 void world_draw(world_ptr world);
 
 void world_delete(world_ptr world);
-
-void world_sequence_player_delete(sequence_player_ptr player);
 
 void world_set_scanlines_dirty(world_ptr world);
 

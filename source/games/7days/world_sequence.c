@@ -77,7 +77,7 @@ sequence_completion_mode_t sequence_event_handler_wait(sequence_player_ptr playe
 	g_main_world->ephermeral.sequencer_timer = timer_start((uint16_t)waitFrameCount, TIMER_MODE_ONCE);
 	g_main_world->ephermeral.sequencer_timer_completion_flag = 0;
 
-	player->completion_flag = &g_main_world->ephermeral.sequencer_timer_completion_flag;
+	player->ephermeral_channels[0].completion_flag = &g_main_world->ephermeral.sequencer_timer_completion_flag;
 
 	return SEQUENCE_COMPLETION_WAIT_ON_FLAG;
 }
@@ -252,7 +252,7 @@ sequence_completion_mode_t sequence_event_handler_entity_path(sequence_player_pt
 
 	navigation_generate_path(origin, destination, &nav_agent->path);
 
-	player->completion_flag = &nav_agent->completion_flag;	//	this should be optional !!! 
+	player->ephermeral_channels[0].completion_flag = &nav_agent->completion_flag;	//	this should be optional !!! 
 
 	return SEQUENCE_COMPLETION_WAIT_ON_FLAG;
 }
@@ -353,45 +353,39 @@ sequence_completion_mode_t seuqence_event_handler_audio_sfx(sequence_player_ptr 
 	return SEQUENCE_COMPLETION_IMMEDIATE;
 }
 
-//-----------------------------------------------------------------------------
-void world_sequence_player_initialize(sequence_player_ptr player, sequence_player_state_persistent_ptr state)
-{
-	player->persistent = state;
-	player->persistent->current_event = -1;
-	player->persistent->scheduled_event = -1;
-
-	player->state = PLAYER_STATE_IDLE;
-
-	player->event_handler_count = 24;
-	player->event_handlers = (sequence_event_handler_t*)memory_allocate(sizeof(sequence_event_handler_t*) * player->event_handler_count, MEMORY_EWRAM);
-	player->event_handlers[0] = sequence_event_handler_wait;
-	player->event_handlers[1] = sequence_event_handler_dialogue;
-	player->event_handlers[2] = sequence_event_handler_gameover;
-	player->event_handlers[3] = sequence_event_handler_entity_path;
-	player->event_handlers[4] = NULL;
-	player->event_handlers[5] = sequence_event_handler_video;
-	player->event_handlers[6] = NULL;
-	player->event_handlers[7] = NULL;
-	player->event_handlers[8] = NULL;
-	player->event_handlers[9] = sequence_event_handler_world_change_level;
-	player->event_handlers[10] = sequence_event_handler_world_change_view;
-	player->event_handlers[11] = sequence_event_handler_world_change_trigger_mask;
-	player->event_handlers[12] = NULL;
-	player->event_handlers[13] = sequence_event_handler_inventory_add;
-	player->event_handlers[14] = sequence_event_handler_inventory_remove;
-	player->event_handlers[15] = sequence_event_handler_terminal;
-	player->event_handlers[16] = sequence_event_handler_input_lock;
-	player->event_handlers[17] = sequence_event_handler_model_entity_spawn;
-	player->event_handlers[18] = sequence_event_handler_elevator;
-	player->event_handlers[19] = NULL;
-	player->event_handlers[20] = NULL;
-	player->event_handlers[21] = sequence_event_handler_entity_destroy;
-	player->event_handlers[22] = sequence_event_handler_view_state_change;
-	player->event_handlers[23] = seuqence_event_handler_audio_sfx;
-}
 
 //-----------------------------------------------------------------------------
-void world_sequence_player_delete(sequence_player_ptr player)
+sequence_event_handler_t g_world_sequence_event_handlers[] = 
 {
-	memory_free(player->event_handlers);
+	sequence_event_handler_wait,
+	sequence_event_handler_dialogue,
+	sequence_event_handler_gameover, 
+	sequence_event_handler_entity_path,
+	NULL,
+	sequence_event_handler_video,
+	NULL,
+	NULL,
+	NULL,
+	sequence_event_handler_world_change_level,
+	sequence_event_handler_world_change_view,
+	sequence_event_handler_world_change_trigger_mask,
+	NULL,
+	sequence_event_handler_inventory_add,
+	sequence_event_handler_inventory_remove,
+	sequence_event_handler_terminal,
+	sequence_event_handler_input_lock,
+	sequence_event_handler_model_entity_spawn,
+	sequence_event_handler_elevator,
+	NULL,
+	NULL,
+	sequence_event_handler_entity_destroy,
+	sequence_event_handler_view_state_change,
+	seuqence_event_handler_audio_sfx
+};
+
+//-----------------------------------------------------------------------------
+void world_sequence_player_assign_event_handlers(sequence_player_ptr player)
+{
+	player->event_handlers = &g_world_sequence_event_handlers;
+
 }

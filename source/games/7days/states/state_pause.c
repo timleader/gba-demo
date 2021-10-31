@@ -23,7 +23,7 @@ typedef struct st_pause_context_s
 {
 	palette_ptr pause_palette;
 
-	perf_timer_t pause_timer;
+	game_timer_t pause_timer;
 
 	uint8_t panel_pause;
 	int8_t st_pause_selected_idx;

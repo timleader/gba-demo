@@ -83,6 +83,8 @@ void overlay_oam_mark_as_dirty(const uint16_t offset, const uint16_t size)
 
 int8_t overlay_create_panel(uint8_t tile_width, uint8_t tile_height)	//pass palette bank idx
 {
+	debug_printf(DEBUG_LOG_INFO, "overlay::create_panel width=%u, height=%u", tile_width, tile_height);
+
 	//	find a panel to use otherwise fail
 	int8_t panel_idx = -1;
 	int16_t idx = 0;
@@ -163,6 +165,7 @@ int8_t overlay_create_panel(uint8_t tile_width, uint8_t tile_height)	//pass pale
 	else
 	{
 		panel_idx = -1;
+		debug_printf(DEBUG_LOG_ERROR, "overlay:create_panel failed due to insufficent resources, obj_count=%u, target_count=%u", obj_count, obj_target_count);
 		debug_assert(0, "overlay:create_panel failed due to insufficent resources");
 	}
 
@@ -625,4 +628,25 @@ void overlay_present(void)
 		g_overlaybuffer.oam_dirty_span.start = -1;
 		g_overlaybuffer.oam_dirty_span.end = -1;
 	}
+}
+
+uint32_t overlay_usage(void)
+{
+	uint32_t idx = 0;
+	uint32_t usage_count = 0;
+	do
+	{
+		if (BFN_GET2(g_overlaybuffer.ewram_oam[idx].attr0, ATTR0_MODE) != ATTR0_HIDE)
+		{
+			usage_count++;
+		}
+
+	} while (++idx < SPRITE_COUNT);
+
+	return usage_count;
+}
+
+void overlay_output_usage(void)
+{
+	debug_printf(DEBUG_LOG_INFO, "overlay::usage - usage_count=%u sprite_count=%u", overlay_usage(), SPRITE_COUNT);
 }

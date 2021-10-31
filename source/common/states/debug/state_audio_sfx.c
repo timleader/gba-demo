@@ -32,7 +32,7 @@ typedef struct st_audio_sfx_context_s
 	model_ptr debug_mdl;
 	model_ptr floor_mdl;
 
-	perf_timer_t timer;
+	game_timer_t timer;
 
 } st_audio_sfx_context_t;
 
