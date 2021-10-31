@@ -69,13 +69,16 @@ typedef struct overlay_buffer_s
 extern overlay_buffer_t g_overlaybuffer;
 
 
+//-----------------------------------------------------------------------------
 void overlay_initialize(void);	//	platform
 void overlay_shutdown(void);		//	platform
 
 
+//-----------------------------------------------------------------------------
 int8_t overlay_create_panel(uint8_t tile_width, uint8_t tile_height);	
 void overlay_destroy_panel(uint8_t panel_id);
 
+//-----------------------------------------------------------------------------
 //	panel atrributes 
 void overlay_set_palette_bank(uint8_t panel_id, uint8_t palette_bank);
 void overlay_set_position(uint8_t panel_id, point2_t position);
@@ -87,6 +90,7 @@ void overlay_write_palette(palette_ptr palette);
 
 //	draw tile	-- will help with frames, maybe a formal nine-slice image ? 
 
+//-----------------------------------------------------------------------------
 void overlay_draw_color(uint8_t panel_id, uint8_t color, point2_t block_position, point2_t size);
 void overlay_draw_tile(uint8_t panel_id, tile_ptr tile, point2_t block_position, point2_t size);
 void overlay_draw_tiledimage(uint8_t panel_id, tiledimage_ptr image, point2_t block_position);
@@ -95,8 +99,12 @@ void overlay_draw_tiledimage_nineslice(uint8_t panel_id, tiledimage_ptr image, p
 point2_t overlay_draw_character(uint8_t panel_id, char character, uint8_t color, point2_t tile_position);
 void overlay_draw_string(uint8_t panel_id, const char* string, uint8_t color, point2_t position);
 
+//-----------------------------------------------------------------------------
 void overlay_clear(uint8_t panel_id, uint8_t color);	//	size ??? 
-
 void overlay_present(void);
+
+//-----------------------------------------------------------------------------
+uint32_t overlay_usage(void);
+void overlay_output_usage(void);
 
 #endif // !OVERLAY_H

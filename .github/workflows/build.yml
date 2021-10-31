@@ -87,9 +87,6 @@ jobs:
         name: gba-demo
         path: ./tests
         
-    - working-directory: tests/
-      run: dir
-
     - name: Run Tests
       id: run_tests
       working-directory: tests/
