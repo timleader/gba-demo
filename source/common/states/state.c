@@ -63,6 +63,9 @@ void state_initialize(uint8_t state_stack_capacity, uint32_t state_memory_size, 
 	g_state_context.memory_block_end = g_state_context.memory_block_base + state_memory_size;
 
 	g_state_context.pending_command.operation = STATE_OP_NOP;
+
+	debug_variable_set("state_stack_top", DEBUG_VAR_TYPE_UINT16, &g_state_context.state_stack_top);
+	debug_variable_set("state_stack", DEBUG_VAR_TYPE_UNDEFINED, g_state_context.state_stack);
 }
 
 
@@ -241,6 +244,16 @@ void state_apply(void)
 
 		debug_assert(loop_count < 4, "state:apply too many immediate state changes");
 		++loop_count;
+
+		state_ptr current = state_peek();
+		if (current)
+		{
+			debug_variable_set("state_name", DEBUG_VAR_TYPE_STRING, current->name);
+		}
+		else
+		{
+			debug_variable_unset("state_name");
+		}
 	}
 }
 

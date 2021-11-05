@@ -67,3 +67,11 @@ void debug_assert(int32_t condition, const char* message)
 		//	if release, then this shouldn't exist... 
 	}
 }
+
+//-----------------------------------------------------------------------------
+void debug_variable_set(const char* name, uint32_t type, const void_ptr address)
+{ }
+
+//-----------------------------------------------------------------------------
+void debug_variable_unset(const char* name)
+{ }

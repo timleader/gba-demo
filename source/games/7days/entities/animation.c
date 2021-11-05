@@ -1,6 +1,8 @@
 
 #include "games/7days/entities/entity.h"
 
+#include "common/debug/debug.h"
+
 
 //	character animation update 
 void animation_update(entity_ptr entity)		//	apply this to player and npc
@@ -56,6 +58,8 @@ void animation_update(entity_ptr entity)		//	apply this to player and npc
 		entity->animation_id = animation_id;
 
 		animation_t* animation = model_find_animation(model, entity->animation_id);
+
+		debug_assert(animation, "animation could not be found");
 
 		entity->frame = 0;
 		entity->frame_count = animation->frame_count;

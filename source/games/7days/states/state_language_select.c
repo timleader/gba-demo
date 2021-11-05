@@ -12,6 +12,7 @@
 #include "common/collision/collision.h"
 #include "common/resources/resources.h"
 #include "common/input/input.h"
+#include "common/debug/debug.h"
 #include "common/memory.h"
 
 #include "package_7days.h"
@@ -83,27 +84,30 @@ void st_language_select_enter(st_language_select_context_ptr context, uint32_t p
 	context->selected_idx = 0;
 
 	st_language_select_draw_menu(context);
+
+
+	debug_variable_set("selected_idx", DEBUG_VAR_TYPE_UINT8, &context->selected_idx);
 }
 
 //-----------------------------------------------------------------------------
 void st_language_select_exit(st_language_select_context_ptr context)
 {
 	overlay_destroy_panel(context->panel);
+
+
+	debug_variable_unset("selected_idx");
 }
 
 //-----------------------------------------------------------------------------
 void st_language_select_update(st_language_select_context_ptr context, fixed16_t dt)
 {
-	if (key_hit(KI_START) ||
-		key_hit(KI_A))
+	if (key_hit(KI_START) || key_hit(KI_A))
 	{
 		debug_printf(DEBUG_LOG_INFO, "st_language_select::selected idx=%u", context->selected_idx);
 
 		stringstore_set_language(context->selected_idx);
 
 		state_goto(&st_title, 0);
-
-		return;
 	}
 	else
 	{

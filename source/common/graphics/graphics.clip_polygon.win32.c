@@ -27,7 +27,7 @@ IWRAM_CODE uint8_t clip_polygon_right_edge(vertex_t* src, vertex_t* dest, uint8_
 		if (i_v->position.x < x_clip_value &&
 			k_v->position.x < x_clip_value)
 		{
-			mathVector3Copy(&new_vertices[new_vertex_idx].position, &k_v->position);
+			mathVector3Copy((vector3_t*)&new_vertices[new_vertex_idx].position, (const vector3_t*)&k_v->position);
 			mathVector2Copy(&new_vertices[new_vertex_idx].uv, &k_v->uv);
 			new_vertex_idx++;
 		}
@@ -37,7 +37,7 @@ IWRAM_CODE uint8_t clip_polygon_right_edge(vertex_t* src, vertex_t* dest, uint8_
 		{
 			//	over clipping 
 			vector2_t polygon_delta;
-			mathVector2Substract(&polygon_delta, &k_v->position, &i_v->position);
+			mathVector2Substract(&polygon_delta, (vector2_t*)&k_v->position, (const vector2_t*)&i_v->position);
 			fixed16_t original_x_diff = polygon_delta.x;
 
 			fixed16_t scale_factor = fixed16_div(fixed16_one, polygon_delta.x);			//	lut is possible here

@@ -32,13 +32,12 @@ void inventory_additem(inventory_ptr inventory, uint16_t item_id)
 		if (inventory->items[idx] == -1)
 		{
 			inventory->items[idx] = item_id;
-			debug_printf(DEBUG_LOG_ERROR, "inventory::additem %u", item_id);
+			debug_printf(DEBUG_LOG_INFO, "inventory::additem %u", item_id);
 			break;
 		}
 	}
 
-	if (idx == INVENTORY_MAX_COUNT)
-		debug_printf(DEBUG_LOG_ERROR, "inventory::additem failed - insufficient space");
+	debug_assert(idx != INVENTORY_MAX_COUNT, "inventory::additem failed - insufficient space");
 }
 
 uint8_t inventory_hasitem(inventory_ptr inventory, uint16_t item_id)
@@ -89,7 +88,7 @@ void inventory_removeitem(inventory_ptr inventory, uint16_t item_id)
 		if (inventory->items[idx] == item_id)
 		{
 			inventory->items[idx] = -1;
-			debug_printf(DEBUG_LOG_ERROR, "inventory::removeitem %u", item_id);
+			debug_printf(DEBUG_LOG_INFO, "inventory::removeitem %u", item_id);
 			break;
 		}
 	}

@@ -32,13 +32,19 @@ namespace GBA.Tests
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
             public delegate void LogFunction(IntPtr lLoggerStructPtr, int lCategory, LogLevel lLevel, string lFormat, IntPtr lArgs);
 
-            //---------------------------------------------------------------------
-            [StructLayout(LayoutKind.Sequential)]
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void DebugVarFunction(UInt16 lFlags, string lName, UInt32 lAddress);
+
+			//---------------------------------------------------------------------
+			[StructLayout(LayoutKind.Sequential)]
             public struct Logger
             {
                 public LogFunction LogFunc;
                 public IntPtr Filter;
-            }
+
+				public DebugVarFunction DebugVarsFunc;
+			}
 
             //---------------------------------------------------------------------
             [DllImport(NativeSymbolLocation, EntryPoint = "mLogSetDefaultLogger", CallingConvention = CallingConvention.Cdecl)]
@@ -48,16 +54,76 @@ namespace GBA.Tests
 			[DllImport(NativeSymbolLocation, EntryPoint = "mLog", CallingConvention = CallingConvention.Cdecl)]
 			public static extern void SendLog(int lCategory, LogLevel lLevel, string lFormat, __arglist);
 
+		}
 
+		//---------------------------------------------------------------------
+		public static class Debug
+		{
+			//---------------------------------------------------------------------
+			[DllImport(NativeSymbolLocation, EntryPoint = "mDebuggerSymbolLookup", CallingConvention = CallingConvention.Cdecl)]
+			public static extern bool SymbolLookup(IntPtr lDebuggerSymbols, string lName, out int lValue, out int lSegment);
 
-			/*
-			 * 
-						//---------------------------------------------------------------------
-						[DllImport(NativeSymbolLocation, EntryPoint = "mLogFilterSet")]
-						public static extern void FilterSet(IntPtr lLoggerStructPtr, string lCategory, LogLevel lLevel);
-						//
-						//mLogFilterTest*/
+			//---------------------------------------------------------------------
+			[StructLayout(LayoutKind.Sequential)]
+			public struct DebuggerPlatform
+			{
+				public IntPtr Debugger;
 
+				public IntPtr Init;				//	void (*init)(void* cpu, struct mDebuggerPlatform*);
+				public IntPtr Deinit;			//	void (*deinit)(struct mDebuggerPlatform*);
+				public IntPtr Entered;			//	void (*entered)(struct mDebuggerPlatform*, enum mDebuggerEntryReason, struct mDebuggerEntryInfo*);
+
+				public IntPtr HasBreakpoints;   //	bool (* hasBreakpoints) (struct mDebuggerPlatform*);
+				public IntPtr CheckBreakpoints; //	void (* checkBreakpoints) (struct mDebuggerPlatform*);
+				public IntPtr ClearBreakpoint;  //	bool (* clearBreakpoint) (struct mDebuggerPlatform*, ssize_t id);
+
+				public IntPtr SetBreakpoint;    //	ssize_t(*setBreakpoint)(struct mDebuggerPlatform*, const struct mBreakpoint*);
+				public IntPtr ListBreakpoints;  //	void (* listBreakpoints) (struct mDebuggerPlatform*, struct mBreakpointList*);
+
+				public IntPtr SetWatchpoint;    //	ssize_t(*setWatchpoint)(struct mDebuggerPlatform*, const struct mWatchpoint*);
+				public IntPtr ListWatchpoints;  //	void (* listWatchpoints) (struct mDebuggerPlatform*, struct mWatchpointList*);
+
+				public IntPtr Trace;            //	void (* trace) (struct mDebuggerPlatform*, char* out, size_t* length);
+
+				public IntPtr GetRegister;      //	bool (* getRegister) (struct mDebuggerPlatform*, const char* name, int32_t* value);
+				public IntPtr SetRegister;      //	bool (* setRegister) (struct mDebuggerPlatform*, const char* name, int32_t value);
+				public IntPtr LookupIdentifier; //	bool (* LookupIdentifier) (struct mDebuggerPlatform*, const char* name, int32_t* value, int* segment);
+
+				public IntPtr GetStackTraceMode; //	uint32_t(*getStackTraceMode)(struct mDebuggerPlatform*);
+				public IntPtr SetStackTraceMode; //	void (* setStackTraceMode) (struct mDebuggerPlatform*, uint32_t mode);
+				public IntPtr UpdateStackTrace; //	bool (* updateStackTrace) (struct mDebuggerPlatform* d);
+			}
+
+        }
+
+        //---------------------------------------------------------------------
+        public static class VirtualFileSystem
+		{
+			//---------------------------------------------------------------------
+			[StructLayout(LayoutKind.Sequential)]
+			public struct File
+            {
+
+				public IntPtr Close;    //	bool (*close)(struct VFile* vf);
+				public IntPtr Seek;     //	off_t (*seek)(struct VFile* vf, off_t offset, int whence);
+				public IntPtr Read;     //	ssize_t (*read)(struct VFile* vf, void* buffer, size_t size);
+				public IntPtr Readline; //	ssize_t (*readline)(struct VFile* vf, char* buffer, size_t size);
+				public IntPtr Write;    //	ssize_t (*write)(struct VFile* vf, const void* buffer, size_t size);
+				public IntPtr Map;      //	void* (*map)(struct VFile* vf, size_t size, int flags);
+				public IntPtr Unmap;    //	void (*unmap)(struct VFile* vf, void* memory, size_t size);
+				public IntPtr Truncate; //	void (*truncate)(struct VFile* vf, size_t size);
+				public IntPtr Size;     //	ssize_t (*size)(struct VFile* vf);
+				public IntPtr Sync;     //	bool (*sync)(struct VFile* vf, void* buffer, size_t size);
+
+			}
+
+			//---------------------------------------------------------------------
+			[DllImport(NativeSymbolLocation, EntryPoint = "VFileOpen", CallingConvention = CallingConvention.Cdecl)]
+			public static extern IntPtr Open(string lPath, int lFlags);
+
+			//	struct VFile* VFileFromMemory(void* mem, size_t size);
+
+			//	struct VFile* VFileFromConstMemory(const void* mem, size_t size);
 		}
 
 		//---------------------------------------------------------------------
@@ -96,6 +162,63 @@ namespace GBA.Tests
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate void StepFunction(IntPtr lCoreStructPtr);
 
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void LoadSymbols(IntPtr lCoreStructPtr, IntPtr lVFilePtr);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool LookupIdentifier(IntPtr lCoreStructPtr, string lName, out int lValue, out int lSegment);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate IntPtr DebuggerPlatform(IntPtr lCoreStructPtr);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate UInt32 BusRead8(IntPtr lCoreStructPtr, UInt32 lAddress);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate UInt32 BusRead16(IntPtr lCoreStructPtr, UInt32 lAddress);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate UInt32 BusRead32(IntPtr lCoreStructPtr, UInt32 lAddress);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void SetKeys(IntPtr lCoreStructPtr, UInt32 lKeys);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void AddKeys(IntPtr lCoreStructPtr, UInt32 lKeys);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void ClearKeys(IntPtr lCoreStructPtr, UInt32 lKeys);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void AddCoreCallbacks(IntPtr lCoreStructPtr, IntPtr lCallbackStructPtr);
+
+			//---------------------------------------------------------------------
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void Callback(IntPtr lContext);
+
+			//---------------------------------------------------------------------
+			[StructLayout(LayoutKind.Sequential)]
+			public struct Callbacks
+			{
+				public IntPtr Context;
+				public Callback VideoFrameStarted;
+				public Callback VideoFrameEnded;
+				public Callback CoreCrashed;
+				public Callback Sleep;
+				public Callback Shutdown;
+				public Callback KeysRead;
+				public Callback SavedataUpdated;
+			}
 
 			//---------------------------------------------------------------------
 			[StructLayout(LayoutKind.Sequential)]
@@ -182,7 +305,7 @@ namespace GBA.Tests
 				public IntPtr GetAudioBufferSize;
 
 				//	void (* addCoreCallbacks) (struct mCore*, struct mCoreCallbacks*);
-				public IntPtr AddCoreCallbacks;
+				public AddCoreCallbacks AddCoreCallbacks;
 				//	void (* clearCoreCallbacks) (struct mCore*);
 				public IntPtr ClearCoreCallbacks;
 				//	void (* setAVStream) (struct mCore*, struct mAVStream*);
@@ -226,11 +349,11 @@ namespace GBA.Tests
 				public IntPtr SaveState;
 
 				//	void (* setKeys) (struct mCore*, uint32_t keys);
-				public IntPtr SetKeys;
+				public SetKeys SetKeys;
 				//	void (* addKeys) (struct mCore*, uint32_t keys);
-				public IntPtr AddKeys;
+				public AddKeys AddKeys;
 				//	void (* clearKeys) (struct mCore*, uint32_t keys);
-				public IntPtr ClearKeys;
+				public ClearKeys ClearKeys;
 
 				//	int32_t(*frameCounter)(const struct mCore*);
 				public IntPtr FrameCounter;
@@ -248,11 +371,11 @@ namespace GBA.Tests
 				public IntPtr SetPeripheral;
 
 				//	uint32_t(*busRead8)(struct mCore*, uint32_t address);
-				public IntPtr BusRead8;
+				public BusRead8 BusRead8;
 				//	uint32_t(*busRead16)(struct mCore*, uint32_t address);
-				public IntPtr BusRead16;
+				public BusRead16 BusRead16;
 				//	uint32_t(*busRead32)(struct mCore*, uint32_t address);
-				public IntPtr BusRead32;
+				public BusRead32 BusRead32;
 
 				//	void (* busWrite8) (struct mCore*, uint32_t address, uint8_t);
 				public IntPtr BusWrite8;
@@ -285,7 +408,7 @@ namespace GBA.Tests
 				//	bool (* supportsDebuggerType) (struct mCore*, enum mDebuggerType);
 				public IntPtr SupportsDebuggerType;
 				//	struct mDebuggerPlatform* (* debuggerPlatform) (struct mCore*);
-				public IntPtr DebuggerPlatform;
+				public DebuggerPlatform DebuggerPlatform;
 				//	struct CLIDebuggerSystem* (* cliDebuggerSystem) (struct mCore*);
 				public IntPtr CLIDebuggerSystem;
 				//	void (* attachDebugger) (struct mCore*, struct mDebugger*);
@@ -294,9 +417,9 @@ namespace GBA.Tests
 				public IntPtr DetachDebugger;
 
 				//	void (* loadSymbols) (struct mCore*, struct VFile*);
-				public IntPtr LoadSymbols;
+				public LoadSymbols LoadSymbols;
 				//	bool (* lookupIdentifier) (struct mCore*, const char* name, int32_t* value, int* segment);
-				public IntPtr LookupIdentifier;
+				public LookupIdentifier LookupIdentifier;
 
 				//#endif
 

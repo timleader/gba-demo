@@ -5,7 +5,7 @@ extern uint8_t __iheap_start[];
 extern uint8_t __eheap_start[];
 
 const uint8_t* __iheap_end = (uint8_t*)0x03007FFF;      
-const uint8_t* __eheap_end = (uint8_t*)0x0203FFFF;
+const uint8_t* __eheap_end = (uint8_t*)0x0203FFFF; 
 
 extern memory_section_t g_memory_sections[2];
 

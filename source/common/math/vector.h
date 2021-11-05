@@ -120,7 +120,7 @@ static inline IWRAM_CODE fixed16_t mathVector3LengthSqr(const vector3_t* vec)
 
 static inline IWRAM_CODE fixed16_t mathVector3Length(const vector3_t* vec)
 {
-	fixed16_t distance = mathVector3LengthSqr(&vec);
+	fixed16_t distance = mathVector3LengthSqr(vec);
 	return fixed16_sqrt(distance);
 }
 

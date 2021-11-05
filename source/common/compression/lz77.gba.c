@@ -13,7 +13,7 @@ void lz77_decompress_wram(void_ptr in, const void_ptr out);
 //-----------------------------------------------------------------------------
 void lz77_decompress(void_ptr in, const void_ptr out)
 {
-	if (out < 0x06000000)
+	if (out < (const void_ptr)0x06000000)
 	{
 		lz77_decompress_wram(in, out);
 	}

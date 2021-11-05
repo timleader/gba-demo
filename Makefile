@@ -62,7 +62,8 @@ CFLAGS	:= -g -Wall -O3 \
 ifeq ($(DEBUG), 1)
 		CFLAGS += \
 			-DPROFILER_ENABLE \
-			-DDEBUG=1 
+			-DDEBUG=1 \
+			-DDEBUG_VARS=1
 endif
 
 CFLAGS	+=	$(INCLUDE)

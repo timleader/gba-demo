@@ -10,7 +10,7 @@
 int32_t _audio_stream_fill_pcm_16khz(audiostream_t* stream, int8_t* dest, int32_t length)
 {
 	int8_t* samples = (int8_t*)stream->audioclip->data;
-	uint32_t sample_count = stream->audioclip->sample_count;
+	int32_t sample_count = (int32_t)stream->audioclip->sample_count;
 
 	if (stream->read_position + length > sample_count)
 		length = sample_count - stream->read_position;
@@ -37,7 +37,7 @@ int32_t _audio_stream_fill_pcm_16khz(audiostream_t* stream, int8_t* dest, int32_
 int32_t _audio_stream_fill_pcm_8khz(audiostream_t* stream, int8_t* dest, int32_t length)	//	~75,000 cycles
 {
 	int8_t* samples = (int8_t*)stream->audioclip->data;
-	uint32_t sample_count = stream->audioclip->sample_count << 1;
+	int32_t sample_count = (int32_t)stream->audioclip->sample_count << 1;
 
 	if (stream->read_position + length > sample_count)
 		length = sample_count - stream->read_position;
@@ -217,7 +217,7 @@ void audio_stream_volume(audio_stream_handle_t stream_handle, uint8_t volume)
 
 void _audio_stream_logic(void)
 {
-	const audiostream_t* streams[4] = 
+	audiostream_t* streams[4] = 
 	{ 
 		&g_audio_context.music_streams[0], 
 		&g_audio_context.music_streams[1],
@@ -238,7 +238,7 @@ void _audio_stream_logic(void)
 				t = math_easeoutquad(t);
 				fixed16_t vf = fixed16_lerp(fixed16_from_int(stream->volume_source), fixed16_from_int(stream->volume_target), t);
 				int16_t v = fixed16_to_int(vf);
-				channel->volume = v;
+				channel->volume = (uint8_t)v;
 
 				if (timer_expired(stream->timer))		//	update loop is too fast on gba 
 					stream->state = PLAYING;
@@ -251,7 +251,7 @@ void _audio_stream_logic(void)
 				t = math_easeoutquad(t);
 				fixed16_t vf = fixed16_lerp(fixed16_from_int(stream->volume_source), fixed16_from_int(stream->volume_target), t);
 				int16_t v = fixed16_to_int(vf);
-				channel->volume = v;
+				channel->volume = (uint8_t)v;
 
 				if (timer_expired(stream->timer))
 				{

@@ -66,3 +66,4 @@ dkms.conf
 /gba3d.sav
 /log.txt
 /tests/obj
+/tests/configuration.yml

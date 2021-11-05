@@ -32,7 +32,6 @@ typedef struct st_title_context_s
 typedef st_title_context_t* st_title_context_ptr;
 
 
-
 //-----------------------------------------------------------------------------
 void st_title_draw_menu(st_title_context_ptr context)
 {
@@ -118,7 +117,7 @@ void st_title_pause(st_title_context_ptr context)
 	overlay_destroy_panel(context->panel_start);
 	overlay_destroy_panel(context->panel_start_title);
 
-	debug_printf(DEBUG_LOG_INFO, "st_title_pause");
+	debug_variable_unset("selected_idx");
 }
 
 //-----------------------------------------------------------------------------
@@ -166,6 +165,8 @@ void st_title_resume(st_title_context_ptr context, uint32_t parameter)
 	graphics_draw_image(image, 0, 0, 0);
 
 	graphics_pageflip();
+
+	debug_variable_set("selected_idx", DEBUG_VAR_TYPE_UINT8, &context->selected_idx);
 }
 
 //-----------------------------------------------------------------------------
@@ -178,6 +179,7 @@ void st_title_enter(st_title_context_ptr context, uint32_t parameter)
 	context->background_music_handle = audio_stream_open(resources_find_audioclip(RES__SND_MUSIC), 0);
 	audio_stream_volume(context->background_music_handle, 128);
 }
+
 
 //-----------------------------------------------------------------------------
 EWRAM_DATA state_t st_title =

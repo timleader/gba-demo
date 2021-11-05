@@ -5,7 +5,6 @@
 
 #include "common/containers/list.h"
 
-#include <math.h>       //	remove
 
 void navigation_generate_path(/*world_ptr world, */vector2_t origin, vector2_t destination, path_t* path)
 {

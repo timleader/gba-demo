@@ -75,6 +75,11 @@ jobs:
       id: restore_nuget
       run: nuget restore ./tests/gba-test.csproj
       
+    - name: write test configuration
+      id: write_test_configuration
+      working-directory: tests/
+      run: "echo \"rom_path: D:/a/gba-demo/gba-demo/tests/gba-demo.gba\" > configuration.yml"
+
     - name: Run MSBuild
       id: run_msbuild
       working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -86,10 +91,10 @@ jobs:
       with:
         name: gba-demo
         path: ./tests
-        
+
     - name: Run Tests
       id: run_tests
       working-directory: tests/
-      run: dotnet test ./bin/x86/debug/netcoreapp3.1/gba-test.dll -s ./test_run.runsettings
+      run: dotnet test ./bin/x86/debug/netcoreapp3.1/gba-test.dll 
 
    
