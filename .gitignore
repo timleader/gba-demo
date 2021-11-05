@@ -67,3 +67,4 @@ dkms.conf
 /log.txt
 /tests/obj
 /tests/configuration.yml
+/tests/bin/Debug/netcoreapp3.1
