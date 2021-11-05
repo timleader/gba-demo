@@ -82,7 +82,7 @@ IWRAM_CODE void audio_timer1_interrupt(void)
 	}
 	else
 	{
-		debug_printf(DEBUG_LOG_ERROR, "audio interrupt, buffers are not full yet");
+		debug_printf(DEBUG_LOG_WARN, "audio interrupt, buffers are not full yet");
 	}
 
 	//	Left Channel

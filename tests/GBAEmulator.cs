@@ -59,6 +59,19 @@ namespace GBA.Tests
         }
 
         //---------------------------------------------------------------------
+        public short? ReadDebugVariableInt16(string lName)
+        {
+            short? lResult = null;
+            if (mDebugVarList.ContainsKey(lName))
+            {
+                uint lAddress = mDebugVarList[lName].Address;
+                ushort lTemp = (ushort)mGBACore.BusRead16(mGBACorePtr, lAddress);
+                lResult = BitConverter.ToInt16(new byte[] { (byte)(lTemp >> 8), (byte)(lTemp & 0xFF) });
+            }
+            return lResult;
+        }
+
+        //---------------------------------------------------------------------
         public uint? ReadDebugVariableUInt32(string lName)
         {
             uint? lResult = null;
@@ -228,6 +241,13 @@ namespace GBA.Tests
         }
 
         //---------------------------------------------------------------------
+        public void RunFrame(int lNumFrames = 1)
+        {
+            for (int lIdx = 0; lIdx < lNumFrames; ++lIdx)
+               mGBACore.RunFrame(mGBACorePtr);
+        }
+
+        //---------------------------------------------------------------------
         public void Reset()
         {
             mGBACore.Reset(mGBACorePtr);
@@ -254,12 +274,12 @@ namespace GBA.Tests
             uint lKeys = (uint)lInput;
             mGBACore.SetKeys(mGBACorePtr, lKeys);
 
-            mGBACore.RunFrame(mGBACorePtr);
+            RunFrame(4);
 
             lKeys = 0;
             mGBACore.SetKeys(mGBACorePtr, lKeys);
 
-            mGBACore.RunFrame(mGBACorePtr);
+            RunFrame(4);
         }
 
     }

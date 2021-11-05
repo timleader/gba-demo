@@ -34,6 +34,11 @@ void world_initialize(world_ptr world)
 
 	world_sequence_player_assign_event_handlers(&world->ephermeral.sequencer);
 	
+
+	debug_variable_set("world_sequencer_state", DEBUG_VAR_TYPE_UINT32, &world->ephermeral.sequencer_channel.state);
+	debug_variable_set("world_sequencer_scheduled_event", DEBUG_VAR_TYPE_UINT16, &world->persistent.sequencer_channel.scheduled_event);
+
+
 	/* World Initialize fields  */
 
 	world->persistent.level_resource_id = ~0;
@@ -65,6 +70,9 @@ void world_initialize(world_ptr world)
 void world_delete(world_ptr world)
 {
 	rendertarget_delete(world->ephermeral.view_rendertarget);
+
+	debug_variable_unset("world_sequencer_state");
+	debug_variable_unset("world_sequencer_scheduled_event");
 }
 
 //-----------------------------------------------------------------------------
