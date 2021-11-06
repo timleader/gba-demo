@@ -28,6 +28,8 @@ typedef struct st_inventory_context_s
 	int16_t inventory_current_idx;
 	int16_t inventory_scroll_idx;
 
+	interaction_point_ptr interaction;
+
 } st_inventory_context_t;
 
 typedef st_inventory_context_t* st_inventory_context_ptr;
@@ -63,6 +65,8 @@ void st_inventory_enter(st_inventory_context_ptr context, uint32_t parameter)		/
 			+ new item added
 			+ or default launch
 	*/
+
+	context->interaction = (interaction_point_ptr)parameter;
 
 	//	pass cur_interaction in 
 
@@ -211,11 +215,29 @@ void st_inventory_update(st_inventory_context_ptr context)
 	{
 		debug_printf(DEBUG_LOG_INFO, "st_inventory::selected item_id=%u", context->inventory_current_idx);
 
+		uint8_t item_id = context->inventory_current_idx;
+		int16_t sequence_id = -1;	//	set a default reaction ... 
+
+		if (context->interaction != NULL)
+		{
+			for (uint8_t idx = 0; idx < context->interaction->option_count; ++idx)
+			{
+				if (item_id == context->interaction->options[idx].item_id)
+				{
+					sequence_id = context->interaction->options[idx].sequence_id;
+					break;
+				}
+			}
+		}
+
 		audio_sfx_play(resources_find_audioclip(RES__SND_ACCEPT));
 
 		uint32_t parameter = 0;
-		parameter |= 2 << 24;						//	command type
-		parameter |= context->inventory_current_idx;			//	item_id
+		if (sequence_id >= 0)
+		{
+			parameter |= 1 << 24;						//	command type
+			parameter |= sequence_id;
+		}
 
 		state_pop(parameter);
 		return;
