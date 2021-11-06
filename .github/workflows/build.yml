@@ -95,6 +95,10 @@ jobs:
     - name: Run Tests
       id: run_tests
       working-directory: tests/
-      run: dotnet test ./bin/x86/debug/netcoreapp3.1/gba-test.dll 
-
+      run: dotnet test --logger "trx;logfilename=gba-tests_results.trx" --results-directory ./ ./bin/x86/debug/netcoreapp3.1/gba-test.dll 
+      
+    - uses: actions/upload-artifact@v2
+      with:
+        name: gba-tests_results
+        path: ./tests/gba-tests_results.trx
    
