@@ -9,6 +9,10 @@ using NUnit.Framework;
 namespace GBA.Tests
 {
 
+    //  Frame Idx
+    //  Cycles for whole frame, 
+    //  Maybe this comes out through the log system .. 
+
     public class GBAEmulator
     {
         //---------------------------------------------------------------------

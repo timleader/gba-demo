@@ -71,6 +71,13 @@ void st_level_update(st_level_context_ptr context, fixed16_t dt)
 			g_main_world->ephermeral.active_highlight = resources_find_highlightfield(interaction->highlight_field_resource_id);
 
 		widget_quickaction_schedule_interaction(&context->widget_state, interaction);
+
+		if (key_hit(KI_A))	//	this needs to be player_controller input lock
+		{
+			audio_sfx_play(resources_find_audioclip(RES__SND_ACCEPT));
+
+			state_push(&st_inventory, (uint32_t)interaction);	//	pass the interaction, can we do it by id? ??, could just pass a pointer .. .
+		}
 	}
 	else
 	{
@@ -81,15 +88,6 @@ void st_level_update(st_level_context_ptr context, fixed16_t dt)
 
 	widget_quickaction_update(&context->widget_state);
 
-	if (interaction)
-	{
-		if (key_hit(KI_A))	//	this needs to be player_controller input lock
-		{
-			audio_sfx_play(resources_find_audioclip(RES__SND_ACCEPT));
-
-			state_push(&st_inventory, 0);	//	pass the interaction 
-		}
-	}
 
 	// if input(A) && widget_quickaction_ready()
 	//		interaction process within world .. 
@@ -188,25 +186,6 @@ void st_level_resume(st_level_context_ptr context, uint32_t parameter)
 		int16_t sequence_id = parameter & 0x0000FFFF;
 
 		sequence_schedule(&g_main_world->ephermeral.sequencer, 0, sequence_id);
-	}
-	else if (command == 2)	//	item ->	from inventory !!!		//	 if we pass interaction item to st_inventory then this might be cleaner 
-	{
-		uint8_t item_id = parameter & 0x000000FF;
-		int16_t sequence_id = -1;	//	set a default reaction ... 
-
-		if (context->cur_interaction != NULL) 
-		{
-			for (uint8_t idx = 0; idx < context->cur_interaction->option_count; ++idx)
-			{
-				if (item_id == context->cur_interaction->options[idx].item_id)
-				{
-					sequence_id = context->cur_interaction->options[idx].sequence_id;
-					break;
-				}
-			}
-		}
-
-		sequence_schedule(&g_main_world->ephermeral.sequencer, 0, sequence_id);		//	ideally don't want to render anything until the next sequence step is processed 
 	}
 	else if (command == 3)	//	load levels !!!		//	this could just be a sequence playback thing
 	{
