@@ -26,7 +26,7 @@ typedef struct st_pause_context_s
 	game_timer_t pause_timer;
 
 	uint8_t panel_pause;
-	int8_t st_pause_selected_idx;
+	int8_t selected_idx;
 
 	uint8_t panel_title;
 
@@ -56,7 +56,7 @@ void st_pause_draw_menu(st_pause_context_ptr context)
 	for (int8_t idx = 0; idx < 5; ++idx)
 	{
 		uint8_t coloridx = 2;
-		if (context->st_pause_selected_idx == idx)
+		if (context->selected_idx == idx)
 			coloridx = 3;
 
 		string_position.x = (12 - string_length(text[idx])) >> 1;
@@ -90,13 +90,15 @@ void st_pause_enter(st_pause_context_ptr context, uint32_t parameter)
 
 	overlay_write_palette(context->pause_palette);
 
-	context->st_pause_selected_idx = 0;
+	context->selected_idx = 0;
 
 	st_pause_create_ui(context);
 
 	st_pause_draw_menu(context);
 
 	context->pause_timer = timer_start(10, TIMER_MODE_FLIP_FLOP);
+
+	debug_variable_set("selected_idx", DEBUG_VAR_TYPE_UINT8, &context->selected_idx);
 }
 
 //-----------------------------------------------------------------------------
@@ -114,7 +116,7 @@ void st_pause_update(st_pause_context_ptr context, fixed16_t dt)
 	{
 		audio_sfx_play(resources_find_audioclip(RES__SND_ACCEPT));
 
-		switch (context->st_pause_selected_idx)
+		switch (context->selected_idx)
 		{
 		case 0:
 			state_pop(~0);
@@ -137,8 +139,8 @@ void st_pause_update(st_pause_context_ptr context, fixed16_t dt)
 	{
 		if (key_hit(KI_UP))
 		{
-			if (--context->st_pause_selected_idx < 0)
-				context->st_pause_selected_idx = 0;
+			if (--context->selected_idx < 0)
+				context->selected_idx = 0;
 			else
 				audio_sfx_play(resources_find_audioclip(RES__SND_SELECT));
 
@@ -146,8 +148,8 @@ void st_pause_update(st_pause_context_ptr context, fixed16_t dt)
 		}
 		if (key_hit(KI_DOWN))
 		{
-			if (++context->st_pause_selected_idx >= 5)
-				context->st_pause_selected_idx = 4;
+			if (++context->selected_idx >= 5)
+				context->selected_idx = 4;
 			else
 				audio_sfx_play(resources_find_audioclip(RES__SND_SELECT));
 
@@ -163,6 +165,8 @@ void st_pause_exit(st_pause_context_ptr context)
 	overlay_destroy_panel(context->panel_title);
 
 	memory_free(context->pause_palette);
+
+	debug_variable_unset("selected_idx");
 }
 
 //-----------------------------------------------------------------------------
@@ -170,6 +174,8 @@ void st_pause_pause(st_pause_context_ptr context)
 {
 	overlay_destroy_panel(context->panel_pause);
 	overlay_destroy_panel(context->panel_title);
+
+	debug_variable_unset("selected_idx");
 }
 
 //-----------------------------------------------------------------------------
@@ -178,6 +184,8 @@ void st_pause_resume(st_pause_context_ptr context, uint32_t parameter)
 	st_pause_create_ui(context);
 
 	st_pause_draw_menu(context);
+
+	debug_variable_set("selected_idx", DEBUG_VAR_TYPE_UINT8, &context->selected_idx);
 }
 
 //-----------------------------------------------------------------------------
