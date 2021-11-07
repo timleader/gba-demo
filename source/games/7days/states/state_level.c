@@ -177,8 +177,6 @@ void st_level_resume(st_level_context_ptr context, uint32_t parameter)
 	graphics_set_resolution(graphics_screen_width, graphics_screen_height);
 	graphics_set_vsync(3);
 
-	//		THIS IS WEIRD !!! 
-
 	//	process result from previously pushed state, 
 	uint8_t command = (parameter >> 24) & 0x000000FF;
 	if (command == 1)	//	sequence, 

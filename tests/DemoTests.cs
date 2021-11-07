@@ -133,6 +133,26 @@ namespace GBA.Tests
             mGBAEmulator.PressAndReleaseButton(GBAEmulator.Button.START);
 
             mGBAEmulator.RunUntil(() => mGBAEmulator.ReadDebugVariableString("state_name") == "st_pause", 2000);
+
+            Assert.That(mGBAEmulator.ReadDebugVariableUInt8("selected_idx") == 0);
+            mGBAEmulator.PressAndReleaseButton(GBAEmulator.Button.DOWN);
+            Assert.That(mGBAEmulator.ReadDebugVariableUInt8("selected_idx") == 1);
+            mGBAEmulator.PressAndReleaseButton(GBAEmulator.Button.A);
+
+            mGBAEmulator.RunUntil(() => mGBAEmulator.ReadDebugVariableString("state_name") == "st_savegame", 200);
+
+            Assert.That(mGBAEmulator.ReadDebugVariableUInt8("selected_idx") == 0);
+            mGBAEmulator.PressAndReleaseButton(GBAEmulator.Button.A);
+
+            Assert.That(mGBAEmulator.ReadDebugVariableString("state_name") == "st_pause");
+
+
+            Assert.That(mGBAEmulator.ReadDebugVariableUInt8("selected_idx") == 1);
+            mGBAEmulator.PressAndReleaseButton(GBAEmulator.Button.UP);
+            Assert.That(mGBAEmulator.ReadDebugVariableUInt8("selected_idx") == 0);
+            mGBAEmulator.PressAndReleaseButton(GBAEmulator.Button.A);
+
+            Assert.That(mGBAEmulator.ReadDebugVariableString("state_name") == "st_level");
         }
 
     }

@@ -33,7 +33,7 @@ typedef struct st_savegame_context_s
 	uint8_t panel_savegame_preview[SAVEGAME_SLOT_COUNT];
 	uint8_t panel_savegame_controls;
 
-	int8_t st_savegame_selected_idx;
+	int8_t selected_idx;
 	savegame_mode_t st_savegame_mode;
 
 	tiledimage_ptr st_savegame_screenshot;
@@ -56,7 +56,7 @@ void st_savegame_draw_save_slots(st_savegame_context_ptr context)
 		uint8_t panel_id = context->panel_savegame_label[idx];
 
 		uint8_t coloridx = 2;
-		if (context->st_savegame_selected_idx == idx)
+		if (context->selected_idx == idx)
 			coloridx = 3;
 
 		overlay_clear(panel_id, 0);
@@ -152,7 +152,7 @@ void st_savegame_enter(st_savegame_context_ptr context, uint32_t parameter)
 	context->screenshot_coroutine = NULL;
 	context->st_savegame_screenshot = tiledimage_new(7, 5, MEMORY_EWRAM);
 
-	context->st_savegame_selected_idx = 0;
+	context->selected_idx = 0;
 
 	palette_ptr gray_scale_pal = palette_new(12, MEMORY_IWRAM);	//	be cool to create this on the stack 
 	gray_scale_pal->offset = 240;
@@ -233,6 +233,8 @@ void st_savegame_enter(st_savegame_context_ptr context, uint32_t parameter)
 		context->screenshot_coroutine = coroutine_new(st_savegame_create_screenshot_coroutine, context, MEMORY_EWRAM);
 		coroutine_start(context->screenshot_coroutine);
 	}
+
+	debug_variable_set("selected_idx", DEBUG_VAR_TYPE_UINT8, &context->selected_idx);
 }
 
 //-----------------------------------------------------------------------------
@@ -250,6 +252,8 @@ void st_savegame_exit(st_savegame_context_ptr context)
 
 	if (context->screenshot_coroutine != NULL)
 		coroutine_delete(context->screenshot_coroutine);
+
+	debug_variable_unset("selected_idx");
 }
 
 //-----------------------------------------------------------------------------
@@ -285,12 +289,12 @@ void st_savegame_update(st_savegame_context_ptr context, fixed16_t dt)
 		{
 			case SAVEGAME_MODE_LOAD:
 			{
-				if (savegame_has_savedata(&savegame_slots->slots[context->st_savegame_selected_idx]))
+				if (savegame_has_savedata(&savegame_slots->slots[context->selected_idx]))
 				{
 					audio_sfx_play(resources_find_audioclip(RES__SND_ACCEPT));
 
 					uint32_t parameter = 0;
-					parameter |= context->st_savegame_selected_idx << 1;
+					parameter |= context->selected_idx << 1;
 					state_goto(&st_level, parameter);
 				}
 				else
@@ -313,7 +317,7 @@ void st_savegame_update(st_savegame_context_ptr context, fixed16_t dt)
 
 				audio_sfx_play(resources_find_audioclip(RES__SND_ACCEPT));
 
-				world_savegame(g_main_world, context->st_savegame_screenshot, &savegame_slots->slots[context->st_savegame_selected_idx]);
+				world_savegame(g_main_world, context->st_savegame_screenshot, &savegame_slots->slots[context->selected_idx]);
 				state_pop(~0);
 				break;
 			}
@@ -323,8 +327,8 @@ void st_savegame_update(st_savegame_context_ptr context, fixed16_t dt)
 	{
 		if (key_hit(KI_UP))
 		{
-			if (--context->st_savegame_selected_idx < 0)
-				context->st_savegame_selected_idx = 0;
+			if (--context->selected_idx < 0)
+				context->selected_idx = 0;
 			else
 				audio_sfx_play(resources_find_audioclip(RES__SND_SELECT));
 
@@ -332,8 +336,8 @@ void st_savegame_update(st_savegame_context_ptr context, fixed16_t dt)
 		}
 		if (key_hit(KI_DOWN))
 		{
-			if (++context->st_savegame_selected_idx >= SAVEGAME_SLOT_COUNT)
-				context->st_savegame_selected_idx = SAVEGAME_SLOT_COUNT - 1;
+			if (++context->selected_idx >= SAVEGAME_SLOT_COUNT)
+				context->selected_idx = SAVEGAME_SLOT_COUNT - 1;
 			else
 				audio_sfx_play(resources_find_audioclip(RES__SND_SELECT));
 
