@@ -343,7 +343,7 @@ void world_update(world_ptr world)
 		if (agent->entity_id >= 0)
 		{
 			entity_ptr entity = world_find_entity(world, agent->entity_id);
-			navigation_agent_update(agent, entity);
+			navigation_agent_update(agent, entity);			//	this should happen earlier, should be movement, then presentation (animation) 
 		}
 	}
 
@@ -744,7 +744,7 @@ void world_newgame(world_ptr world, uint16_t resource_id)
 	player->entity.id = 0;
 	player->entity.layer = ~0;
 	player->entity.model_resource_id = resources_find_index_of("mdl/test");
-	player->entity.frame = 0;
+	player->entity.frame_precise = fixed16_zero;
 	mathVector3MakeFromElements(&world->persistent.player.forwards, F16(0), F16(0), F16(0));
 	player->active = 1;
 	//	some function to apply spawn would be useful 

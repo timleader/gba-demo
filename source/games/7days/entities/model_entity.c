@@ -8,19 +8,7 @@
 //-----------------------------------------------------------------------------
 void model_entity_update(entity_ptr entity)
 {
-	/*
-	*	animations just listens to the movement controller and uses the right animation 
-	* 
-		idle   -- 
-		walk   -- have this !!! 
-		run 
-		*creep	-- replaces walk in tense situations
-
-		sit 
-		interact
-
-	*/
-	animation_update(entity);
+	animation_update(entity);		// only appropriate for avatars 
 }
 
 //-----------------------------------------------------------------------------
@@ -43,6 +31,6 @@ void entity_draw(entity_ptr entity, matrix4x4_t* wvp)
 	palette_ptr pal = resources_find_palette(img->palette_id);
 	graphics_write_palette(pal);
 
-	graphics_draw_model(model, entity->animation_id, entity->frame, &M);
+	graphics_draw_model(model, entity->animation_id, fixed16_to_int(entity->frame_precise), &M);
 }
 

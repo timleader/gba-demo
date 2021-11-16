@@ -95,6 +95,8 @@ void graphics_set_resolution(uint8_t width, uint8_t height);
 
 void graphics_set_vsync(uint8_t mode);
 
+uint8_t graphics_get_vsync();
+
 void graphics_bind_rendertarget(rendertarget_ptr render_target);
 
 

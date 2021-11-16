@@ -866,6 +866,20 @@ void graphics_clear(uint8_t color)
 }
 
 //-----------------------------------------------------------------------------
+void graphics_set_vsync(uint8_t mode)
+{
+	//	what are we aiming for 20fps, 30fps, 60fps
+	g_graphics_context.vblank_target = mode;
+}
+
+//-----------------------------------------------------------------------------
+uint8_t graphics_get_vsync()
+{
+	//	what are we aiming for 20fps, 30fps, 60fps
+	return g_graphics_context.vblank_target;
+}
+
+//-----------------------------------------------------------------------------
 rendertarget_ptr rendertarget_new(uint8_t width, uint8_t height, uint8_t memory_sector)
 {
 	rendertarget_ptr render_target = (rendertarget_ptr)memory_allocate(sizeof(rendertarget_t) + (width * height * sizeof(uint8_t)), memory_sector);

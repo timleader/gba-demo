@@ -114,24 +114,19 @@ namespace GBA.Tests
             RunToStateTitle_English();
 
             Assert.That(mGBAEmulator.ReadDebugVariableUInt8("selected_idx") == 0);
-
             mGBAEmulator.PressAndReleaseButton(GBAEmulator.Button.A);
 
             mGBAEmulator.RunUntil(() => mGBAEmulator.ReadDebugVariableString("state_name") == "st_terminal", 200);
-
             mGBAEmulator.RunUntil(() => mGBAEmulator.ReadDebugVariableString("state_name") == "st_video", 2000);
-
             mGBAEmulator.RunUntil(() => mGBAEmulator.ReadDebugVariableString("state_name") == "st_dialogue", 4000);
-
             mGBAEmulator.RunUntil(() => mGBAEmulator.ReadDebugVariableUInt32("world_sequencer_state") == 0, 10000);
             mGBAEmulator.RunUntil(() => mGBAEmulator.ReadDebugVariableInt16("world_sequencer_scheduled_event") == -1, 100);
-
             Assert.That(mGBAEmulator.ReadDebugVariableString("state_name") == "st_level");
             Assert.That(mGBAEmulator.ReadDebugVariableUInt32("world_sequencer_state") == 0);
             Assert.That(mGBAEmulator.ReadDebugVariableInt16("world_sequencer_scheduled_event") == -1);
 
-            mGBAEmulator.PressAndReleaseButton(GBAEmulator.Button.START);
 
+            mGBAEmulator.PressAndReleaseButton(GBAEmulator.Button.START);
             mGBAEmulator.RunUntil(() => mGBAEmulator.ReadDebugVariableString("state_name") == "st_pause", 2000);
 
             Assert.That(mGBAEmulator.ReadDebugVariableUInt8("selected_idx") == 0);

@@ -55,7 +55,8 @@ typedef struct entity_s
 
 	uint16_t model_resource_id;
 	int16_t animation_id;
-	int16_t frame;
+	fixed16_t frame_precise;		//	allows for fractional frame progression 
+
 	int16_t frame_count;
 	
 	uint8_t update_func_id;	//	this whole serialize... --- no wait, it will 

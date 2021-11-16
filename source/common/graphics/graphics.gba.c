@@ -48,13 +48,6 @@ void graphics_initialize()
 }
 
 //-----------------------------------------------------------------------------
-void graphics_set_vsync(uint8_t mode)
-{
-	//	what are we aiming for 20fps, 30fps, 60fps
-	g_graphics_context.vblank_target = mode;
-}
-
-//-----------------------------------------------------------------------------
 IWRAM_CODE void graphics_vsync()
 {
 	//	what do we do if we have over ran ??? let the audio jitter??

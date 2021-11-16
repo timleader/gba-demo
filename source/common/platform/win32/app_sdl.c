@@ -121,14 +121,12 @@ void appSDLPresent(void)
 		GBA Render Emulation
 	*/
 	uint16_t sdlTextureTexelCount = g_graphics_context.width * g_graphics_context.height;
+	uint16_t* dest = sdl_background_texture_data;
+	uint8_t* src = g_graphics_context.frame_pages[g_graphics_context.page_flip];
 
-	for (uint8_t y = 0; y < background_texture_height; ++y)
+	while (sdlTextureTexelCount--)
 	{
-		for (uint8_t x = 0; x < background_texture_width; ++x)
-		{
-			uint16_t idx = x + (y * background_texture_width);
-			sdl_background_texture_data[idx] = g_graphics_palette[g_graphics_context.frame_pages[g_graphics_context.page_flip][idx]];
-		}
+		*dest++ = g_graphics_palette[*src++];
 	}
 
 	memset(sdl_sprite_texture_data, 0, 240 * 160 * sizeof(uint16_t));
