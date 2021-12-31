@@ -150,7 +150,7 @@ void graphics_clear(uint8_t color);
 ///		Dirty Region Tracking
 ///
 
-void graphics_reset_dirty_scanline(void);
+void graphics_reset_dirty_scanlines(void);
 
 ///
 

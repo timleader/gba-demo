@@ -849,7 +849,7 @@ void graphics_pageflip(void)
 }
 
 //-----------------------------------------------------------------------------
-void graphics_reset_dirty_scanline(void)
+void graphics_reset_dirty_scanlines(void)
 {
 	/*
 		currently only works with draw_polygon 

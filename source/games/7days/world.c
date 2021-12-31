@@ -645,7 +645,7 @@ void world_draw(world_ptr world)
 		world->ephermeral.view_rendertarget->frame_buffer + (start * stride),
 		(count * stride) >> 2);
 
-	graphics_reset_dirty_scanline();
+	graphics_reset_dirty_scanlines();
 
 	if (world->ephermeral.active_highlight != NULL)
 	{
