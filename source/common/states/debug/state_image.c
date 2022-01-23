@@ -131,21 +131,6 @@ void st_image_update(st_image_context_ptr context, fixed16_t dt)
 
 		st_image_draw_image(context, context->st_image_resource_id, context->st_image_frame_idx);
 	}
-
-	if (key_hit(KI_UP))
-	{
-		if (++context->vsync_target > 3)
-			context->vsync_target = 3;
-
-		graphics_set_vsync(context->vsync_target);
-	}
-	else if (key_hit(KI_DOWN))
-	{
-		if (--context->vsync_target < 1)
-			context->vsync_target = 1;
-
-		graphics_set_vsync(context->vsync_target);
-	}
 }
 
 //-----------------------------------------------------------------------------
