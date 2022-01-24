@@ -64,8 +64,8 @@ typedef struct image_s
 	uint8_t width;		//	consider bitwise width	//	reduce to int8
 	uint8_t height;
 
-	int16_t palette_id;
-	uint16_t reserved;
+	int16_t palette_id;		//	+1 for backlit ?? 
+	uint16_t reserved;		//	backlit vs non-backlit palette 
 
 	uint16_t frame_count;		//	can be used to treat this as an image_array 
 	uint16_t size;

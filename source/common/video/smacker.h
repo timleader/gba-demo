@@ -6,7 +6,6 @@
 #include "common/utils/ringbuffer.h"
 
 /* data structures */
-#include "smk_hufftree.h"
 #include "smk_hufftree_v5.h"
 
 /** forward-declaration for an struct */
@@ -182,12 +181,5 @@ int8_t smk_seek_keyframe(smacker_handle_ptr object, const uint8_t* output_frameb
 uint32_t smacker_audio_chunk_uncompressed_size(uint8_t* input, uint32_t size);
 
 void smacker_render_audio_s8_mono(ringbuffer_t* output, uint8_t* input, uint32_t size);
-
-#ifndef __GBA__
-
-/** patches the smacker_handle_ptr to v5 */
-smk_output_stream_t* smk_patch(const uint8_t* buffer, uint32_t size);
-
-#endif
 
 #endif

@@ -90,7 +90,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\common\application\argparse.c" />
     <ClCompile Include="..\source\common\collision\collision.c" />
     <ClCompile Include="..\source\common\containers\list.c" />
     <ClCompile Include="..\source\common\containers\sort.win32.c" />
@@ -166,7 +165,6 @@
     <ClCompile Include="..\source\common\utils\timer.c" />
     <ClCompile Include="..\source\common\video\smacker.c" />
     <ClCompile Include="..\source\common\video\smacker.win32.c" />
-    <ClCompile Include="..\source\common\video\smacker.patch.win32.c" />
     <ClCompile Include="..\source\common\video\smk_hufftree.c" />
     <ClCompile Include="..\source\common\video\smk_hufftree_v5.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -204,7 +202,6 @@
     <ClCompile Include="..\source\main.win32.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\source\common\application\argparse.h" />
     <ClInclude Include="..\source\common\audio\audio.h" />
     <ClInclude Include="..\source\common\audio\audio.internal.h" />
     <ClInclude Include="..\source\common\codegen\codegen_armv4.h" />

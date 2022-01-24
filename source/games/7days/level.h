@@ -33,6 +33,8 @@ typedef struct view_s
 	int16_t image_id;
 	int16_t depthmap_id;		//	2 bits per pixel
 
+	//int16_t alt_palettes[2];
+
 	//	have an attribute field to flag if this view requires depth evaluation 
 
 	vector3_t view_position;

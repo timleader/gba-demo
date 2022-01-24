@@ -14,8 +14,6 @@
 #ifndef SMK_HUFFTREE_V5_H
 #define SMK_HUFFTREE_V5_H
 
-#include "smk_hufftree.h"
-
 #include "common/types.h"
 #include "common/utils/bitstream.h"
 

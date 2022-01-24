@@ -68,3 +68,4 @@ dkms.conf
 /tests/obj
 /tests/configuration.yml
 /tests/bin/Debug/netcoreapp3.1
+/gba-demo.sav

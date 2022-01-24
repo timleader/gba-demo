@@ -52,23 +52,11 @@
     <Filter Include="source\common\video">
       <UniqueIdentifier>{b1fbfd30-c049-4462-a008-e935a6a6fb6a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\common\application">
-      <UniqueIdentifier>{295aa30e-166e-4158-9aae-329c4f5b5eec}</UniqueIdentifier>
-    </Filter>
     <Filter Include="source\common\states\debug">
       <UniqueIdentifier>{eafaeede-8df0-443e-9426-a2c53105061a}</UniqueIdentifier>
     </Filter>
     <Filter Include="deps">
       <UniqueIdentifier>{1d5d8920-417d-4c20-849a-bc6ccf95bff1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="deps\SDL2-2.0.1">
-      <UniqueIdentifier>{54acc1d2-ccfd-4fc3-b725-43548cfb5943}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="deps\SDL2-2.0.1\lib">
-      <UniqueIdentifier>{c6b1b417-4e27-411a-8261-c9ba66b60f6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="deps\SDL2-2.0.1\lib\x86">
-      <UniqueIdentifier>{f8bd2bbd-4c39-49d9-990d-9671eb49664b}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\games\7days\widgets">
       <UniqueIdentifier>{4068bf07-9b59-43ca-952a-1f23bd2030ef}</UniqueIdentifier>
@@ -91,8 +79,14 @@
     <Filter Include="source\common\audio">
       <UniqueIdentifier>{9cf371c0-7b6f-4db5-9e0b-e48a7d1f34bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\common\video\patcher">
-      <UniqueIdentifier>{0d63db6e-ae04-4542-af73-39271257e3c8}</UniqueIdentifier>
+    <Filter Include="deps\SDL2-2.0.1">
+      <UniqueIdentifier>{54acc1d2-ccfd-4fc3-b725-43548cfb5943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\SDL2-2.0.1\lib">
+      <UniqueIdentifier>{c6b1b417-4e27-411a-8261-c9ba66b60f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="deps\SDL2-2.0.1\lib\x86">
+      <UniqueIdentifier>{f8bd2bbd-4c39-49d9-990d-9671eb49664b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -146,9 +140,6 @@
     </ClCompile>
     <ClCompile Include="..\source\common\video\smacker.c">
       <Filter>source\common\video</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\common\application\argparse.c">
-      <Filter>source\common\application</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\video\smk_hufftree_v5.c">
       <Filter>source\common\video</Filter>
@@ -390,12 +381,6 @@
     <ClCompile Include="..\source\common\video\smacker.render_audio.c">
       <Filter>source\common\video</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\video\smk_hufftree.c">
-      <Filter>source\common\video\patcher</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\common\video\smacker.patch.win32.c">
-      <Filter>source\common\video\patcher</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\games\7days\states\state_sandbox.c">
       <Filter>source\games\7days\states</Filter>
     </ClCompile>
@@ -419,6 +404,9 @@
     </ClCompile>
     <ClCompile Include="..\source\games\7days\entities\animation.c">
       <Filter>source\games\7days\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smk_hufftree.c">
+      <Filter>source\common\video</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -487,9 +475,6 @@
     </ClInclude>
     <ClInclude Include="..\source\common\video\smacker.h">
       <Filter>source\common\video</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\common\application\argparse.h">
-      <Filter>source\common\application</Filter>
     </ClInclude>
     <ClInclude Include="..\source\common\video\smk_hufftree_v5.h">
       <Filter>source\common\video</Filter>
@@ -594,7 +579,7 @@
       <Filter>source\common\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\source\common\video\smk_hufftree.h">
-      <Filter>source\common\video\patcher</Filter>
+      <Filter>source\common\video</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
