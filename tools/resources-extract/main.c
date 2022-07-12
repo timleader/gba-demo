@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-
+#include <windows.h>
 
 #include "application/argparse.h"
 
@@ -24,7 +24,7 @@ static void print_header(void)
 	printf("| |_\\ \\| |_/ / | | | .___/ / |/ / \n");
 	printf(" \\____/\\____/\\_| |_/ \\____/|___/  \n");
 	printf("\n");
-	printf("smacker video patcher (v4 -> v5)\n");
+	printf("resources extract\n");
 	printf("\n");
 }
 
@@ -32,7 +32,7 @@ int main(int argc, char** argv)
 {
 	print_header();
 
-	const char* input_path = NULL;
+	const char* resource_name = NULL;
 	const char* output_path = NULL;
 
 	static const char* const usage[] =
@@ -46,7 +46,7 @@ int main(int argc, char** argv)
 	{
 		OPT_HELP(),
 		OPT_GROUP("Basic options"),
-		OPT_STRING('i', "input", &input_path, "mode to do"),
+		OPT_STRING('r', "resource", &resource_name, "mode to do"),
 		OPT_STRING('o', "output", &output_path, "mode to do"),
 		OPT_END(),
 	};
@@ -62,32 +62,39 @@ int main(int argc, char** argv)
 	argc = argparse_parse(&argparse, argc, argv);
 
 	  
-	//	Validate Parameter>?? 
-
 	//	core initialization
 	debug_initialize();
 	memory_initialize();
 
-	//Patch file
+	resources_initialize();
+
 	{
-		FILE* infile = fopen(input_path, "rb");
-		fseek(infile, 0, SEEK_END);
-		long fsize = ftell(infile);
-		fseek(infile, 0, SEEK_SET);  /* same as rewind(f); */
+		int32_t resource_idx = -1;
+		for (int32_t id = 0; id < resource_count; ++id)
+		{
+			if (string_compare(resource_name, resources[id].name) == 0)
+			{
+				resource_idx = id;
+				break;
+			}
+		}
 
-		char* data = malloc(fsize);
-		fread(data, 1, fsize, infile);
-		fclose(infile);
+		//	issue: can't extract the last resource as we don't know it's size
 
-		smk_output_stream_t* out_stream = smk_patch(data, fsize);
+		if (resource_idx >= 0)
+		{
+			uint8_t* data = (uint8_t*)(resource_base + resources[resource_idx].offset);
+			int32_t data_size = resources[resource_idx + 1].offset - resources[resource_idx].offset;
 
-		//	write bs to file
-		FILE* outfile = fopen(output_path, "wb");
-		fwrite(out_stream->data_ptr, 1, out_stream->data_size, outfile);
-		fclose(outfile);
-
-		debug_printf(0, "smk_patch end");
+			//	write bs to file
+			FILE* outfile = fopen(output_path, "wb");
+			fwrite(data, 1, data_size, outfile);
+			fclose(outfile);
+		}
 	}
+
+	//	core shutdown
+	resources_shutdown();
 
 	return 0;
 }

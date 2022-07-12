@@ -19,43 +19,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\common\containers\list.c" />
-    <ClCompile Include="..\source\common\containers\sort.win32.c" />
     <ClCompile Include="..\source\common\memory.c" />
     <ClCompile Include="..\source\common\memory.win32.c" />
+    <ClCompile Include="..\source\common\resources\resources.c" />
+    <ClCompile Include="..\source\common\resources\resources.win32.c" />
     <ClCompile Include="..\source\common\string.c" />
-    <ClCompile Include="..\source\common\utils\bitstream.c" />
-    <ClCompile Include="..\source\common\utils\profiler.win32.c" />
-    <ClCompile Include="..\source\common\utils\ringbuffer.c" />
-    <ClCompile Include="..\source\common\video\smacker.c" />
-    <ClCompile Include="..\source\common\video\smacker.render_audio.c" />
-    <ClCompile Include="..\source\common\video\smacker.win32.c" />
-    <ClCompile Include="..\source\common\video\smk_hufftree.c" />
-    <ClCompile Include="..\source\common\video\smk_hufftree_v5.c" />
-    <ClCompile Include="..\tools\smk-patch\application\argparse.c" />
-    <ClCompile Include="..\tools\smk-patch\main.c" />
-    <ClCompile Include="..\tools\smk-patch\video\smk_patch.c" />
+    <ClCompile Include="..\tools\resources-extract\application\argparse.c" />
+    <ClCompile Include="..\tools\resources-extract\main.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\source\common\containers\list.h" />
-    <ClInclude Include="..\source\common\containers\sort.h" />
     <ClInclude Include="..\source\common\memory.h" />
+    <ClInclude Include="..\source\common\resources\resources.h" />
     <ClInclude Include="..\source\common\string.h" />
     <ClInclude Include="..\source\common\types.h" />
-    <ClInclude Include="..\source\common\utils\bitstream.h" />
-    <ClInclude Include="..\source\common\utils\profiler.h" />
-    <ClInclude Include="..\source\common\utils\ringbuffer.h" />
-    <ClInclude Include="..\source\common\video\smacker.h" />
-    <ClInclude Include="..\source\common\video\smk_hufftree.h" />
-    <ClInclude Include="..\source\common\video\smk_hufftree_v5.h" />
-    <ClInclude Include="..\source\common\video\video.h" />
-    <ClInclude Include="..\tools\smk-patch\application\argparse.h" />
-    <ClInclude Include="..\tools\smk-patch\video\smk_patch.h" />
+    <ClInclude Include="..\tools\resources-extract\application\argparse.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{7ccf072e-fa96-4aca-adab-8c5512624a71}</ProjectGuid>
+    <ProjectGuid>{BB06E925-D1A4-45E7-B78F-13AE73F7701B}</ProjectGuid>
     <RootNamespace>smkpatch</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
