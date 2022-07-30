@@ -25,7 +25,9 @@
 #define  RES__INV_ACTIVE_05	28
 #define  RES__INV_ACTIVE_PAL_06	29
 #define  RES__INV_ACTIVE_06	30
+#define  RES__INV_ACTIVE_PAL_06	31
 #define  RES__INV_ACTIVE_07	32
+#define  RES__INV_ACTIVE_PAL_06	33
 #define  RES__INV_ACTIVE_08	34
 #define  RES__INV_INACTIVE_PAL	35
 #define  RES__INV_INACTIVE_01	36
@@ -83,15 +85,14 @@
 #define  RES__SND_DOOR_OPEN	88
 #define  RES__SND_DOOR_CLOSE	89
 #define  RES__VID_INTRO	90
-#define  RES__VID_TEST	91
-#define  RES__VID_INTRO_SEQ	92
-#define  RES__LVL_3_SEQ	93
-#define  RES__TER_1	94
-#define  RES__LVL_2_SEQ	95
-#define  RES__LVL_2	96
-#define  RES__LVL_4	106
-#define  RES__LVL_1	113
-#define  RES__LVL_3	126
+#define  RES__VID_INTRO_SEQ	91
+#define  RES__LVL_3_SEQ	92
+#define  RES__TER_1	93
+#define  RES__LVL_2_SEQ	94
+#define  RES__LVL_2	95
+#define  RES__LVL_4	105
+#define  RES__LVL_1	112
+#define  RES__LVL_3	125
 
 #endif
 

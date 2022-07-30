@@ -69,26 +69,15 @@ int main(int argc, char** argv)
 	resources_initialize();
 
 	{
-		int32_t resource_idx = -1;
-		for (int32_t id = 0; id < resource_count; ++id)
-		{
-			if (string_compare(resource_name, resources[id].name) == 0)
-			{
-				resource_idx = id;
-				break;
-			}
-		}
+		videoclip_ptr video = resource_find_videoclip_from_name(resource_name);
 
 		//	issue: can't extract the last resource as we don't know it's size
 
-		if (resource_idx >= 0)
+		if (video != NULL)
 		{
-			uint8_t* data = (uint8_t*)(resource_base + resources[resource_idx].offset);
-			int32_t data_size = resources[resource_idx + 1].offset - resources[resource_idx].offset;
-
 			//	write bs to file
 			FILE* outfile = fopen(output_path, "wb");
-			fwrite(data, 1, data_size, outfile);
+			fwrite(&video->data[0], 1, video->size, outfile);
 			fclose(outfile);
 		}
 	}
