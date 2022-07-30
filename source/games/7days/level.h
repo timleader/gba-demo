@@ -38,7 +38,7 @@ typedef struct view_s
 	//	have an attribute field to flag if this view requires depth evaluation 
 
 	vector3_t view_position;
-	vector3_t view_forwards;
+	vector3_t view_forwards; 
 
 	matrix4x4_t wvp;
 
