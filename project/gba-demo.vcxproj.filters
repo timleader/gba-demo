@@ -103,6 +103,7 @@
     <None Include="..\source\common\graphics\graphics.clip_polygon.gba.s">
       <Filter>source\common\graphics</Filter>
     </None>
+    <None Include="..\TODO.md" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\games\7days\states\state_play.c">
