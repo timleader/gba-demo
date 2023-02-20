@@ -1,7 +1,7 @@
 
 #include "collision.h"
 
-
+//-----------------------------------------------------------------------------
 vector2_t collisionClosestPointLineSegment(vector2_t point, line_segment_t* line)
 {
 	vector2_t ap;
@@ -25,6 +25,7 @@ vector2_t collisionClosestPointLineSegment(vector2_t point, line_segment_t* line
 	return result;
 }
 
+//-----------------------------------------------------------------------------
 int collisionCheckPointInsideCircle(vector2_t point, circle_t circle)
 {
 	fixed16_t xdiff = circle.center.x - point.x;
@@ -38,6 +39,7 @@ int collisionCheckPointInsideCircle(vector2_t point, circle_t circle)
 		return 0;
 }
 
+//-----------------------------------------------------------------------------
 int collisionCheckPointInsideOBB(vector2_t point, obb_t obb)
 {
 	vector2_t d;
@@ -56,6 +58,7 @@ int collisionCheckPointInsideOBB(vector2_t point, obb_t obb)
 	return 1;
 }
 
+//-----------------------------------------------------------------------------
 vector2_t collisionClosestPointOBB(vector2_t point, obb_t obb)
 {
 	vector2_t result = { fixed16_zero, fixed16_zero };

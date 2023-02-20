@@ -4,6 +4,7 @@
 
 #include "level.h"
 
+//-----------------------------------------------------------------------------
 typedef struct navigation_agent_s
 {
 	int16_t entity_id;
@@ -33,10 +34,13 @@ typedef navigation_agent_t* navigation_agent_ptr;
 	output: 
 		path
 */
+//-----------------------------------------------------------------------------
 void navigation_generate_path(/*world_ptr world, */vector2_t origin, vector2_t destination, path_t* path);
 
+//-----------------------------------------------------------------------------
 void navigation_clear_path(navigation_agent_ptr agent);
 
+//-----------------------------------------------------------------------------
 void navigation_agent_update(navigation_agent_ptr agent, entity_ptr entity);	//	will need access to world when dynamic generated path
 
 
