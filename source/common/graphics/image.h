@@ -32,14 +32,18 @@
 
 typedef uint16_t color555_t;
 
-typedef struct palette_s
+typedef struct palette_s	//	maybe bake both light and dark palettes into one palette 
 {
 	uint8_t id;
-	uint8_t offset;
+	uint8_t offset;			//	this is destination offset, offset at which this should be copied into hardware
 	uint16_t reserved;
 
-	uint16_t size;
+	uint16_t size;			//	size of palette, this only needs to be a uint8_t 
 	uint16_t reserved2;
+
+	//	should store the slice idx between light and dark palette 
+
+	//	should store size of 2nd palette 
 
 	color555_t color555[0];
 

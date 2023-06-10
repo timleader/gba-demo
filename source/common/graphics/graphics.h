@@ -50,6 +50,8 @@ typedef struct graphics_context_s			//	this is more like graphics_context
 
 	span_t frame_dirty_scanline_span;
 
+	//	palette mode 
+
 } graphics_context_t;
 
 //-----------------------------------------------------------------------------

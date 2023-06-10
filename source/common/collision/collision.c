@@ -9,13 +9,9 @@ vector2_t collisionClosestPointLineSegment(vector2_t point, line_segment_t* line
 
 	fixed16_t magnitudeSqr = mathVector2LengthSqr(&line->vector);
 	fixed16_t t = fixed16_mul(ap.x, line->vector.x) + fixed16_mul(ap.y, line->vector.y);
+
 	t = fixed16_div(t, magnitudeSqr);
-
-	if (t < fixed16_zero)
-		t = fixed16_zero;
-
-	if (t >= fixed16_one)
-		t = fixed16_one;
+	t = fixed16_clamp(t, fixed16_zero, fixed16_one);
 
 	vector2_t result;
 	mathVector2ScalarMultiply(&result, &line->vector, t);

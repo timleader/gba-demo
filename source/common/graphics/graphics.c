@@ -16,7 +16,7 @@
 graphics_context_t g_graphics_context;			//IWRAM_DATA 
 
 //	this could all be part of the graphics context 
- image_ptr boundimage = NULL;				//	think about bandwidth for texture sampling  // make this an array
+image_ptr boundimage = NULL;				//	think about bandwidth for texture sampling  // make this an array
 int invertedbitwiseWidth = 11;
 int invertedbitwiseHeight = 11;
 int bitwiseWidth = 5;
