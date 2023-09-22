@@ -39,19 +39,19 @@ void st_modelviewer_update(st_model_context_ptr context, fixed16_t dt)
 
 	if (key_is_down(KI_UP))
 	{
-		context->character_rotation.x -= F16(0.01);
+		context->character_rotation.x -= F16(0.05);
 	}
 	if (key_is_down(KI_DOWN))
 	{
-		context->character_rotation.x += F16(0.01);
+		context->character_rotation.x += F16(0.05);
 	}
 	if (key_is_down(KI_LEFT))
 	{
-		context->character_rotation.y += F16(0.01);
+		context->character_rotation.y += F16(0.05);
 	}
 	if (key_is_down(KI_RIGHT))
 	{
-		context->character_rotation.y -= F16(0.01);
+		context->character_rotation.y -= F16(0.05);
 	}
 
 	if (key_is_down(KI_L))
