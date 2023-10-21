@@ -29,7 +29,7 @@ void entity_draw(entity_ptr entity, matrix4x4_t* wvp)
 
 	//	move this palette write to only happen once 
 	palette_ptr pal = resources_find_palette(img->palette_id);
-	graphics_write_palette(pal);
+	graphics_write_palette(pal);	//	this can't happen here, due to potential conflicts 
 
 	graphics_draw_model(model, entity->animation_id, fixed16_to_int(entity->frame_precise), &M);
 }

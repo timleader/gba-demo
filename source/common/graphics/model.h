@@ -118,6 +118,5 @@ animation_t* model_find_animation_from_name(model_ptr model, const char* name);
 
 int16_t model_find_animation_index_of(model_ptr model, const char* name);
 
-
 #endif // !MODEL_H
 

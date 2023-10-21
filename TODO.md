@@ -1,6 +1,14 @@
 
 ## todo
 
+- State_Model 
+    - better camera controls 
+    - animation playback support 
+    - Model / Texturing improvements
+    - Polygon sorting
+    - rendering optimizations 
+    - floor mesh crash 
+- Create alternative characters 
 
 -------------------------------------
 
