@@ -12,6 +12,8 @@
 #include "common/resources/resources.h"
 #include "common/utils/random1k.h"
 
+#include "package_7days.h"
+
 //-----------------------------------------------------------------------------
 typedef struct st_model_context_s	
 {
@@ -27,6 +29,9 @@ typedef struct st_model_context_s
 
 	int32_t animation_idx;
 	int32_t frame_idx;
+
+	uint8_t panel_id;
+	uint8_t reserved[3];
 
 } st_model_context_t;
 
@@ -158,6 +163,25 @@ void st_modelviewer_enter(st_model_context_ptr context, uint32_t parameter)
 
 	context->animation_idx = 0;
 	context->frame_idx = 0;
+
+
+	palette_ptr ui_palette = resources_find_palette(RES__PAL_UI_DEFAULT);
+	overlay_write_palette(ui_palette);
+
+	context->panel_id = overlay_create_panel(8, 2);
+	point2_t position = { 0, 0 };
+	overlay_set_position(context->panel_id, position);
+
+	overlay_clear(context->panel_id, 0);
+
+	const char* resource_name = resources_get_name(resource_id);
+	overlay_draw_string(context->panel_id, resource_name, 1, position);
+}
+
+//-----------------------------------------------------------------------------
+void st_modelviewer_exit(st_model_context_ptr context)
+{
+	overlay_destroy_panel(context->panel_id);
 }
 
 
@@ -165,7 +189,7 @@ void st_modelviewer_enter(st_model_context_ptr context, uint32_t parameter)
 EWRAM_DATA state_t st_model =
 {
 	(state_enter_func_ptr)st_modelviewer_enter,
-	NULL,
+	(state_exit_func_ptr)st_modelviewer_exit,
 
 	NULL,
 	NULL,
