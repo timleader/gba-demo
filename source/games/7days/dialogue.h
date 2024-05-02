@@ -12,9 +12,12 @@ typedef struct dialogue_entry_s
 
 	struct
 	{
+		//	mask to check if this option is available, checks against persistent data 
+
 		uint16_t text;
 		int16_t next;			//	int16_t so we can support -1 for termination
 								//	next can be next diag id or next sequence id, how do/
+		//	value or bit to set in persistent data
 	}
 	options[1];			//	can we support 6 options ?? 
 

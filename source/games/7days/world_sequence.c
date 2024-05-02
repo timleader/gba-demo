@@ -279,6 +279,8 @@ sequence_completion_mode_t sequence_event_handler_model_entity_spawn(sequence_pl
 
 	//	how do we determine the idx ???
 
+	//	ASSIGN AI BEHAVIOUR -- should this be it's own Event 
+
 	entity_ptr entities = world_current_level(g_main_world)->entities;
 
 	entities[entity_id].id = entity_id;

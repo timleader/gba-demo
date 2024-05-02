@@ -582,6 +582,9 @@
     <ClInclude Include="..\source\common\video\smk_hufftree.h">
       <Filter>source\common\video</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\games\7days\enemy_ai.h">
+      <Filter>source\games\7days</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\deps\SDL2-2.0.1\lib\x86\SDL2.dll">

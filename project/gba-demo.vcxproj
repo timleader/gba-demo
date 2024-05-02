@@ -254,6 +254,7 @@
     <ClInclude Include="..\source\common\video\smk_hufftree_v5.h" />
     <ClInclude Include="..\source\common\video\video.h" />
     <ClInclude Include="..\source\games\7days\dialogue.h" />
+    <ClInclude Include="..\source\games\7days\enemy_ai.h" />
     <ClInclude Include="..\source\games\7days\entities\entity.h" />
     <ClInclude Include="..\source\games\7days\inventory.h" />
     <ClInclude Include="..\source\games\7days\itemstore.h" />
@@ -277,13 +278,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

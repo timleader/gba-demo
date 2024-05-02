@@ -5,6 +5,8 @@
 #include "common/input/input.h"
 
 
+//	refactor to player_ai.h
+
 /*
 
 	idle
