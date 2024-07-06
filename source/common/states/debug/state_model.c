@@ -6,6 +6,7 @@
 #include "common/math/trigonometry.h"
 #include "common/math/point.h"
 #include "common/graphics/graphics.h"
+#include "common/graphics/overlay.h"
 #include "common/graphics/image.h"
 #include "common/graphics/camera.h"
 #include "common/input/input.h"

@@ -2,6 +2,8 @@
 #include "games/7days/entities/entity.h"
 
 #include "common/debug/debug.h"
+#include "common/graphics/graphics.h"
+#include "common/resources/resources.h"
 
 //	movement has already been applied, this is just a presentation layer 
 
@@ -73,10 +75,10 @@ void animation_update(entity_ptr entity)		//	apply this to player and npc
 
 		animation_t* animation = model_find_animation(model, entity->animation_id);
 
-		debug_assert(animation, "animation could not be found");
+		debug_assert(animation != NULL, "animation could not be found");
 
 		entity->frame_precise = fixed16_zero;
-		entity->frame_count = animation->frame_count;
+		entity->frame_count = (int16_t)animation->frame_count;
 	}
 	else
 	{

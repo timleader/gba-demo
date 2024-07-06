@@ -18,9 +18,9 @@ typedef struct bitstream_s
 	const uint32_t* buffer;
 	uint32_t size;
 
-	uint32_t buffer_idx;
+	uint32_t buffer_idx;	//	byte_idx
 
-	uint8_t bit_idx;
+	uint8_t bit_idx;		//	might as well be an usize 
 	uint8_t reserved[3];
 
 	uint32_t value;	//	cache value

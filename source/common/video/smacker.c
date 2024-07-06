@@ -556,6 +556,14 @@ IWRAM_CODE static char smk_render_video(struct smk_video_t* s, const uint16_t* f
 	smk_huff16_v5_reset(s->tree[2]);
 	smk_huff16_v5_reset(s->tree[3]);
 
+	//	possibly, don't use huff16, pre-decompress, 
+
+	//	tree to IWRAM ?? 
+
+	//	lz77 compress chunks, 
+	//		decompress these to EWRAM 
+	//		playback video 
+
 	while (row < s->h)
 	{
 		unpack = smk_huff16_v5_lookup(&bs, s->tree[SMK_TREE_TYPE]);		//	decompress this ahead of time???
@@ -587,7 +595,7 @@ IWRAM_CODE static char smk_render_video(struct smk_video_t* s, const uint16_t* f
 		{
 			skip = (row * pitch) + half_col;
 
-			switch (type)	
+			switch (type)	//	lots of branching assembly code ... 
 			{
 				case 0:	
 					unpack = smk_huff16_v5_lookup(&bs, s->tree[SMK_TREE_MCLR]);

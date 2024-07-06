@@ -149,6 +149,17 @@ void draw_spans(void)
 //-----------------------------------------------------------------------------
 void draw_spans_depth(void)
 {
+	/*
+		This is the wrong approach, we don't need per pixel checks in this manner 
+
+		array of spans instead of ???
+
+		could it be a 1-bit depth map and we just bind the appropriate one
+		this would mean, only need to read depth value every 32 pixel stride 
+			
+		consider making depth test branchless (use a conditional mov or something)
+	*/
+
 	fixed16_t fheight = fixed16_min(_graphics_left_edge.height, _graphics_right_edge.height);	//	one of the edges might continue to be used for the next draw_spans, so heights might be different 
 
 	uint16_t* output_scanline_ptr = g_graphics_context.frame_buffer + (fixed16_to_int(_graphics_left_edge.y) * g_graphics_context.width);		//	output_scanline_ptr is 16-bit wide as VRAM requires writes of 16-bit wide

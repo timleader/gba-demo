@@ -13,7 +13,7 @@
 #include "image.h"
 
 //-----------------------------------------------------------------------------
-graphics_context_t g_graphics_context;			//IWRAM_DATA 
+graphics_context_t g_graphics_context;			//IWRAM_DATA -- put this at a fixed address or patch it in
 
 //	this could all be part of the graphics context 
 image_ptr boundimage = NULL;				//	think about bandwidth for texture sampling  // make this an array
@@ -212,6 +212,10 @@ edge_t _graphics_left_edge, _graphics_right_edge;
 //-----------------------------------------------------------------------------
 IWRAM_CODE void create_edge_and_calculate_deltas(edge_t* edge, vertex_t* v1, vertex_t* v2)
 {
+	//	this seems un-neccessarily heavy
+
+	//	lots of un-neccessary de-referencing
+
 	vertex_t* tv1 = v1;
 	vertex_t* tv2 = v2;
 
@@ -558,7 +562,7 @@ IWRAM_CODE void graphics_draw_model(model_t* model, uint16_t animation_id, uint1
 
 	//debug_printf(DEBUG_LOG_DEBUG, "graphics::draw_model - processed_vertices=0x%x", processed_vertices);
 
-	memory_copy(matrix_working_copy, m, sizeof(matrix4x4_t));
+	memory_copy(matrix_working_copy, m, sizeof(matrix4x4_t));	//	should be able to do a faster copy 
 	fixed16_t* p = (fixed16_t*)matrix_working_copy;
 	for (i = 0; i < 16; ++i)
 		p[i] >>= 6;
@@ -696,6 +700,8 @@ IWRAM_CODE void graphics_draw_model(model_t* model, uint16_t animation_id, uint1
 
 	//	sort and cull polygons	 move to it's own func 
 
+	//		reduce to one allocation, or better yet, none, just have scratch memory
+
 	polygon_t* polygons_to_draw = memory_allocate(sizeof(polygon_t) * 192, MEMORY_EWRAM);	//	linked list might make alot of sense here .
 	polygon_t* polygon_ptr = &polygons_to_draw[0];
 
@@ -746,6 +752,8 @@ IWRAM_CODE void graphics_draw_model(model_t* model, uint16_t animation_id, uint1
 		fixed16_t d = fixed16_mul((polygon_vertices[1].position.x - polygon_vertices[0].position.x), (polygon_vertices[2].position.y - polygon_vertices[0].position.y));
 		d -= fixed16_mul((polygon_vertices[1].position.y - polygon_vertices[0].position.y), (polygon_vertices[2].position.x - polygon_vertices[0].position.x));
 
+		//	triangles might sort better 
+
 		if (d > fixed16_zero)//(fixed16_one << 2))		//should be zero, but increasing this will only remove polygons that are at a sharp angle and probably don't take up many pixlelse
 		{
 			sort_index_t index = { depth_value, polygons_to_draw_idx };
@@ -794,7 +802,7 @@ IWRAM_CODE void graphics_draw_model(model_t* model, uint16_t animation_id, uint1
 
 		polygon_ptr = &polygons_to_draw[(index_ptr++)->idx];
 		
-		draw_polygon(polygon_ptr->v, polygon_ptr->vertex_count);
+		draw_polygon(polygon_ptr->v, polygon_ptr->vertex_count);	//	jumping in and out of this function isn't ideal
 	}
 
 	profiler_end(phandle);

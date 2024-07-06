@@ -78,7 +78,7 @@ draw_spans:
 	ldr r0, =_graphics_right_edge
 	ldmia r0, { r2-r6 }
 	
-	mov r8, r2
+	mov r8, r2								@	these movs seem completely unneeded
 	mov r9, r4
 	mov r1, r6
 
@@ -98,28 +98,27 @@ draw_spans:
 												@ int32_t left_edge_floor_x_int = fixed16_to_int(_graphics_left_edge.x);
 	asr lr, r8, #16								@ int32_t right_edge_floor_x_int = fixed16_to_int(_graphics_right_edge.x);
 	subs lr, lr, r2, asr #16					@ int32_t width = right_edge_floor_x_int - left_edge_floor_x_int;
-	ble .draw_spans.scanline_end
-	@ if (width < 0 && dx is < 0) get out of the whole func 
+	ble .draw_spans.scanline_end				@ if (width < 0 && dx is < 0) get out of the whole func 
 
 
 	sub r3, r1, r6
 
-	ldr r0, =reciprocal_lut				@ fixed16_t[] reciprocal_lut			 
+	ldr r0, =reciprocal_lut						@ fixed16_t[] reciprocal_lut			 
 	lsl r1, lr, #2
-	ldr r0, [r0, r1]				@ fixed16_t overWidth = reciprocal_lut[width];
+	ldr r0, [r0, r1]							@ fixed16_t overWidth = reciprocal_lut[width];
 	
 	asr r3, r3, #8
-	mul r1, r0, r3					@fixed16_t dv = fixed16_mul_approx2(right_edge_v - left_edge_v, overWidth);
+	mul r1, r0, r3								@fixed16_t dv = fixed16_mul_approx2(right_edge_v - left_edge_v, overWidth);
 	
 
 	sub r3, r9, r4
 	asr r3, r3, #8
-	mul r0, r3, r0 					@fixed16_t du = fixed16_mul_approx2(right_edge_u - left_edge_u, overWidth);
+	mul r0, r3, r0 								@fixed16_t du = fixed16_mul_approx2(right_edge_u - left_edge_u, overWidth);
 	
 
 	asr r3, r2, #16
 	asr r5, r3, #1
-	add r11, r11, r5, lsl #1		@uint16_t* output_span_ptr = output_scanline_ptr + (left_edge_floor_x_int >> 1);	
+	add r11, r11, r5, lsl #1					@uint16_t* output_span_ptr = output_scanline_ptr + (left_edge_floor_x_int >> 1);	
 	
 
 .draw_spans.uv_mask_assignment:
@@ -143,8 +142,8 @@ draw_spans:
 	@ r5	= u_bitmask
 	@ r6	= v
 	@ r7	= v_bitmask
-	@ r8	= * - not used
-	@ r9	= *	- not used 
+	@ r8	= * - scratchd
+	@ r9	= *	- scratch 
 	@ r10	= iheight
 	@ r11	= output_span_ptr 
 	@ r12	= texture_data_ptr
