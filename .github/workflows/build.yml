@@ -79,6 +79,8 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '3.1.x'
+      env:
+        PROCESSOR_ARCHITEW6432: x86
         
     - name: write test configuration
       id: write_test_configuration
