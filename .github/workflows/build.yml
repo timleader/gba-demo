@@ -75,12 +75,10 @@ jobs:
       id: restore_nuget
       run: nuget restore ./tests/gba-test.csproj
       
-    - name: dotnet setup
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '3.1.x'
-      env:
-        PROCESSOR_ARCHITEW6432: x86
+    - name: nuget install NUnit.ConsoleRunner
+      id: install_nunit
+      working-directory: tests/
+      run: nuget install NUnit.ConsoleRunner -Version 3.13.0 -DirectDownload -OutputDirectory .
         
     - name: write test configuration
       id: write_test_configuration
@@ -102,7 +100,7 @@ jobs:
     - name: Run Tests
       id: run_tests
       working-directory: tests/
-      run: dotnet test --logger "trx;logfilename=gba-tests_results.trx" --results-directory ./ ./bin/x86/debug/netcoreapp3.1/gba-test.dll 
+      run: ./NUnit.ConsoleRunner.3.13.0/tools/nunit3-console.exe ./bin/x86/debug/netcoreapp3.1/gba-test.dll 
       
     - uses: actions/upload-artifact@v2
       with:
