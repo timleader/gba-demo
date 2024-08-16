@@ -100,7 +100,7 @@ jobs:
     - name: Run Tests
       id: run_tests
       working-directory: tests/
-      run: ./NUnit.ConsoleRunner.3.18.1/tools/nunit3-console.exe ./bin/x86/debug/net5.0/gba-test.dll 
+      run: ./NUnit.ConsoleRunner.3.18.1/tools/nunit3-console.exe ./bin/x86/debug/net6.0/gba-test.dll 
       
     - uses: actions/upload-artifact@v2
       with:
