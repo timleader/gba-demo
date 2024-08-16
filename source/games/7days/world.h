@@ -18,7 +18,7 @@
 
 //-----------------------------------------------------------------------------
 #define WORLD_MODEL_ENTITY_COUNT 4
-#define WORLD_IMAGE_ENTITY_COUNT 8
+#define WORLD_IMAGE_ENTITY_COUNT 8		//	???
 #define WORLD_NAVIGATION_AGENT_COUNT 4
 
 #define WORLD_LEVEL_COUNT 8
@@ -35,6 +35,8 @@ typedef struct level_persistent_s
 	uint16_t reserved;
 
 	entity_t entities[WORLD_MODEL_ENTITY_COUNT];		//	these are just render entities			//	maybe have a pointer to the active levels's entity 
+
+	//	ai state for entities ...
 
 	uint8_t view_state[WORLD_MAX_VIEWS_PER_LEVEL];		//	door open / door closed 
 		//	bit mask to indicate the state of the view and what subview things should be active ... 
@@ -70,7 +72,7 @@ typedef level_persistent_t* level_persistent_ptr;
 //-----------------------------------------------------------------------------
 typedef struct world_persistent_s
 {
-	//	dialogue persistence 
+	//	dialogue persistence -- just x bits, then the dialogue system can bitwise check against this
 
 
 	int16_t ambient_resource_id;

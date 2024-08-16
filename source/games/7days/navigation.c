@@ -6,6 +6,7 @@
 #include "common/containers/list.h"
 
 
+//-----------------------------------------------------------------------------
 void navigation_generate_path(/*world_ptr world, */vector2_t origin, vector2_t destination, path_t* path)
 {
 	/*
@@ -178,11 +179,13 @@ void navigation_generate_path(/*world_ptr world, */vector2_t origin, vector2_t d
 	list_delete(&path_list);
 }
 
+//-----------------------------------------------------------------------------
 void navigation_clear_path(navigation_agent_ptr agent)
 {
 
 }
 
+//-----------------------------------------------------------------------------
 void navigation_agent_update(navigation_agent_ptr agent, entity_ptr entity)	//	will need access to world when dynamic generated path
 {
 	entity->position.x += agent->step_vector.x;

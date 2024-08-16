@@ -101,6 +101,7 @@ void st_savegame_generate_palette_remap(st_savegame_context_ptr context)
 
 		palette_remap[idx] = sum + 1;
 	}
+	palette_delete(graphics_pal);
 }
 
 //-----------------------------------------------------------------------------

@@ -6,11 +6,14 @@
 #include "common/math/trigonometry.h"
 #include "common/math/point.h"
 #include "common/graphics/graphics.h"
+#include "common/graphics/overlay.h"
 #include "common/graphics/image.h"
 #include "common/graphics/camera.h"
 #include "common/input/input.h"
 #include "common/resources/resources.h"
 #include "common/utils/random1k.h"
+
+#include "package_7days.h"
 
 //-----------------------------------------------------------------------------
 typedef struct st_model_context_s	
@@ -25,7 +28,11 @@ typedef struct st_model_context_s
 	model_ptr g_character;
 	image_ptr g_character_img;
 
-	uint32_t frame_idx;
+	int32_t animation_idx;
+	int32_t frame_idx;
+
+	uint8_t panel_id;
+	uint8_t reserved[3];
 
 } st_model_context_t;
 
@@ -39,29 +46,39 @@ void st_modelviewer_update(st_model_context_ptr context, fixed16_t dt)
 
 	if (key_is_down(KI_UP))
 	{
-		context->character_rotation.x -= F16(0.01);
+		context->character_rotation.x -= F16(0.05);
 	}
 	if (key_is_down(KI_DOWN))
 	{
-		context->character_rotation.x += F16(0.01);
+		context->character_rotation.x += F16(0.05);
 	}
 	if (key_is_down(KI_LEFT))
 	{
-		context->character_rotation.y += F16(0.01);
+		context->character_rotation.y += F16(0.05);
 	}
 	if (key_is_down(KI_RIGHT))
 	{
-		context->character_rotation.y -= F16(0.01);
+		context->character_rotation.y -= F16(0.05);
 	}
 
 	if (key_is_down(KI_L))
 	{
-		context->frame_idx--;
+		context->animation_idx--;
+
+		if (context->animation_idx < 0)
+			context->animation_idx = context->g_character->animation_count - 1;
+
+		context->frame_idx = 0;
 	}
 
 	if (key_is_down(KI_R))
 	{
-		context->frame_idx++;
+		context->animation_idx++;
+
+		if (context->animation_idx > context->g_character->animation_count - 1)
+			context->animation_idx = 0;
+
+		context->frame_idx = 0;
 	}
 
 	if (key_hit(KI_B))
@@ -78,6 +95,11 @@ void st_modelviewer_update(st_model_context_ptr context, fixed16_t dt)
 		state_push(&st_analysis, 0);
 	}
 
+	animation_t* animation = model_find_animation(context->g_character, context->animation_idx);
+
+	context->frame_idx++;
+	if (context->frame_idx > animation->frame_count - 1)
+		context->frame_idx = 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -110,7 +132,7 @@ void st_modelviewer_draw(st_model_context_ptr context, fixed16_t dt)
 
 	mathMatrix4x4Multiply(&M, &context->WVP, &M);
 
-	graphics_draw_model(context->g_character, 0, context->frame_idx, &M);
+	graphics_draw_model(context->g_character, (uint16_t)context->animation_idx, (uint16_t)context->frame_idx, &M);
 
 	graphics_pageflip();
 }
@@ -135,12 +157,32 @@ void st_modelviewer_enter(st_model_context_ptr context, uint32_t parameter)
 	mathVector3MakeFromElements(&context->character_rotation, fixed16_mul(fixed16_zero, deg2rad), fixed16_mul(fixed16_from_int(-180), deg2rad), fixed16_zero);
 
 	context->g_character = resources_find_model(resource_id);		
-	context->g_character_img = resources_find_image(4);// context->g_character->image_id);		//	these ids will normally be acquired from a levels resource
+	context->g_character_img = resources_find_image(context->g_character->image_id);	
 
 	palette_ptr pal = resources_find_palette(context->g_character_img->palette_id);
 	graphics_write_palette(pal);
 
+	context->animation_idx = 0;
 	context->frame_idx = 0;
+
+
+	palette_ptr ui_palette = resources_find_palette(RES__PAL_UI_DEFAULT);
+	overlay_write_palette(ui_palette);
+
+	context->panel_id = overlay_create_panel(8, 2);
+	point2_t position = { 0, 0 };
+	overlay_set_position(context->panel_id, position);
+
+	overlay_clear(context->panel_id, 0);
+
+	const char* resource_name = resources_get_name(resource_id);
+	overlay_draw_string(context->panel_id, resource_name, 1, position);
+}
+
+//-----------------------------------------------------------------------------
+void st_modelviewer_exit(st_model_context_ptr context)
+{
+	overlay_destroy_panel(context->panel_id);
 }
 
 
@@ -148,7 +190,7 @@ void st_modelviewer_enter(st_model_context_ptr context, uint32_t parameter)
 EWRAM_DATA state_t st_model =
 {
 	(state_enter_func_ptr)st_modelviewer_enter,
-	NULL,
+	(state_exit_func_ptr)st_modelviewer_exit,
 
 	NULL,
 	NULL,

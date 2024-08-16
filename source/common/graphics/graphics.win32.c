@@ -40,13 +40,6 @@ void graphics_initialize()
 }
 
 //-----------------------------------------------------------------------------
-void graphics_set_vsync(uint8_t mode)
-{
-	//	what are we aiming for 20fps, 30fps, 60fps
-	g_graphics_context.vblank_target = mode;
-}
-
-//-----------------------------------------------------------------------------
 void graphics_vsync()
 {
 	int8_t target_ms = g_graphics_context.vblank_target * 16;

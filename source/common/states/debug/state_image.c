@@ -11,6 +11,8 @@
 
 #include <stdio.h>		//	try to remove this 
 
+#include "package_7days.h"
+
 //-----------------------------------------------------------------------------
 typedef struct st_image_context_s
 {
@@ -81,7 +83,7 @@ void st_image_enter(st_image_context_ptr context, uint32_t parameter)
 	context->st_image_frame_idx = 0;
 
 	//	have a common function for this -??
-	palette_ptr ui_palette = resources_find_palette_from_name("pal/ui/default");
+	palette_ptr ui_palette = resources_find_palette(RES__PAL_UI_DEFAULT);
 	overlay_write_palette(ui_palette);
 
 	context->st_image_panel_id = overlay_create_panel(8, 2);
@@ -130,21 +132,6 @@ void st_image_update(st_image_context_ptr context, fixed16_t dt)
 			context->st_image_frame_idx = 20;
 
 		st_image_draw_image(context, context->st_image_resource_id, context->st_image_frame_idx);
-	}
-
-	if (key_hit(KI_UP))
-	{
-		if (++context->vsync_target > 3)
-			context->vsync_target = 3;
-
-		graphics_set_vsync(context->vsync_target);
-	}
-	else if (key_hit(KI_DOWN))
-	{
-		if (--context->vsync_target < 1)
-			context->vsync_target = 1;
-
-		graphics_set_vsync(context->vsync_target);
 	}
 }
 

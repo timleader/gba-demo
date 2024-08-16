@@ -8,6 +8,8 @@
 #include "games/7days/sequence.h"
 #include "games/7days/states/states.h"
 
+//#define WORLD_DEBUG_DRAW
+
 world_t g_world;	// put this on the heap
 
 world_ptr g_main_world = &g_world;
@@ -63,7 +65,7 @@ void world_initialize(world_ptr world)
 		}
 	}
 
-	world->ephermeral.highlight_timer = timer_start(20, TIMER_MODE_LOOP);
+	world->ephermeral.highlight_timer = timer_start(40, TIMER_MODE_LOOP);
 	world->ephermeral.active_highlight = NULL;
 }
 
@@ -203,9 +205,11 @@ vector2_t world_closestpointonpath(vector2_t point, uint32_t mask)
 	vector2_t currentClosestPoint = { 0, 0 }, tmpDist = { 0, 0 };
 	fixed16_t currentClosestDist = fixed16_maximum;
 
+	//	this is abit brute force, at least limit based on view or something...
+
 	for (uint8_t i = 0; i < g_main_world->ephermeral.numCollision; ++i)
 	{
-		//	use collision mask 
+		//	use collision mask to optimize
 
 		vector2_t closestPoint = collisionClosestPointOBB(point, g_main_world->ephermeral.collision[i].box);
 		if (collisionCheckPointInsideOBB(point, g_main_world->ephermeral.collision[i].box))
@@ -343,7 +347,7 @@ void world_update(world_ptr world)
 		if (agent->entity_id >= 0)
 		{
 			entity_ptr entity = world_find_entity(world, agent->entity_id);
-			navigation_agent_update(agent, entity);
+			navigation_agent_update(agent, entity);			//	this should happen earlier, should be movement, then presentation (animation) 
 		}
 	}
 
@@ -613,6 +617,8 @@ void world_draw(world_ptr world)
 		I don't like this code for entity draw order sorting, it feels messy 
 	*/
 
+	//	can use the existing sorting code 
+
 	for (idx = 1; idx < draw_list_count; ++idx)
 	{
 		if (entity_distance_list[idx - 1] < entity_distance_list[idx])
@@ -645,7 +651,7 @@ void world_draw(world_ptr world)
 		world->ephermeral.view_rendertarget->frame_buffer + (start * stride),
 		(count * stride) >> 2);
 
-	graphics_reset_dirty_scanline();
+	graphics_reset_dirty_scanlines();
 
 	if (world->ephermeral.active_highlight != NULL)
 	{
@@ -659,24 +665,7 @@ void world_draw(world_ptr world)
 
 	profiler_end(phandle);
 
-
-	phandle = profiler_begin("w:d_entites");
-
-	//	model_entity_draw
-	for (idx = 0; idx < draw_list_count; ++idx)
-	{
-		entity_draw(
-			entity_draw_list[idx],
-			&world->ephermeral.views[world->persistent.view_idx].wvp);
-	}
-
-	if (g_graphics_context.frame_dirty_scanline_span.start < g_graphics_context.frame_dirty_scanline_span.end)
-		world->ephermeral.dirty_scanline_span[g_graphics_context.page_flip] = g_graphics_context.frame_dirty_scanline_span;
-
-	profiler_end(phandle);
-
-
-#if WORLD_DEBUG_DRAW
+#ifdef WORLD_DEBUG_DRAW
 
 	fixed16_t ground_y = entity_draw_list[0]->position.y;
 
@@ -698,13 +687,29 @@ void world_draw(world_ptr world)
 		if ((trigger->layer & current_level->layer) > 0)
 		{
 			graphicsDrawWireframeOBB(
-				&trigger->area, 
+				&trigger->area,
 				ground_y,
 				&world->ephermeral.views[world->persistent.view_idx].wvp);
 		}
 	}
 
 #endif
+
+	phandle = profiler_begin("w:d_entites");
+
+	//	model_entity_draw
+	for (idx = 0; idx < draw_list_count; ++idx)
+	{
+		entity_draw(
+			entity_draw_list[idx],
+			&world->ephermeral.views[world->persistent.view_idx].wvp);
+	}
+
+	if (g_graphics_context.frame_dirty_scanline_span.start < g_graphics_context.frame_dirty_scanline_span.end)
+		world->ephermeral.dirty_scanline_span[g_graphics_context.page_flip] = g_graphics_context.frame_dirty_scanline_span;
+
+	profiler_end(phandle);
+
 
 }
 
@@ -744,7 +749,7 @@ void world_newgame(world_ptr world, uint16_t resource_id)
 	player->entity.id = 0;
 	player->entity.layer = ~0;
 	player->entity.model_resource_id = resources_find_index_of("mdl/test");
-	player->entity.frame = 0;
+	player->entity.frame_precise = fixed16_zero;
 	mathVector3MakeFromElements(&world->persistent.player.forwards, F16(0), F16(0), F16(0));
 	player->active = 1;
 	//	some function to apply spawn would be useful 

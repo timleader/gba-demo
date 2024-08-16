@@ -133,6 +133,7 @@ inline palette_ptr resources_find_palette_from_name(const char* name)
 			return resources_find_palette(id);
 		}
 	}
+	debug_assert(0, "palette not found");
 	return 0;
 }
 
@@ -152,6 +153,7 @@ inline image_ptr resources_find_image_from_name(const char* name)
 			return resources_find_image(id);
 		}
 	}
+	debug_assert(0, "image not found");
 	return 0;
 }
 
@@ -171,6 +173,7 @@ inline tiledimage_ptr resources_find_tiledimage_from_name(const char* name)
 			return resources_find_tiledimage(id);
 		}
 	}
+	debug_assert(0, "tiledimage not found");
 	return 0;
 }
 
@@ -204,6 +207,7 @@ inline audioclip_ptr resources_find_audioclip_from_name(const char* name)
 			return resources_find_audioclip(id);
 		}
 	}
+	debug_assert(0, "audioclip not found");
 	return 0;
 }
 
@@ -223,6 +227,7 @@ inline videoclip_ptr resource_find_videoclip_from_name(const char* name)
 			return resource_find_videoclip(id);
 		}
 	}
+	debug_assert(0, "videoclip not found");
 	return 0;
 }
 
@@ -242,6 +247,7 @@ inline stringstore_ptr resources_find_stringstore_fromname(const char* name)
 			return resources_find_stringstore(id);
 		}
 	}
+	debug_assert(0, "stringstore not found");
 	return 0;
 }
 
@@ -261,6 +267,7 @@ inline itemstore_ptr resources_find_itemstore_from_name(const char* name)
 			return resources_find_itemstore(id);
 		}
 	}
+	debug_assert(0, "itemstore not found");
 	return NULL;
 }
 
@@ -282,6 +289,7 @@ inline model_t* resources_find_model_from_name(const char* name)
 			return resources_find_model(id);
 		}
 	}
+	debug_assert(0, "model not found");
 	return 0;
 }
 

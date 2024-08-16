@@ -12,7 +12,6 @@
 #endif
 
 #include "common/platform/win32/app_sdl.h"
-#include "common/application/argparse.h"
 #include "common/graphics/graphics.h"
 #include "common/graphics/overlay.h"
 #include "common/video/smacker.h"
@@ -30,27 +29,6 @@
 #include "games/7days/states/states.h"
 #include "games/7days/itemstore.h"
 
-static const char* const usage[] =
-{
-	"test_argparse [options] [[--] args]",
-	"test_argparse [options]",
-	NULL,
-};
-
-const char* mode = NULL;
-const char* path = NULL;
-
-// headless 
-//	smk_patch, input, output 
-
-struct argparse_option options[] = 
-{
-	OPT_HELP(),
-	OPT_GROUP("Basic options"),
-	OPT_STRING('m', "mode", &mode, "mode to do"),
-	OPT_STRING('p', "path", &path, "mode to do"),
-	OPT_END(),
-};
 
 static void print_header(void)
 {
@@ -69,49 +47,11 @@ int main(int argc, char** argv)
 
 	SDL_SetMainReady();
 
-	//	Args Parsing
-
-	struct argparse argparse;
-	argparse_init(&argparse, options, usage, 0);
-	argparse_describe(
-		&argparse, 
-		"\nA brief description of what the program does and how it works.", 
-		"\nAdditional description of the program after the description of the arguments.");
-	argc = argparse_parse(&argparse, argc, argv);
-
 
 	//	core initialization
 	debug_initialize();
 	memory_initialize();
 	profiler_initialize();
-
-	//	split this out ??? into its own tool file in common
-
-	if (mode != NULL &&
-		string_compare(mode, "smk_patch") == 0)
-	{
-		debug_printf(0, "smk_patch");
-
-		FILE* infile = fopen(path, "rb");
-		fseek(infile, 0, SEEK_END);
-		long fsize = ftell(infile);
-		fseek(infile, 0, SEEK_SET);  /* same as rewind(f); */
-
-		char* data = malloc(fsize);
-		fread(data, 1, fsize, infile);
-		fclose(infile);
-
-		smk_output_stream_t* out_stream = smk_patch(data, fsize);
-
-		//	write bs to file
-		FILE* outfile = fopen("G:/workspace/git/gba3d/data/southpark_small_v5.smk", "wb");
-		fwrite(out_stream->data_ptr, 1, out_stream->data_size, outfile);
-		fclose(outfile);
-
-		debug_printf(0, "smk_patch end");
-
-		return;
-	}
 
 	//	App SDL Initialization
 

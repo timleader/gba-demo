@@ -12,6 +12,7 @@
 #include "common/input/input.h"
 #include "common/math/easing.h"
 
+#include "package_7days.h"
 
 /*
 	TODO: 
@@ -65,7 +66,7 @@ void widget_quickaction_schedule_interaction(widget_quickaction_state_ptr state,
 
 			point2_t dialogue_text_position = { 8 - length, 1 };
 
-			tiledimage_ptr image = resources_find_tiledimage_from_name("ui/border");
+			tiledimage_ptr image = resources_find_tiledimage(RES__UI_BORDER);
 
 			point2_t draw_position = { dialogue_text_position.x, 0 };
 
@@ -152,7 +153,7 @@ void widget_quickaction_initialize(widget_quickaction_state_ptr state)	//	assign
 	
 	overlay_set_position(state->panel_id, g_widget_quickaction_origin);	
 
-	tiledimage_ptr img = resources_find_tiledimage_from_name("ui/btn/a");		
+	tiledimage_ptr img = resources_find_tiledimage(RES__UI_BTN_A);
 	palette_ptr pal = resources_find_palette(img->palette_id);
 	overlay_write_palette(pal);
 

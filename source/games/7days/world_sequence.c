@@ -279,6 +279,8 @@ sequence_completion_mode_t sequence_event_handler_model_entity_spawn(sequence_pl
 
 	//	how do we determine the idx ???
 
+	//	ASSIGN AI BEHAVIOUR -- should this be it's own Event 
+
 	entity_ptr entities = world_current_level(g_main_world)->entities;
 
 	entities[entity_id].id = entity_id;
@@ -288,7 +290,7 @@ sequence_completion_mode_t sequence_event_handler_model_entity_spawn(sequence_pl
 	mathVector3MakeFromElements(&entities[entity_id].rotation, fixed16_zero, g_main_world->ephermeral.spawns[spawn_id].yaw, fixed16_zero);
 
 	entities[entity_id].model_resource_id = model_resource_id;
-	entities[entity_id].frame = 0;
+	entities[entity_id].frame_precise = fixed16_zero;
 
 	return SEQUENCE_COMPLETION_IMMEDIATE;
 }

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{5dd4dee7-1dc9-45bb-9faf-b9b3b6f7eb58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\tools">
+      <UniqueIdentifier>{524672ad-eb68-4dbb-948c-f0106813b36f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\tools\application">
+      <UniqueIdentifier>{87489dea-d342-4315-880b-39089d045c21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\tools\common">
+      <UniqueIdentifier>{42f23d56-7948-421c-8c66-11afe332c4c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\tools\common\resources">
+      <UniqueIdentifier>{0eb43253-54c3-4a97-8356-19f98c9a2d25}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\tools\resources-extract\main.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tools\resources-extract\application\argparse.c">
+      <Filter>source\tools\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\memory.c">
+      <Filter>source\tools\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\memory.win32.c">
+      <Filter>source\tools\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\string.c">
+      <Filter>source\tools\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\resources\resources.c">
+      <Filter>source\tools\common\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\resources\resources.win32.c">
+      <Filter>source\tools\common\resources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\tools\resources-extract\application\argparse.h">
+      <Filter>source\tools\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\memory.h">
+      <Filter>source\tools\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\string.h">
+      <Filter>source\tools\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\types.h">
+      <Filter>source\tools\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\resources\resources.h">
+      <Filter>source\tools\common\resources</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

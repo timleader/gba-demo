@@ -50,6 +50,8 @@ typedef struct graphics_context_s			//	this is more like graphics_context
 
 	span_t frame_dirty_scanline_span;
 
+	//	palette mode 
+
 } graphics_context_t;
 
 //-----------------------------------------------------------------------------
@@ -94,6 +96,8 @@ void graphics_initialize();
 void graphics_set_resolution(uint8_t width, uint8_t height);	
 
 void graphics_set_vsync(uint8_t mode);
+
+uint8_t graphics_get_vsync();
 
 void graphics_bind_rendertarget(rendertarget_ptr render_target);
 
@@ -148,7 +152,7 @@ void graphics_clear(uint8_t color);
 ///		Dirty Region Tracking
 ///
 
-void graphics_reset_dirty_scanline(void);
+void graphics_reset_dirty_scanlines(void);
 
 ///
 

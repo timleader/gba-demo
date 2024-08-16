@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{d21995b6-d6b8-43d1-9cf3-23abc6433d88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\tools">
+      <UniqueIdentifier>{534de75a-fdc7-4919-a522-f1edb6d4869c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\tools\video">
+      <UniqueIdentifier>{3a90837a-5221-40e2-a8e4-a2bea43bf469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\tools\application">
+      <UniqueIdentifier>{07ad16ba-accd-41d6-92dc-eff8f936b196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common">
+      <UniqueIdentifier>{e1ca59fa-92c1-4904-aebe-486f8064ee16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\video">
+      <UniqueIdentifier>{bfbdaeaa-5dfc-4211-b246-6365c8956cfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\utils">
+      <UniqueIdentifier>{85191d23-e02e-47c9-a485-cf9dde32c4d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\common\containers">
+      <UniqueIdentifier>{313c8e50-367b-4ff5-9671-1c80d8f99ae8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\tools\smk-patch\main.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tools\smk-patch\application\argparse.c">
+      <Filter>source\tools\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tools\smk-patch\video\smk_patch.c">
+      <Filter>source\tools\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\memory.c">
+      <Filter>source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\memory.win32.c">
+      <Filter>source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\string.c">
+      <Filter>source\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smacker.c">
+      <Filter>source\common\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smacker.render_audio.c">
+      <Filter>source\common\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smacker.win32.c">
+      <Filter>source\common\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smk_hufftree_v5.c">
+      <Filter>source\common\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\utils\bitstream.c">
+      <Filter>source\common\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\utils\profiler.win32.c">
+      <Filter>source\common\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\utils\ringbuffer.c">
+      <Filter>source\common\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\video\smk_hufftree.c">
+      <Filter>source\common\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\containers\list.c">
+      <Filter>source\common\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\containers\sort.win32.c">
+      <Filter>source\common\containers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\tools\smk-patch\application\argparse.h">
+      <Filter>source\tools\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tools\smk-patch\video\smk_patch.h">
+      <Filter>source\tools\video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\memory.h">
+      <Filter>source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\string.h">
+      <Filter>source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\types.h">
+      <Filter>source\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\video\smacker.h">
+      <Filter>source\common\video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\video\smk_hufftree_v5.h">
+      <Filter>source\common\video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\video\video.h">
+      <Filter>source\common\video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\utils\bitstream.h">
+      <Filter>source\common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\utils\profiler.h">
+      <Filter>source\common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\utils\ringbuffer.h">
+      <Filter>source\common\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\video\smk_hufftree.h">
+      <Filter>source\common\video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\containers\list.h">
+      <Filter>source\common\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\common\containers\sort.h">
+      <Filter>source\common\containers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

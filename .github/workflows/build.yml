@@ -13,7 +13,7 @@ jobs:
 
   build-win32:
     
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
           
     - uses: actions/checkout@v2
@@ -56,7 +56,7 @@ jobs:
     
     needs: build-gba
     
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
           
     - uses: actions/checkout@v2
@@ -75,8 +75,13 @@ jobs:
       id: restore_nuget
       run: nuget restore ./tests/gba-test.csproj
       
+    - name: nuget install NUnit.ConsoleRunner
+      id: install_nunit
+      working-directory: tests/
+      run: nuget install NUnit.ConsoleRunner -Version 3.18.1 -DirectDownload -OutputDirectory .
+        
     - name: write test configuration
-      id: write_test_configuration
+      id: write_test_configuration 
       working-directory: tests/
       run: "echo \"rom_path: D:/a/gba-demo/gba-demo/tests/gba-demo.gba\" > configuration.yml"
 
@@ -95,10 +100,10 @@ jobs:
     - name: Run Tests
       id: run_tests
       working-directory: tests/
-      run: dotnet test --logger "trx;logfilename=gba-tests_results.trx" --results-directory ./ ./bin/x86/debug/netcoreapp3.1/gba-test.dll 
+      run: ./NUnit.ConsoleRunner.3.18.1/tools/nunit3-console.exe ./bin/x86/debug/net6.0/gba-test.dll 
       
     - uses: actions/upload-artifact@v2
       with:
         name: gba-tests_results
-        path: ./tests/gba-tests_results.trx
+        path: ./tests/TestResult.xml
    

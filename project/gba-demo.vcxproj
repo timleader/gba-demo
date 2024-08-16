@@ -88,9 +88,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </None>
+    <None Include="..\TODO.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\common\application\argparse.c" />
     <ClCompile Include="..\source\common\collision\collision.c" />
     <ClCompile Include="..\source\common\containers\list.c" />
     <ClCompile Include="..\source\common\containers\sort.win32.c" />
@@ -166,7 +166,6 @@
     <ClCompile Include="..\source\common\utils\timer.c" />
     <ClCompile Include="..\source\common\video\smacker.c" />
     <ClCompile Include="..\source\common\video\smacker.win32.c" />
-    <ClCompile Include="..\source\common\video\smacker.patch.win32.c" />
     <ClCompile Include="..\source\common\video\smk_hufftree.c" />
     <ClCompile Include="..\source\common\video\smk_hufftree_v5.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -204,7 +203,6 @@
     <ClCompile Include="..\source\main.win32.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\source\common\application\argparse.h" />
     <ClInclude Include="..\source\common\audio\audio.h" />
     <ClInclude Include="..\source\common\audio\audio.internal.h" />
     <ClInclude Include="..\source\common\codegen\codegen_armv4.h" />
@@ -256,6 +254,7 @@
     <ClInclude Include="..\source\common\video\smk_hufftree_v5.h" />
     <ClInclude Include="..\source\common\video\video.h" />
     <ClInclude Include="..\source\games\7days\dialogue.h" />
+    <ClInclude Include="..\source\games\7days\enemy_ai.h" />
     <ClInclude Include="..\source\games\7days\entities\entity.h" />
     <ClInclude Include="..\source\games\7days\inventory.h" />
     <ClInclude Include="..\source\games\7days\itemstore.h" />
@@ -279,13 +278,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

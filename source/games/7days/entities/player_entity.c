@@ -5,6 +5,8 @@
 #include "common/input/input.h"
 
 
+//	refactor to player_ai.h
+
 /*
 
 	idle
@@ -84,4 +86,7 @@ void player_entity_update(player_entity_ptr player)
 	entity->position.x = currentClosestPoint.x;
 	entity->position.z = currentClosestPoint.y;
 
+
+
+	animation_update(entity);
 }

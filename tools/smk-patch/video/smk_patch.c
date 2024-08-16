@@ -1,6 +1,7 @@
 
 
-#include "smacker.h"
+#include "common/video/smacker.h"
+#include "common/video/smk_hufftree.h"
 
 #include "common/memory.h"
 #include "common/debug/debug.h"
@@ -203,9 +204,9 @@ smk_output_stream_t* smk_patch(const uint8_t* buffer, uint32_t size)	//	win32 on
 		tree_sizes[temp_u] = 0;
 		struct smk_huff16_t* tree;
 
-		tree = smk_huff16_build(&bs);
+		tree = smk_huff16_build(&bs);				//	<<-----
 
-		smk_huff8_count_nodes(tree->t, &tree_sizes[temp_u]);
+		smk_huff8_count_nodes(tree->t, &tree_sizes[temp_u]);		///		<<< ---- 
 
 		s->video.tree[temp_u] = memory_allocate(sizeof(smk_huff16_v5_t), MEMORY_DEVELOPMENT);
 

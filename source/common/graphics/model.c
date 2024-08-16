@@ -26,7 +26,7 @@ animation_t* model_find_animation_from_name(model_ptr model, const char* name)
 
 int16_t model_find_animation_index_of(model_ptr model, const char* name)
 {
-	debug_assert(string_length(name) < 12, "model::find_animation_from_name name too long");
+	debug_assert(string_length(name) < 12, "model::find_animation_index_of name too long");
 
 	uint16_t animation_clip_size = sizeof(animation_t) + (model->vertices_count * sizeof(packed_vector3_t));
 
@@ -40,5 +40,6 @@ int16_t model_find_animation_index_of(model_ptr model, const char* name)
 		}
 	}
 
+	debug_assert(0, "model::find_animation_index_of not found");
 	return -1;
 }

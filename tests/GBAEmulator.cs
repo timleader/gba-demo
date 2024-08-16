@@ -16,17 +16,17 @@ namespace GBA.Tests
     public class GBAEmulator
     {
         //---------------------------------------------------------------------
-        public struct DebugVar
+        private struct DebugVar
         {
             public string Name;
             public UInt32 Address;
         }
 
         //---------------------------------------------------------------------
-        public Dictionary<string, DebugVar> mDebugVarList = new Dictionary<string, DebugVar>();
+        private readonly Dictionary<string, DebugVar> mDebugVarList = new Dictionary<string, DebugVar>();
 
         //---------------------------------------------------------------------
-        public void DebugVariable(UInt16 lFlags, string lName, UInt32 lAddress)
+        private void DebugVariable(UInt16 lFlags, string lName, UInt32 lAddress)
         {
             if ((lFlags & 0x01) > 0)
             {
@@ -150,7 +150,6 @@ namespace GBA.Tests
         {
             Assert.Fail("CoreCrashed");
         }
-
 
         //---------------------------------------------------------------------
         private mGBA.Core.CoreStruct mGBACore;

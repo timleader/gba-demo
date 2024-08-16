@@ -18,6 +18,11 @@ typedef enum armv4_register_e
 	armv4_register_r8	= 8,
 	armv4_register_r9	= 9,
 	armv4_register_r10	= 10,
+	armv4_register_r11	= 11,
+	armv4_register_r12	= 12,
+	armv4_register_r13	= 13,
+	armv4_register_r14	= 14,
+	armv4_register_r15	= 15,
 
 } armv4_register_t;
 

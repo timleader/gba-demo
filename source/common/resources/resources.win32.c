@@ -24,7 +24,10 @@ void resources_initialize()
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
 
 	if (file_handle == INVALID_HANDLE_VALUE)	///	this is a fatal error
-		return;
+	{
+		DWORD error_code = GetLastError();
+		exit(1);
+	}
 
 	DWORD high_size;
 	DWORD low_size = GetFileSize(file_handle, &high_size);

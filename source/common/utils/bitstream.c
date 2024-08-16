@@ -5,7 +5,7 @@
 #include "common/memory.h"
 
 
-/* BITSTREAM Functions */
+//-----------------------------------------------------------------------------
 void bitstream_initialize(bitstream_t* bs, const void_ptr ptr, const uint32_t size)
 {
 	uint32_t addr = (uint32_t)ptr;		
@@ -22,6 +22,7 @@ void bitstream_initialize(bitstream_t* bs, const void_ptr ptr, const uint32_t si
 	bs->value = bs->buffer[bs->buffer_idx];
 }
 
+//-----------------------------------------------------------------------------
 IWRAM_CODE uint8_t bitstream_read_1(bitstream_t* bs)	//	should be asm 
 {
 	uint8_t ret = ~0;
@@ -44,6 +45,7 @@ IWRAM_CODE uint8_t bitstream_read_1(bitstream_t* bs)	//	should be asm
 	return ret;
 }
 
+//-----------------------------------------------------------------------------
 IWRAM_CODE uint8_t bitstream_read_8(bitstream_t* bs)
 {
 	uint8_t ret = 0;
@@ -69,6 +71,7 @@ IWRAM_CODE uint8_t bitstream_read_8(bitstream_t* bs)
 	return ret;
 }
 
+//-----------------------------------------------------------------------------
 IWRAM_CODE uint16_t bitstream_read_16(bitstream_t* bs)
 {
 	uint8_t ret = 0;
@@ -93,6 +96,7 @@ IWRAM_CODE uint16_t bitstream_read_16(bitstream_t* bs)
 	return ret;
 }
 
+//-----------------------------------------------------------------------------
 IWRAM_CODE uint32_t bitstream_read_32(bitstream_t* bs)
 {
 	uint32_t ret;
@@ -117,7 +121,7 @@ IWRAM_CODE uint32_t bitstream_read_32(bitstream_t* bs)
 	return ret;
 }
 
-
+//-----------------------------------------------------------------------------
 IWRAM_CODE uint32_t bitstream_peek_32(bitstream_t* bs)
 {
 	uint32_t ret;
@@ -136,6 +140,7 @@ IWRAM_CODE uint32_t bitstream_peek_32(bitstream_t* bs)
 	return ret;
 }
 
+//-----------------------------------------------------------------------------
 IWRAM_CODE void bitstream_move(bitstream_t* bs, uint16_t bit_count)
 {
 	bit_count += bs->bit_idx;

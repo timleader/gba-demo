@@ -75,8 +75,16 @@ audio_mix_samples:
 	@ r12	= _audio_right_buffer
 	@-------------------------- 
 
-
-	@	would be more efficient with mixer buffer in iwram 		
+	@
+	@	would be more efficient with load one or two sample from all channels, do mixing completely in registers then store the result
+	@		this would mean for 4 channels you would only have to do 4 loads and 1 to 2 stores per sample 
+	@		whereas at the moment we do 8 loads and 4 to 8 stores per sample
+	@		
+	@	note the above might remove ability to do sound effects / volume manipulation ? 
+	@
+	@	could just do 2 to 4 channels ago ... 
+	@
+	@	would be more efficient with mixer buffer in iwram 	
 	@	could be a signed / unsigned issue, where things are scaling up too much ...
 
 
