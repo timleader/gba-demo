@@ -81,7 +81,7 @@ jobs:
       run: nuget install NUnit.ConsoleRunner -Version 3.18.1 -DirectDownload -OutputDirectory .
         
     - name: write test configuration
-      id: write_test_configuration
+      id: write_test_configuration 
       working-directory: tests/
       run: "echo \"rom_path: D:/a/gba-demo/gba-demo/tests/gba-demo.gba\" > configuration.yml"
 
