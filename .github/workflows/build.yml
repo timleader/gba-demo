@@ -102,8 +102,11 @@ jobs:
       working-directory: tests/
       run: ./NUnit.ConsoleRunner.3.18.1/tools/nunit3-console.exe ./bin/x86/debug/net6.0/gba-test.dll 
       
-    - uses: actions/upload-artifact@v2
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()    # run this step even if previous step failed
       with:
-        name: gba-tests_results
-        path: ./tests/TestResult.xml
+        name: JEST Tests            # Name of the check run which will be created
+        path: ./tests/TestResult.xml   # Path to test results
+        reporter: jest-junit        # Format of test results
    
