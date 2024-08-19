@@ -75,11 +75,6 @@ jobs:
       id: restore_nuget
       run: nuget restore ./tests/gba-test.csproj
       
-    - name: nuget install NUnit.ConsoleRunner
-      id: install_nunit
-      working-directory: tests/
-      run: nuget install NUnit.ConsoleRunner -Version 3.18.1 -DirectDownload -OutputDirectory .
-        
     - name: write test configuration
       id: write_test_configuration 
       working-directory: tests/
@@ -100,13 +95,13 @@ jobs:
     - name: Run Tests
       id: run_tests
       working-directory: tests/
-      run: ./NUnit.ConsoleRunner.3.18.1/tools/nunit3-console.exe ./bin/x86/debug/net6.0/gba-test.dll 
+      run: dotnet test --logger "trx;logfilename=gba-tests_results.trx" --results-directory ./  ./bin/x86/debug/net6.0/gba-test.dll 
       
     - name: Test Report
       uses: dorny/test-reporter@v1
       if: success() || failure()    # run this step even if previous step failed
       with:
-        name: JEST Tests            # Name of the check run which will be created
-        path: ./tests/TestResult.xml   # Path to test results
-        reporter: jest-junit        # Format of test results
+        name: GBA Tests            # Name of the check run which will be created
+        path: ./tests/gba-tests_results.trx   # Path to test results
+        reporter: dotnet-trx        # Format of test results
    
