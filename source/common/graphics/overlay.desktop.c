@@ -8,11 +8,9 @@
 
 void overlay_initialize(void)
 {
-	//	begin -- windows specific
 	g_overlaybuffer.hw_pal = (color555_t*)memory_allocate(sizeof(color555_t) * 256, MEMORY_DEVELOPMENT);
 	g_overlaybuffer.hw_ovram = (tile_t*)memory_allocate(OVERLAY_OVRAM_SIZE_IN_BYTES, MEMORY_DEVELOPMENT);
 	g_overlaybuffer.hw_oam = (obj_attr_t*)memory_allocate(sizeof(obj_attr_t) * SPRITE_COUNT, MEMORY_DEVELOPMENT);
-	//	end -- windows specific
 
 	//	generalized
 	g_overlaybuffer.ewram_pal = (color555_t*)memory_allocate(sizeof(color555_t) * 256, MEMORY_EWRAM);
@@ -58,9 +56,8 @@ void overlay_shutdown(void)
 }
 
 //	this should be named differently, this should probably be in some hw emulation file ... 
-void overlay_emulate_gba_present(uint16_t* sdlTextureData)	//	don't need to optimize this any further as it is a win32 only thing
+void overlay_emulate_gba_present(uint16_t* sdlTextureData)
 {
-	//	begin -- windows specific (gba sprite hw)
 	obj_attr_t obj_copy;
 	uint16_t obj_idx = 0;
 

@@ -4,15 +4,17 @@
 #include "common/graphics/graphics.h"
 #include "common/graphics/overlay.h"
 
-#include "resource.h"
-
+#ifdef _WIN32
+#include "common/platform/win32/resource.h"
 #include <Windows.h>
+#endif
 
 #include <SDL.h>
 #include <SDL_syswm.h>
 
 SDL_Window* lWindow = NULL;
 SDL_Renderer* lRenderer;
+static bool8_t app_running;
 
 SDL_Texture* background_texture;
 SDL_Texture* sprite_texture;
@@ -33,6 +35,7 @@ extern uint16_t g_graphics_palette[256];
 
 void appSDLSetWindowsIcon(void) 
 {
+#ifdef _WIN32
 	HINSTANCE handle = GetModuleHandle(NULL);
 	HICON icon = LoadIcon(handle, IDI_MAIN_ICON);
 	if (icon != NULL) 
@@ -45,6 +48,7 @@ void appSDLSetWindowsIcon(void)
 			SetClassLong(hwnd, GCL_HICON, (LONG)(icon));
 		}
 	}
+#endif
 }
 
 int8_t appSDLInitialize(void)
@@ -53,7 +57,8 @@ int8_t appSDLInitialize(void)
 
 	uint16_t sprite_texture_width = 240, sprite_texture_height = 160;
 
-	SDL_Init(SDL_INIT_VIDEO);
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
+		return 0;
 
 	lWindow = SDL_CreateWindow("gba-demo", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 	if (lWindow == NULL)
@@ -88,7 +93,20 @@ int8_t appSDLInitialize(void)
 
 	sdl_sprite_texture_data = (uint16_t*)malloc(sprite_texture_width * sprite_texture_height * sizeof(uint16_t));
 
+	if (!sdl_background_texture_data || !sdl_sprite_texture_data)
+		return 0;
+	app_running = TRUE;
 	return 1;
+}
+
+bool8_t appSDLIsRunning(void)
+{
+	return app_running;
+}
+
+void appSDLRequestQuit(void)
+{
+	app_running = FALSE;
 }
 
 void overlay_emulate_gba_present(uint16_t* sdlTextureData);
@@ -113,7 +131,7 @@ void appSDLPresent(void)
 		background_texture = SDL_CreateTexture(lRenderer, SDL_PIXELFORMAT_BGR555, SDL_TEXTUREACCESS_STREAMING, background_texture_width, background_texture_height);
 		if (background_texture == NULL)
 		{
-			return 0;
+			return;
 		}
 	}
 
@@ -159,16 +177,6 @@ void appSDLShutdown(void)
 	free(sdl_background_texture_data);
 	free(sdl_sprite_texture_data);
 
-	if (lRenderer != 0)
-	{
-		SDL_DestroyRenderer(lRenderer);
-	}
-
-	if (lWindow != 0)
-	{
-		SDL_DestroyWindow(lWindow);
-	}
-
 	if (background_texture != 0)
 	{
 		SDL_DestroyTexture(background_texture);
@@ -179,5 +187,8 @@ void appSDLShutdown(void)
 		SDL_DestroyTexture(sprite_texture);
 	}
 
+	SDL_DestroyRenderer(lRenderer);
+	SDL_DestroyWindow(lWindow);
+	app_running = FALSE;
 	SDL_Quit();
 }

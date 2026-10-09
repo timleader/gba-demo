@@ -29,7 +29,7 @@ IWRAM_CODE smk_huff8_v5_t* smk_huff8_v5_build(bitstream_t* bs)
 	int16_list_t b1_parent_offsets;
 	list_new(&b1_parent_offsets, 32, MEMORY_IWRAM);
 
-	debug_assert(bs, "smk_huff8_build: bs is NULL");
+	debug_assert(bs != NULL, "smk_huff8_build: bs is NULL");
 
 	/* Smacker huff trees begin with a set-bit. */
 	bit = bitstream_read_1(bs);

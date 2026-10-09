@@ -1,0 +1,25 @@
+{
+    "version": 4,
+    "configurations": [
+        {
+            "name": "Linux",
+            "compilerPath": "/usr/bin/gcc",
+            "compilerArgs": ["-m32"],
+            "intelliSenseMode": "linux-gcc-x86",
+            "includePath": ["${workspaceFolder}/source", "${workspaceFolder}/data", "/usr/include/SDL2"],
+            "defines": ["DEBUG=1", "PROFILER_ENABLE"],
+            "cStandard": "gnu11",
+            "cppStandard": "c++17"
+        },
+        {
+            "name": "GBA",
+            "compilerPath": "${env:DEVKITARM}/bin/arm-none-eabi-gcc",
+            "compilerArgs": ["-mcpu=arm7tdmi", "-marm"],
+            "intelliSenseMode": "linux-gcc-arm",
+            "includePath": ["${workspaceFolder}/source", "${workspaceFolder}/data", "${workspaceFolder}/build/gba-debug"],
+            "defines": ["__GBA__", "DEBUG=1", "DEBUG_VARS=1", "PROFILER_ENABLE"],
+            "cStandard": "gnu11",
+            "cppStandard": "c++17"
+        }
+    ]
+}

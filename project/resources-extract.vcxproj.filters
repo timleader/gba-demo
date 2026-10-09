@@ -27,7 +27,7 @@
     <ClCompile Include="..\source\common\memory.c">
       <Filter>source\tools\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\memory.win32.c">
+    <ClCompile Include="..\source\common\memory.desktop.c">
       <Filter>source\tools\common</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\string.c">

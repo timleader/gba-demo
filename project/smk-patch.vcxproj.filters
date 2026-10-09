@@ -39,7 +39,7 @@
     <ClCompile Include="..\source\common\memory.c">
       <Filter>source\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\memory.win32.c">
+    <ClCompile Include="..\source\common\memory.desktop.c">
       <Filter>source\common</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\string.c">
@@ -51,7 +51,7 @@
     <ClCompile Include="..\source\common\video\smacker.render_audio.c">
       <Filter>source\common\video</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\video\smacker.win32.c">
+    <ClCompile Include="..\source\common\video\smacker.desktop.c">
       <Filter>source\common\video</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\video\smk_hufftree_v5.c">
@@ -60,7 +60,7 @@
     <ClCompile Include="..\source\common\utils\bitstream.c">
       <Filter>source\common\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\utils\profiler.win32.c">
+    <ClCompile Include="..\source\common\utils\profiler.desktop.c">
       <Filter>source\common\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\utils\ringbuffer.c">
@@ -72,7 +72,7 @@
     <ClCompile Include="..\source\common\containers\list.c">
       <Filter>source\common\containers</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\containers\sort.win32.c">
+    <ClCompile Include="..\source\common\containers\sort.desktop.c">
       <Filter>source\common\containers</Filter>
     </ClCompile>
   </ItemGroup>

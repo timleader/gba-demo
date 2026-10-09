@@ -2,6 +2,9 @@
 .SUFFIXES:
 #---------------------------------------------------------------------------------
 
+PROJECT_ROOT ?= $(CURDIR)
+export PROJECT_ROOT
+
 ifeq ($(strip $(DEVKITARM)),)
 $(error "Please set DEVKITARM in your environment. export DEVKITARM=<path to>devkitARM")
 endif
@@ -9,7 +12,7 @@ endif
 #---------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------
 ifeq ($(strip $(DEVKITPRO)),)
-$(error "Please set DEVKITPRO in your environment. export DEVKITPRO=<path to>devkitPro)
+$(error "Please set DEVKITPRO in your environment. export DEVKITPRO=<path to>devkitPro")
 endif
 
 include $(DEVKITARM)/base_rules
@@ -23,7 +26,7 @@ include $(DEVKITARM)/base_rules
 #---------------------------------------------------------------------------------
 %.elf:
 	@echo linking cartridge
-	@$(LD) $(LDFLAGS) -specs=$(CURDIR)/../gba.specs $(OFILES) $(LIBPATHS) $(LIBS) -o $@
+	@$(LD) $(LDFLAGS) -specs=$(PROJECT_ROOT)/gba.specs $(OFILES) $(LIBPATHS) $(LIBS) -o $@
 
 #---------------------------------------------------------------------------------
 
@@ -39,8 +42,8 @@ include $(DEVKITARM)/base_rules
 # the makefile is found
 #
 #---------------------------------------------------------------------------------
-TARGET		:= $(notdir $(CURDIR))
-BUILD		:= build
+TARGET		:= $(notdir $(PROJECT_ROOT))$(if $(filter 1,$(DEBUG)),-debug)
+BUILD		:= build/gba$(if $(filter 1,$(DEBUG)),-debug)
 SOURCES		:= source
 INCLUDES	:= include
 DATA		:= data
@@ -53,6 +56,8 @@ ARCH	:=	-marm
 #		
 #	fPIC => this does use a .got though			need to remove -g at some point 
 CFLAGS	:= -g -Wall -O3 \
+		-Wno-error=incompatible-pointer-types \
+		-Wno-error=int-conversion -Wno-error=implicit-function-declaration \
 		-mcpu=arm7tdmi -mtune=arm7tdmi \
  		-fomit-frame-pointer \
 		-nostdlib -nodefaultlibs \
@@ -69,7 +74,7 @@ endif
 CFLAGS	+=	$(INCLUDE)
 
 ASFLAGS	:=	-g $(ARCH)
-LDFLAGS	:=	-g $(ARCH) -Wl,-Map,$(notdir $*.map) -T $(CURDIR)/../gba_cart.ld
+LDFLAGS	:=	-g $(ARCH) -Wl,-Map,$(notdir $*.map) -T $(PROJECT_ROOT)/gba_cart.ld
 
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
@@ -82,7 +87,7 @@ LIBS	:=
 #---------------------------------------------------------------------------------
 
 
-ifneq ($(BUILD),$(notdir $(CURDIR)))
+ifeq ($(CURDIR),$(PROJECT_ROOT))
 #---------------------------------------------------------------------------------
  
 export OUTPUT	:=	$(CURDIR)/$(TARGET)
@@ -110,7 +115,7 @@ C_FILES		:=	\
 				common/graphics/camera.c  \
 				common/graphics/graphics.c  \
 				common/graphics/graphics.gba.c  \
-				common/graphics/graphics.clip_polygon.win32.c \
+				common/graphics/graphics.clip_polygon.c \
 				common/graphics/overlay.c  \
 				common/graphics/overlay.gba.c  \
 				common/graphics/text.c \
@@ -215,8 +220,7 @@ export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
  
 #---------------------------------------------------------------------------------
 $(BUILD):
-	@[ -d $@ ] || \
-		mkdir -p $@ && \
+	@mkdir -p $@ && \
 		mkdir -p $@/common/audio && \
 		mkdir -p $@/common/debug && \
 		mkdir -p $@/common/graphics && \
@@ -242,7 +246,7 @@ $(BUILD):
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).gba 
+	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).gba
 
 
 #---------------------------------------------------------------------------------
@@ -271,7 +275,7 @@ $(OFILES_SOURCES) : $(HFILES)
 
 #---------------------------------------------------------------------------------
 
--include $(DEPSDIR)/*.d
+-include $(OFILES_SOURCES:.o=.d)
 
 #---------------------------------------------------------------------------------------
 endif

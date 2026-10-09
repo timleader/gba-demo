@@ -1,0 +1,53 @@
+CC = gcc
+CONFIG ?= debug
+BUILD := build/linux/$(CONFIG)
+TARGET := $(BUILD)/gba-demo
+PKG_CONFIG ?= pkg-config
+PKG_CONFIG_LIBDIR ?= /usr/lib/$(shell $(CC) -m32 -print-multiarch)/pkgconfig:/usr/lib32/pkgconfig:/usr/share/pkgconfig
+SDL_PKG_CONFIG = PKG_CONFIG_LIBDIR="$(PKG_CONFIG_LIBDIR)" $(PKG_CONFIG)
+
+HOST_SOURCES := $(shell find source/common source/games -name '*.c')
+COMMON_SOURCES := $(filter-out %.gba.c %.win32.c %.linux.c %.desktop.c \
+ source/common/platform/% source/common/utils/coroutine.c,$(HOST_SOURCES))
+PLATFORM_SOURCES := $(filter %.desktop.c %.linux.c \
+ source/common/platform/sdl2/% source/common/platform/linux/%,$(HOST_SOURCES))
+SOURCES := $(COMMON_SOURCES) $(PLATFORM_SOURCES) source/main.desktop.c
+ifeq ($(CONFIG),release)
+SOURCES := $(filter-out source/common/debug/debug.desktop.c,$(SOURCES))
+endif
+OBJECTS := $(patsubst source/%.c,$(BUILD)/%.o,$(SOURCES))
+
+CPPFLAGS += -Isource -Idata $(shell $(SDL_PKG_CONFIG) --cflags sdl2 2>/dev/null)
+CFLAGS += -std=gnu11 -Wall -Wextra -g -O2 -fno-strict-aliasing
+override CFLAGS += -m32
+override LDFLAGS += -m32
+LDLIBS += $(shell $(SDL_PKG_CONFIG) --libs sdl2 2>/dev/null) -lm
+ifeq ($(CONFIG),debug)
+CPPFLAGS += -DDEBUG=1 -DPROFILER_ENABLE
+else ifneq ($(CONFIG),release)
+$(error CONFIG must be debug or release)
+endif
+
+.PHONY: all run clean check-deps
+all: $(TARGET)
+
+check-deps:
+	@printf 'int main(void) { return 0; }\n' | $(CC) -m32 -x c - -o /dev/null >/dev/null 2>&1 || \
+		{ echo "Install the 32-bit GCC development runtime (e.g. gcc-multilib on Debian/Ubuntu)." >&2; exit 1; }
+	@$(SDL_PKG_CONFIG) --exists sdl2 || \
+		{ echo "Install 32-bit SDL2 development headers/libraries (e.g. libsdl2-dev:i386); override PKG_CONFIG_LIBDIR if needed." >&2; exit 1; }
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
+
+$(BUILD)/%.o: source/%.c Makefile.linux | check-deps
+	@mkdir -p $(dir $@)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -c $< -o $@
+
+run: $(TARGET)
+	./$(TARGET)
+
+clean:
+	rm -rf build/linux
+
+-include $(OBJECTS:.o=.d)

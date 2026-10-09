@@ -14,7 +14,7 @@ void list_new(int16_list_ptr list, uint16_t initial_capacity, uint8_t memory_sec
 
 void list_delete(int16_list_ptr list)
 {
-	debug_assert(list->data, "list:delete was called on an uninitialized list");
+	debug_assert(list->data != NULL, "list:delete was called on an uninitialized list");
 
 	memory_free(list->data);
 

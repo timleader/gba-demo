@@ -4,14 +4,22 @@
 
 #include "common/types.h"
 
+#ifdef __linux__
+#include <ucontext.h>
+#else
 #include <setjmp.h>
+#endif
 
 /*
 	Limitation: no support for nested coroutines
 */
 
 //-----------------------------------------------------------------------------
-#define COROUTINE_STACK_SIZE 4096	//	debug_printf consumes a crazy amount 
+#ifdef __linux__
+#define COROUTINE_STACK_SIZE 65536
+#else
+#define COROUTINE_STACK_SIZE 4096	//	debug_printf consumes a crazy amount
+#endif
 
 //-----------------------------------------------------------------------------
 typedef void(*coroutine_func_ptr)(void_ptr arg);
@@ -22,7 +30,12 @@ typedef struct coroutine_s
 	coroutine_func_ptr func;
 	void_ptr arg;
 
-	jmp_buf registers[2];			
+#ifdef __linux__
+	ucontext_t contexts[2];
+	bool8_t finished;
+#else
+	jmp_buf registers[2];
+#endif
 
 	uint8_t stack[COROUTINE_STACK_SIZE];
 

@@ -16,7 +16,11 @@ FILE* g_debug_log_file;
 //-----------------------------------------------------------------------------
 void debug_initialize(void)
 {
+#ifdef _WIN32
 	g_debug_log_file = fopen("../log.txt", "w+");
+#else
+	g_debug_log_file = fopen("build/linux/log.txt", "w+");
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -41,10 +45,14 @@ void debug_printf(uint8_t level, const char* format, ...)
 	va_list args;
 	va_start(args, format);
 	{
-		vprintf(format, args);
-
 		if (g_debug_log_file)
-			vfprintf(g_debug_log_file, format, args);
+		{
+			va_list file_args;
+			va_copy(file_args, args);
+			vfprintf(g_debug_log_file, format, file_args);
+			va_end(file_args);
+		}
+		vprintf(format, args);
 	}
 	va_end(args);
 
@@ -63,7 +71,11 @@ void debug_assert(int32_t condition, const char* message)
 	if (!condition)
 	{
 		debug_printf(DEBUG_LOG_FATAL, "debug::assert - failed : %s", message);
-		__debugbreak();		
+#ifdef _WIN32
+		__debugbreak();
+#else
+		assert(condition);
+#endif
 		//	if release, then this shouldn't exist... 
 	}
 }

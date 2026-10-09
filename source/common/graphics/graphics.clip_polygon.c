@@ -61,7 +61,7 @@ IWRAM_CODE uint8_t clip_polygon_right_edge(vertex_t* src, vertex_t* dest, uint8_
 
 			new_vertex_idx++;
 
-			mathVector3Copy(&new_vertices[new_vertex_idx].position, &k_v->position);
+			mathVector3Copy((vector3_t*)&new_vertices[new_vertex_idx].position, (const vector3_t*)&k_v->position);
 			mathVector2Copy(&new_vertices[new_vertex_idx].uv, &k_v->uv);
 			new_vertex_idx++;
 
@@ -71,7 +71,7 @@ IWRAM_CODE uint8_t clip_polygon_right_edge(vertex_t* src, vertex_t* dest, uint8_
 			k_v->position.x >= x_clip_value)	// Case 3: When only second point is outside
 		{
 			vector2_t polygon_delta;
-			mathVector2Substract(&polygon_delta, &k_v->position, &i_v->position);
+			mathVector2Substract(&polygon_delta, (const vector2_t*)&k_v->position, (const vector2_t*)&i_v->position);
 			fixed16_t original_x_diff = polygon_delta.x;
 
 			fixed16_t scale_factor = fixed16_div(fixed16_one, polygon_delta.x);			//	lut is possible here
@@ -126,7 +126,7 @@ IWRAM_CODE uint8_t clip_polygon_left_edge(vertex_t* src, vertex_t* dest, uint8_t
 		if (i_v->position.x > x_clip_value &&
 			k_v->position.x > x_clip_value)
 		{
-			mathVector3Copy(&new_vertices[new_vertex_idx].position, &k_v->position);
+			mathVector3Copy((vector3_t*)&new_vertices[new_vertex_idx].position, (const vector3_t*)&k_v->position);
 			mathVector2Copy(&new_vertices[new_vertex_idx].uv, &k_v->uv);
 			new_vertex_idx++;
 		}
@@ -136,7 +136,7 @@ IWRAM_CODE uint8_t clip_polygon_left_edge(vertex_t* src, vertex_t* dest, uint8_t
 		{
 			//	over clipping 
 			vector2_t polygon_delta;
-			mathVector2Substract(&polygon_delta, &k_v->position, &i_v->position);
+			mathVector2Substract(&polygon_delta, (const vector2_t*)&k_v->position, (const vector2_t*)&i_v->position);
 			fixed16_t original_x_diff = polygon_delta.x;
 
 			fixed16_t scale_factor = fixed16_div(fixed16_one, polygon_delta.x);			//	lut is possible here
@@ -160,7 +160,7 @@ IWRAM_CODE uint8_t clip_polygon_left_edge(vertex_t* src, vertex_t* dest, uint8_t
 
 			new_vertex_idx++;
 
-			mathVector3Copy(&new_vertices[new_vertex_idx].position, &k_v->position);
+			mathVector3Copy((vector3_t*)&new_vertices[new_vertex_idx].position, (const vector3_t*)&k_v->position);
 			mathVector2Copy(&new_vertices[new_vertex_idx].uv, &k_v->uv);
 			new_vertex_idx++;
 
@@ -170,7 +170,7 @@ IWRAM_CODE uint8_t clip_polygon_left_edge(vertex_t* src, vertex_t* dest, uint8_t
 			k_v->position.x < x_clip_value)	// Case 3: When only second point is outside
 		{
 			vector2_t polygon_delta;
-			mathVector2Substract(&polygon_delta, &k_v->position, &i_v->position);
+			mathVector2Substract(&polygon_delta, (const vector2_t*)&k_v->position, (const vector2_t*)&i_v->position);
 			fixed16_t original_x_diff = polygon_delta.x;
 
 			fixed16_t scale_factor = fixed16_div(fixed16_one, polygon_delta.x);			//	lut is possible here
@@ -225,7 +225,7 @@ IWRAM_CODE uint8_t clip_polygon_top_edge(vertex_t* src, vertex_t* dest, uint8_t 
 		if (i_v->position.y > y_clip_value &&
 			k_v->position.y > y_clip_value)
 		{
-			mathVector3Copy(&new_vertices[new_vertex_idx].position, &k_v->position);
+			mathVector3Copy((vector3_t*)&new_vertices[new_vertex_idx].position, (const vector3_t*)&k_v->position);
 			mathVector2Copy(&new_vertices[new_vertex_idx].uv, &k_v->uv);
 			new_vertex_idx++;
 		}
@@ -235,7 +235,7 @@ IWRAM_CODE uint8_t clip_polygon_top_edge(vertex_t* src, vertex_t* dest, uint8_t 
 		{
 			//	over clipping 
 			vector2_t polygon_delta;
-			mathVector2Substract(&polygon_delta, &k_v->position, &i_v->position);
+			mathVector2Substract(&polygon_delta, (const vector2_t*)&k_v->position, (const vector2_t*)&i_v->position);
 			fixed16_t original_y_diff = polygon_delta.y;
 
 			fixed16_t scale_factor = fixed16_div(fixed16_one, polygon_delta.y);			//	lut is possible here
@@ -259,7 +259,7 @@ IWRAM_CODE uint8_t clip_polygon_top_edge(vertex_t* src, vertex_t* dest, uint8_t 
 
 			new_vertex_idx++;
 
-			mathVector3Copy(&new_vertices[new_vertex_idx].position, &k_v->position);
+			mathVector3Copy((vector3_t*)&new_vertices[new_vertex_idx].position, (const vector3_t*)&k_v->position);
 			mathVector2Copy(&new_vertices[new_vertex_idx].uv, &k_v->uv);
 			new_vertex_idx++;
 
@@ -269,7 +269,7 @@ IWRAM_CODE uint8_t clip_polygon_top_edge(vertex_t* src, vertex_t* dest, uint8_t 
 			k_v->position.y < y_clip_value)	// Case 3: When only second point is outside
 		{
 			vector2_t polygon_delta;
-			mathVector2Substract(&polygon_delta, &k_v->position, &i_v->position);
+			mathVector2Substract(&polygon_delta, (const vector2_t*)&k_v->position, (const vector2_t*)&i_v->position);
 			fixed16_t original_y_diff = polygon_delta.y;
 
 			fixed16_t scale_factor = fixed16_div(fixed16_one, polygon_delta.y);			//	lut is possible here
@@ -323,7 +323,7 @@ IWRAM_CODE uint8_t clip_polygon_bottom_edge(vertex_t* src, vertex_t* dest, uint8
 		if (i_v->position.y < y_clip_value &&
 			k_v->position.y < y_clip_value)
 		{
-			mathVector3Copy(&new_vertices[new_vertex_idx].position, &k_v->position);
+			mathVector3Copy((vector3_t*)&new_vertices[new_vertex_idx].position, (const vector3_t*)&k_v->position);
 			mathVector2Copy(&new_vertices[new_vertex_idx].uv, &k_v->uv);
 			new_vertex_idx++;
 		}
@@ -333,7 +333,7 @@ IWRAM_CODE uint8_t clip_polygon_bottom_edge(vertex_t* src, vertex_t* dest, uint8
 		{
 			//	over clipping 
 			vector2_t polygon_delta;
-			mathVector2Substract(&polygon_delta, &k_v->position, &i_v->position);
+			mathVector2Substract(&polygon_delta, (const vector2_t*)&k_v->position, (const vector2_t*)&i_v->position);
 			fixed16_t original_y_diff = polygon_delta.y;
 
 			fixed16_t scale_factor = fixed16_div(fixed16_one, polygon_delta.y);			//	lut is possible here
@@ -357,7 +357,7 @@ IWRAM_CODE uint8_t clip_polygon_bottom_edge(vertex_t* src, vertex_t* dest, uint8
 
 			new_vertex_idx++;
 
-			mathVector3Copy(&new_vertices[new_vertex_idx].position, &k_v->position);
+			mathVector3Copy((vector3_t*)&new_vertices[new_vertex_idx].position, (const vector3_t*)&k_v->position);
 			mathVector2Copy(&new_vertices[new_vertex_idx].uv, &k_v->uv);
 			new_vertex_idx++;
 
@@ -367,7 +367,7 @@ IWRAM_CODE uint8_t clip_polygon_bottom_edge(vertex_t* src, vertex_t* dest, uint8
 			k_v->position.y >= y_clip_value)	// Case 3: When only second point is outside
 		{
 			vector2_t polygon_delta;
-			mathVector2Substract(&polygon_delta, &k_v->position, &i_v->position);
+			mathVector2Substract(&polygon_delta, (const vector2_t*)&k_v->position, (const vector2_t*)&i_v->position);
 			fixed16_t original_y_diff = polygon_delta.y;
 
 			fixed16_t scale_factor = fixed16_div(fixed16_one, polygon_delta.y);			//	lut is possible here

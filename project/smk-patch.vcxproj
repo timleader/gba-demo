@@ -20,16 +20,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\common\containers\list.c" />
-    <ClCompile Include="..\source\common\containers\sort.win32.c" />
+    <ClCompile Include="..\source\common\containers\sort.desktop.c" />
     <ClCompile Include="..\source\common\memory.c" />
-    <ClCompile Include="..\source\common\memory.win32.c" />
+    <ClCompile Include="..\source\common\memory.desktop.c" />
     <ClCompile Include="..\source\common\string.c" />
     <ClCompile Include="..\source\common\utils\bitstream.c" />
-    <ClCompile Include="..\source\common\utils\profiler.win32.c" />
+    <ClCompile Include="..\source\common\utils\profiler.desktop.c" />
     <ClCompile Include="..\source\common\utils\ringbuffer.c" />
     <ClCompile Include="..\source\common\video\smacker.c" />
     <ClCompile Include="..\source\common\video\smacker.render_audio.c" />
-    <ClCompile Include="..\source\common\video\smacker.win32.c" />
+    <ClCompile Include="..\source\common\video\smacker.desktop.c" />
     <ClCompile Include="..\source\common\video\smk_hufftree.c" />
     <ClCompile Include="..\source\common\video\smk_hufftree_v5.c" />
     <ClCompile Include="..\tools\smk-patch\application\argparse.c" />

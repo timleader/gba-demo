@@ -10,6 +10,9 @@ int8_t appSDLInitialize(void);
 
 void appSDLPresent(void);
 
+bool8_t appSDLIsRunning(void);
+void appSDLRequestQuit(void);
+
 void appSDLShutdown(void);
 
 #endif

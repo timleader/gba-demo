@@ -4,7 +4,7 @@
 #include "common/debug/debug.h"
 #include "common/platform/gba/gba.h"
 
-#ifdef _WIN32   
+#ifndef __GBA__
 #include <stdlib.h>
 #endif
 
@@ -89,7 +89,7 @@ void_ptr memory_allocate(uint32_t size_in_bytes, uint8_t section)
     if (size_in_bytes & 3)
         size_in_bytes = 4 * ((size_in_bytes / 4) + 1);
 
-#ifdef _WIN32    //  if Windows
+#ifndef __GBA__
 
     //debug_printf(DEBUG_LOG_INFO, "memory::allocate size_in_bytes=%u, section=%u", size_in_bytes, section);
 
@@ -175,7 +175,7 @@ void memory_free(void_ptr ptr)  //  double freeing ??
     {
         int8_t section = memory_determine_section(ptr);
 
-#ifdef _WIN32   
+#ifndef __GBA__
         if (section == -1)
         {
             free(ptr);

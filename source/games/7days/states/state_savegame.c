@@ -13,6 +13,8 @@
 
 #include "package_7days.h"
 
+#include <stdio.h>
+
 //	mode, load / save
 
 //-----------------------------------------------------------------------------
@@ -105,8 +107,9 @@ void st_savegame_generate_palette_remap(st_savegame_context_ptr context)
 }
 
 //-----------------------------------------------------------------------------
-void st_savegame_create_screenshot_coroutine(st_savegame_context_ptr context)
+void st_savegame_create_screenshot_coroutine(void_ptr arg)
 {
+	st_savegame_context_ptr context = (st_savegame_context_ptr)arg;
 	uint8_t* src = 0;
 	uint8_t* palette_remap = context->palette_remap;
 

@@ -5,16 +5,16 @@
 
 #ifdef PROFILER_ENABLE
 
-#include <windows.h>
+#include <SDL.h>
 
 
-LARGE_INTEGER g_frequency;
+uint64_t g_frequency;
 
 typedef struct profiler_timer_s
 {
 	char label[PROFILER_MAX_LABEL_LENGTH];
 	uint8_t in_use;
-	LARGE_INTEGER start_time;
+	uint64_t start_time;
 
 } profiler_perf_timer_t;
 
@@ -27,7 +27,7 @@ uint32_t g_profiler_entries_cursor;
 
 void profiler_initialize(void)
 {
-	QueryPerformanceFrequency(&g_frequency);
+	g_frequency = SDL_GetPerformanceFrequency();
 
 	for (uint16_t i = 0; i < PROFILER_MAX_CONCURRENT; ++i)
 		g_profiler_timers[i].in_use = 0x00;
@@ -65,7 +65,7 @@ profiler_sample_handle_t profiler_begin(const char* label)
 	}
 	g_profiler_timers[handle].label[PROFILER_MAX_LABEL_LENGTH - 1] = 0x00;
 
-	QueryPerformanceCounter(&g_profiler_timers[handle].start_time);
+	g_profiler_timers[handle].start_time = SDL_GetPerformanceCounter();
 
 	return handle;
 }
@@ -75,16 +75,12 @@ void profiler_end(profiler_sample_handle_t handle)
 	if (!PROFILER_IS_VALID_HANDLE(handle))
 		return;
 
-	LARGE_INTEGER end_time, elapsed_micro;
-	QueryPerformanceCounter(&end_time);
-	elapsed_micro.QuadPart = end_time.QuadPart - g_profiler_timers[handle].start_time.QuadPart;
-
-	elapsed_micro.QuadPart *= 1000000;
-	elapsed_micro.QuadPart /= g_frequency.QuadPart;
+	uint64_t elapsed_micro = SDL_GetPerformanceCounter() - g_profiler_timers[handle].start_time;
+	elapsed_micro = elapsed_micro * 1000000 / g_frequency;
 
 	for (uint16_t i = 0; i < PROFILER_MAX_LABEL_LENGTH - 1; ++i)
 		g_profiler_entries[g_profiler_entries_cursor].label[i] = g_profiler_timers[handle].label[i];
-	g_profiler_entries[g_profiler_entries_cursor].value = (uint32_t)elapsed_micro.QuadPart;
+	g_profiler_entries[g_profiler_entries_cursor].value = (uint32_t)elapsed_micro;
 
 	g_profiler_timers[handle].in_use = 0x00;
 

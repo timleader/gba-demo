@@ -40,6 +40,9 @@
     <Filter Include="source\common\platform\win32">
       <UniqueIdentifier>{8b4ffc2c-1cee-4c87-93cd-bc359bcd2ca8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\common\platform\sdl2">
+      <UniqueIdentifier>{69a3bb2a-13b7-46e0-bc18-4fc39d6a3e29}</UniqueIdentifier>
+    </Filter>
     <Filter Include="source\common\states">
       <UniqueIdentifier>{32aa8ce5-5345-4f85-9a02-f781b4b7cdc8}</UniqueIdentifier>
     </Filter>
@@ -145,7 +148,10 @@
     <ClCompile Include="..\source\common\video\smk_hufftree_v5.c">
       <Filter>source\common\video</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\platform\win32\app_sdl.c">
+    <ClCompile Include="..\source\common\platform\sdl2\app_sdl.c">
+      <Filter>source\common\platform\sdl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\common\platform\win32\app_sdl.win32.c">
       <Filter>source\common\platform\win32</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\utils\timer.c">
@@ -265,16 +271,16 @@
     <ClCompile Include="..\source\common\graphics\graphics.gba.c">
       <Filter>source\common\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\graphics\graphics.win32.c">
+    <ClCompile Include="..\source\common\graphics\graphics.desktop.c">
       <Filter>source\common\graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\source\main.gba.c">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\main.win32.c">
+    <ClCompile Include="..\source\main.desktop.c">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\graphics\overlay.win32.c">
+    <ClCompile Include="..\source\common\graphics\overlay.desktop.c">
       <Filter>source\common\graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\graphics\overlay.gba.c">
@@ -283,19 +289,19 @@
     <ClCompile Include="..\source\common\memory.gba.c">
       <Filter>source\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\memory.win32.c">
+    <ClCompile Include="..\source\common\memory.desktop.c">
       <Filter>source\common</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\debug\debug.gba.c">
       <Filter>source\common\debug</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\debug\debug.win32.c">
+    <ClCompile Include="..\source\common\debug\debug.desktop.c">
       <Filter>source\common\debug</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\input\input.gba.c">
       <Filter>source\common\input</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\input\input.win32.c">
+    <ClCompile Include="..\source\common\input\input.desktop.c">
       <Filter>source\common\input</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\savegame\savegame.gba.c">
@@ -310,7 +316,7 @@
     <ClCompile Include="..\source\common\resources\resources.win32.c">
       <Filter>source\common\resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\utils\profiler.win32.c">
+    <ClCompile Include="..\source\common\utils\profiler.desktop.c">
       <Filter>source\common\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\utils\profiler.gba.c">
@@ -319,7 +325,7 @@
     <ClCompile Include="..\source\common\containers\sort.gba.s">
       <Filter>source\common\containers</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\containers\sort.win32.c">
+    <ClCompile Include="..\source\common\containers\sort.desktop.c">
       <Filter>source\common\containers</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\graphics\graphics.create_edge_and_calculate_deltas.gba.s">
@@ -328,7 +334,7 @@
     <ClCompile Include="..\source\common\graphics\graphics.draw_spans.depth.gba.s">
       <Filter>source\common\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\video\smacker.win32.c">
+    <ClCompile Include="..\source\common\video\smacker.desktop.c">
       <Filter>source\common\video</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\video\smacker.render_video.gba.s">
@@ -352,10 +358,10 @@
     <ClCompile Include="..\source\common\audio\audio.mixer.gba.c">
       <Filter>source\common\audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\audio\audio.mixer.win32.c">
+    <ClCompile Include="..\source\common\audio\audio.mixer.desktop.c">
       <Filter>source\common\audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\compression\lz77.win32.c">
+    <ClCompile Include="..\source\common\compression\lz77.desktop.c">
       <Filter>source\common\compression</Filter>
     </ClCompile>
     <ClCompile Include="..\source\common\audio\audio.sfx.c">
@@ -391,10 +397,10 @@
     <ClCompile Include="..\source\common\graphics\model.c">
       <Filter>source\common\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\graphics\graphics.draw_spans.win32.c">
+    <ClCompile Include="..\source\common\graphics\graphics.draw_spans.desktop.c">
       <Filter>source\common\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\common\graphics\graphics.clip_polygon.win32.c">
+    <ClCompile Include="..\source\common\graphics\graphics.clip_polygon.c">
       <Filter>source\common\graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\source\games\7days\states\state_settings.c">
@@ -483,8 +489,8 @@
     <ClInclude Include="..\source\common\utils\timer.h">
       <Filter>source\common\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\common\platform\win32\app_sdl.h">
-      <Filter>source\common\platform\win32</Filter>
+    <ClInclude Include="..\source\common\platform\sdl2\app_sdl.h">
+      <Filter>source\common\platform\sdl2</Filter>
     </ClInclude>
     <ClInclude Include="..\source\common\types.h">
       <Filter>source\common</Filter>

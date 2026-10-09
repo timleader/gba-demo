@@ -2,6 +2,7 @@
 #pragma once
 
 #include "input.h"
+#include "common/platform/sdl2/app_sdl.h"
 
 #include <SDL.h>
 
@@ -18,7 +19,7 @@ void input_poll(void)
 		switch (lEvent.type)
 		{
 		case SDL_QUIT:
-			_Exit(0);
+			appSDLRequestQuit();
 			break;
 		case SDL_KEYDOWN:
 			if (lEvent.key.keysym.sym == SDLK_LEFT || lEvent.key.keysym.sym == SDLK_a)

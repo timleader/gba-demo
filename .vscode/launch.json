@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Linux: Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/linux/debug/gba-demo",
+            "cwd": "${workspaceFolder}",
+            "args": [],
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "preLaunchTask": "Linux: Build"
+        },
+        {
+            "name": "GBA: Attach to mGBA GDB Server",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/${workspaceFolderBasename}-debug.elf",
+            "cwd": "${workspaceFolder}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "${env:DEVKITARM}/bin/arm-none-eabi-gdb",
+            "miDebuggerServerAddress": "localhost:2345",
+            "preLaunchTask": "GBA: Build Debug ROM",
+            "launchCompleteCommand": "None",
+            "stopAtConnect": true
+        }
+    ]
+}

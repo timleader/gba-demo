@@ -177,8 +177,9 @@ sequence_event_handler_t g_video_sequence_event_handlers[] =
 };
 
 //-----------------------------------------------------------------------------
-int32_t st_video_fill_buffer(audiostream_t* stream, int8_t* dest, int32_t length)	//	do we need this ?? 
+int32_t st_video_fill_buffer(void_ptr stream, int8_t* dest, int32_t length)	//	do we need this ?? 
 {
+	(void)stream;
 	st_video_context_ptr context = (st_video_context_ptr)state_context();
 
 	ringbuffer_ptr buffer = smk_get_audio(context->smk_handle, 0);
@@ -340,7 +341,7 @@ void st_video_enter(st_video_context_ptr context, uint32_t parameter)
 	if (video->sequeunce_collection_id >= 0)
 		context->sequence_player.store = resources_find_sequencestore(video->sequeunce_collection_id);
 
-	context->sequence_player.event_handlers = &g_video_sequence_event_handlers;
+	context->sequence_player.event_handlers = &g_video_sequence_event_handlers[0];
 
 	context->sequence_player.context = context;
 

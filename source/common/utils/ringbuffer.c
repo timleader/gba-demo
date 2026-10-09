@@ -15,7 +15,7 @@ void ringbuffer_new(ringbuffer_ptr buffer, uint16_t initial_capacity, uint8_t me
 
 void ringbuffer_delete(ringbuffer_ptr buffer)
 {
-	debug_assert(buffer->data, "ringbuffer:delete was called on an uninitialized ringbuffer");
+	debug_assert(buffer->data != NULL, "ringbuffer:delete was called on an uninitialized ringbuffer");
 
 	memory_free(buffer->data);
 

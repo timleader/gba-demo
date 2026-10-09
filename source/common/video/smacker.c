@@ -10,10 +10,12 @@
 */
 
 #include "smacker.h"
+#include "smk_hufftree.h"
 
 #include "common/memory.h"
 #include "common/debug/debug.h"
 #include "common/utils/bitstream.h"
+
 
 /* GLOBALS */
 /* tree processing order */

@@ -40,7 +40,7 @@ void draw_spans(void)
 {
 	fixed16_t fheight = fixed16_min(_graphics_left_edge.height, _graphics_right_edge.height);	//	one of the edges might continue to be used for the next draw_spans, so heights might be different 
 
-	uint16_t* output_scanline_ptr = g_graphics_context.frame_buffer + (fixed16_to_int(_graphics_left_edge.y) * g_graphics_context.width);		//	output_scanline_ptr is 16-bit wide as VRAM requires writes of 16-bit wide
+	uint16_t* output_scanline_ptr = (uint16_t*)(g_graphics_context.frame_buffer + (fixed16_to_int(_graphics_left_edge.y) * g_graphics_context.width));		//	output_scanline_ptr is 16-bit wide as VRAM requires writes of 16-bit wide
 
 	_graphics_left_edge.height -= fheight;
 	_graphics_right_edge.height -= fheight;
@@ -162,7 +162,7 @@ void draw_spans_depth(void)
 
 	fixed16_t fheight = fixed16_min(_graphics_left_edge.height, _graphics_right_edge.height);	//	one of the edges might continue to be used for the next draw_spans, so heights might be different 
 
-	uint16_t* output_scanline_ptr = g_graphics_context.frame_buffer + (fixed16_to_int(_graphics_left_edge.y) * g_graphics_context.width);		//	output_scanline_ptr is 16-bit wide as VRAM requires writes of 16-bit wide
+	uint16_t* output_scanline_ptr = (uint16_t*)(g_graphics_context.frame_buffer + (fixed16_to_int(_graphics_left_edge.y) * g_graphics_context.width));		//	output_scanline_ptr is 16-bit wide as VRAM requires writes of 16-bit wide
 
 	uint8_t* depthmap_scanline_ptr = (fixed16_to_int(_graphics_left_edge.y) * (g_graphics_context.width >> 2)) + bound_depthmap->data;
 

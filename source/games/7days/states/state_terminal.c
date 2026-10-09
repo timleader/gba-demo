@@ -269,7 +269,7 @@ void st_terminal_enter(st_terminal_context_ptr context, uint32_t parameter)
 	context->sequence_player.channel_count = 1;
 
 	context->sequence_player.store = resources_find_sequencestore(sequence_id);
-	context->sequence_player.event_handlers = &g_terminal_sequence_event_handlers;
+	context->sequence_player.event_handlers = &g_terminal_sequence_event_handlers[0];
 
 	context->sequence_player.context = context;
 

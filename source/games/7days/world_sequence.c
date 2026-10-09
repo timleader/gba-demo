@@ -388,6 +388,6 @@ sequence_event_handler_t g_world_sequence_event_handlers[] =
 //-----------------------------------------------------------------------------
 void world_sequence_player_assign_event_handlers(sequence_player_ptr player)
 {
-	player->event_handlers = &g_world_sequence_event_handlers;
+	player->event_handlers = &g_world_sequence_event_handlers[0];
 
 }

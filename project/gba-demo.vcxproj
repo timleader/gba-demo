@@ -24,19 +24,19 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\source\common\audio\audio.mixer.win32.c" />
+    <ClCompile Include="..\source\common\audio\audio.mixer.desktop.c" />
     <ClCompile Include="..\source\common\audio\audio.stream.c" />
     <ClCompile Include="..\source\common\audio\audio.system.c" />
     <ClCompile Include="..\source\common\compression\lz77.gba.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\source\common\compression\lz77.win32.c" />
+    <ClCompile Include="..\source\common\compression\lz77.desktop.c" />
     <ClCompile Include="..\source\common\compression\lz77.decompress.gba.s">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\source\common\graphics\graphics.clip_polygon.win32.c" />
+    <ClCompile Include="..\source\common\graphics\graphics.clip_polygon.c" />
     <ClCompile Include="..\source\common\graphics\graphics.draw_spans.gba.s">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -53,7 +53,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\source\common\graphics\graphics.draw_spans.win32.c" />
+    <ClCompile Include="..\source\common\graphics\graphics.draw_spans.desktop.c" />
     <ClCompile Include="..\source\common\graphics\model.c" />
     <ClCompile Include="..\source\common\platform\gba\interrupt.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -93,13 +93,13 @@
   <ItemGroup>
     <ClCompile Include="..\source\common\collision\collision.c" />
     <ClCompile Include="..\source\common\containers\list.c" />
-    <ClCompile Include="..\source\common\containers\sort.win32.c" />
+    <ClCompile Include="..\source\common\containers\sort.desktop.c" />
     <ClCompile Include="..\source\common\debug\debug.gba.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\source\common\debug\debug_helper.c" />
-    <ClCompile Include="..\source\common\debug\debug.win32.c">
+    <ClCompile Include="..\source\common\debug\debug.desktop.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -110,20 +110,20 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\source\common\graphics\graphics.win32.c" />
+    <ClCompile Include="..\source\common\graphics\graphics.desktop.c" />
     <ClCompile Include="..\source\common\graphics\image.c" />
     <ClCompile Include="..\source\common\graphics\overlay.c" />
     <ClCompile Include="..\source\common\graphics\overlay.gba.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\source\common\graphics\overlay.win32.c" />
+    <ClCompile Include="..\source\common\graphics\overlay.desktop.c" />
     <ClCompile Include="..\source\common\graphics\text.c" />
     <ClCompile Include="..\source\common\input\input.gba.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\source\common\input\input.win32.c" />
+    <ClCompile Include="..\source\common\input\input.desktop.c" />
     <ClCompile Include="..\source\common\math\fixed16.c" />
     <ClCompile Include="..\source\common\math\trigonometry.c" />
     <ClCompile Include="..\source\common\memory.c" />
@@ -131,7 +131,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\source\common\memory.win32.c" />
+    <ClCompile Include="..\source\common\memory.desktop.c" />
     <ClCompile Include="..\source\common\resources\resources.c" />
     <ClCompile Include="..\source\common\resources\resources.gba.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -162,10 +162,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\source\common\utils\profiler.win32.c" />
+    <ClCompile Include="..\source\common\utils\profiler.desktop.c" />
     <ClCompile Include="..\source\common\utils\timer.c" />
     <ClCompile Include="..\source\common\video\smacker.c" />
-    <ClCompile Include="..\source\common\video\smacker.win32.c" />
+    <ClCompile Include="..\source\common\video\smacker.desktop.c" />
     <ClCompile Include="..\source\common\video\smk_hufftree.c" />
     <ClCompile Include="..\source\common\video\smk_hufftree_v5.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -200,7 +200,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\source\main.win32.c" />
+    <ClCompile Include="..\source\main.desktop.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\common\audio\audio.h" />
@@ -230,10 +230,11 @@
     <ClInclude Include="..\source\common\math\trigonometry.h" />
     <ClInclude Include="..\source\common\math\vector.h" />
     <ClInclude Include="..\source\common\platform\gba\gba.h" />
-    <ClCompile Include="..\source\common\platform\win32\app_sdl.c">
+    <ClCompile Include="..\source\common\platform\sdl2\app_sdl.c">
       <FileType>CppCode</FileType>
     </ClCompile>
-    <ClInclude Include="..\source\common\platform\win32\app_sdl.h" />
+    <ClCompile Include="..\source\common\platform\win32\app_sdl.win32.c" />
+    <ClInclude Include="..\source\common\platform\sdl2\app_sdl.h" />
     <ClInclude Include="..\source\common\platform\win32\resource.h" />
     <ClInclude Include="..\source\common\resources\resources.h" />
     <ClInclude Include="..\source\common\savegame\savegame.h" />

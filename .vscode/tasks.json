@@ -1,0 +1,70 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "GBA: Build ROM",
+            "type": "shell",
+            "command": "make -j4",
+            "options": { 
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ["$gcc"],
+            "group": { "kind": "build", "isDefault": true }
+        },
+        {
+            "label": "GBA: Build Debug ROM",
+            "type": "shell",
+            "command": "make -j4 DEBUG=1",
+            "options": { 
+                "cwd": "${workspaceFolder}" 
+            },
+            "problemMatcher": ["$gcc"],
+            "group": "build"
+        },
+        {
+            "label": "GBA: Clean ROM",
+            "type": "shell",
+            "command": "make clean",
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": []
+        },
+        {
+            "label": "GBA: Clean Debug ROM",
+            "type": "shell",
+            "command": "make clean DEBUG=1",
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": []
+        },
+        {
+            "label": "Linux: Build",
+            "type": "shell",
+            "command": "make -f Makefile.linux -j4",
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": ["$gcc"],
+            "group": "build"
+        },
+        {
+            "label": "Linux: Build Release",
+            "type": "shell",
+            "command": "make -f Makefile.linux -j4 CONFIG=release",
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": ["$gcc"],
+            "group": "build"
+        },
+        {
+            "label": "Linux: Run",
+            "type": "shell",
+            "command": "${workspaceFolder}/build/linux/debug/gba-demo",
+            "dependsOn": "Linux: Build",
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": []
+        },
+        {
+            "label": "Linux: Clean",
+            "type": "shell",
+            "command": "make -f Makefile.linux clean",
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": []
+        }
+    ]
+}

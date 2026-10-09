@@ -77,7 +77,7 @@ short smk_huff8_lookup(bitstream_t* bs, const struct smk_huff8_t* t)		//	non-rec
 {
 	char bit;
 
-	debug_assert(t, "smk_hufftree is NULL");
+	debug_assert(t != NULL, "smk_hufftree is NULL");
 
 	if (!t->b0)
 	{
@@ -107,7 +107,7 @@ struct smk_huff8_t* smk_huff8_build(bitstream_t* bs)
 	struct smk_huff8_t* ret = NULL;
 	char bit;
 
-	debug_assert(bs, "smk_huff8_build: bs is NULL"); 
+	debug_assert(bs != NULL, "smk_huff8_build: bs is NULL"); 
 
 	/* Smacker huff trees begin with a set-bit. */
 	bit = bitstream_read_1(bs);

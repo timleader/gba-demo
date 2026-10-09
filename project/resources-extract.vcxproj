@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\common\memory.c" />
-    <ClCompile Include="..\source\common\memory.win32.c" />
+    <ClCompile Include="..\source\common\memory.desktop.c" />
     <ClCompile Include="..\source\common\resources\resources.c" />
     <ClCompile Include="..\source\common\resources\resources.win32.c" />
     <ClCompile Include="..\source\common\string.c" />
