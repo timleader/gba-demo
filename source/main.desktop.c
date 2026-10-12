@@ -21,6 +21,7 @@
 #include "games/7days/states/states.h"
 #include "games/7days/itemstore.h"
 
+//---------------------------------------------------------------------------------
 static void print_header(void)
 {
 	printf(" _____ ______  ___    ___________ \n");
@@ -32,13 +33,19 @@ static void print_header(void)
 	printf("\n");
 }
 
+//---------------------------------------------------------------------------------
+// Program entry point
+//---------------------------------------------------------------------------------
 int main(void)
 {
 	print_header();
+
 	SDL_SetMainReady();
+
 	debug_initialize();
 	memory_initialize();
 	profiler_initialize();
+
 	if (!appSDLInitialize())
 	{
 		fprintf(stderr, "SDL initialization failed: %s\n", SDL_GetError());
@@ -48,28 +55,39 @@ int main(void)
 	}
 
 	resources_initialize();
+
 	graphics_initialize();
 	overlay_initialize();
 	audio_initialize();
+
 	stringstore_initialize(LOCALE_EN_GB);
 	itemstore_initialize();
 	savegame_initialize();
+
 	state_initialize(4, 2048, MEMORY_EWRAM);
 	state_goto(&st_splash, 0);
 
 	uint32_t ewram_used = 0, iwram_used = 0;
+
 	while (appSDLIsRunning())
 	{
 		state_apply();
+
 		input_poll();
+
 		if (!appSDLIsRunning())
 			break;
+
 		state_update();
 		audio_update();
+
 		state_draw();
+
 		graphics_vsync();
+
 		graphics_present();
 		overlay_present();
+
 		appSDLPresent();
 
 		if (memory_usage(MEMORY_EWRAM) != ewram_used ||
@@ -83,11 +101,16 @@ int main(void)
 
 	savegame_shutdown();
 	stringstore_shutdown();
+
 	audio_shutdown();
+
 	overlay_shutdown();
 	graphicsShutdown();
+
 	resources_shutdown();
+
 	appSDLShutdown();
 	debug_shutdown();
+
 	return 0;
 }

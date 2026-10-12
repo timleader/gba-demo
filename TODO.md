@@ -29,6 +29,27 @@
 
 - Enemy AI 
     - Behaviour
+        - Patrol 
+            - where 
+            - path 
+        - Chase
+            - line of sight
+            - distance to target
+            - attack range
+            - last known position
+        - Search
+            - area to search
+            - duration
+        - Attack
+            - damage
+            - cooldown
+        - Flee
+            - escape route
+        - Interact 
+            - ... 
+        - Idle
+
+
 
 - Death 
 

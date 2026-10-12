@@ -186,7 +186,14 @@ void st_resources_inspector_update(st_resources_inspector_context_ptr context, f
 		key_hit(KI_A))
 	{
 		state_ptr state = resource_state_map[resources[context->selected_idx].type];
-		state_push(state, context->selected_idx);
+		uint32_t parameter = context->selected_idx;
+		
+		if (resources[context->selected_idx].type == RESOURCE_TYPE_LEVEL)
+		{
+			parameter = (parameter << 1) | 0x01;
+		}
+
+		state_push(state, parameter);
 	}
 	else if (key_hit(KI_B))
 	{
