@@ -59,6 +59,11 @@ fixed16_t timer_progress(game_timer_t timer)
 
 			break;
 		}
+		case TIMER_MODE_UNBOUNDED:
+		{
+			progress = fixed16_div(fixed16_from_int(progress_frame), fixed16_from_int(timer.duration));
+			break;
+		}
 	}
 
 	return progress;

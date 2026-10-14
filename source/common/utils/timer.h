@@ -10,6 +10,7 @@ typedef enum timer_mode_e
 	TIMER_MODE_ONCE,
 	TIMER_MODE_FLIP_FLOP,
 	TIMER_MODE_LOOP,
+	TIMER_MODE_UNBOUNDED,
 
 } timer_mode_t;
 

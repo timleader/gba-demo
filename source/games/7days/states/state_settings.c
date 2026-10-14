@@ -35,6 +35,10 @@ void st_settings_update(st_settings_context_ptr context, fixed16_t dt)
 	
 	*/
 
+	if (key_hit(KI_A))
+	{
+		state_push(&st_credits, 0);
+	}
 
 	if (key_hit(KI_B))
 	{
