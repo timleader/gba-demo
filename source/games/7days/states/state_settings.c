@@ -31,6 +31,9 @@ void st_settings_update(st_settings_context_ptr context, fixed16_t dt)
 	/*
 		
 		palette mode { backlit, not backlit }
+
+		Volumes?? 
+
 		credits .. 
 	
 	*/

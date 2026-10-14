@@ -32,7 +32,7 @@ typedef st_credits_context_t* st_credits_context_ptr;
 void st_credits_draw_view(st_credits_context_ptr context)
 {
 	char text_line_buffer[128];
-	char text_wrapped_line_buffer[128];
+	char text_wrapped_buffer[128];
 
 	overlay_clear(context->panel_credits_pageview[0], 0);
 	overlay_clear(context->panel_credits_pageview[1], 0);

@@ -41,7 +41,7 @@ void st_title_draw_menu(st_title_context_ptr context)
 	/*overlayDrawString(panel_start, "Continue", 2, string_position);
 	string_position.y++;*/
 
-	const uint16_t text[] = { 1, 2, 3, 4 };	//	hmmmm
+	const uint16_t text[] = { 1, 2, 3, 4 };	//	hmmmm, `package_7days` should also include defines for stringStores 
 
 	for (int8_t idx = 0; idx < 4; ++idx)
 	{
