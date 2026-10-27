@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>gba-demo - Play in your browser</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="player.css">
+    <script defer src="gbajs2.js"></script>
+    <script defer src="player.js"></script>
+</head>
+<body>
+    <main>
+        <h1>gba-demo</h1>
+        <p>A Game Boy Advance adventure demo, running in your browser.</p>
+        <canvas id="screen" width="240" height="160" tabindex="0"
+            aria-label="Game Boy Advance display. Use the keyboard controls listed below.">
+            Your browser must support Canvas to play.
+        </canvas>
+        <div class="toolbar" aria-label="Emulator controls">
+            <button id="play" type="button" disabled>Play</button>
+            <button id="restart" type="button" disabled>Restart</button>
+            <button id="mute" type="button" aria-pressed="false" disabled>Mute</button>
+        </div>
+        <p id="status" role="status">Loading emulator and ROM...</p>
+        <p id="warning" role="alert" hidden></p>
+        <noscript><p>Enable JavaScript to run the emulator.</p></noscript>
+        <h2>Keyboard controls</h2>
+        <dl>
+            <dt>D-pad</dt><dd>Arrow keys</dd>
+            <dt>A / B</dt><dd>X / Z</dd>
+            <dt>L / R</dt><dd>Q / E</dd>
+            <dt>Start</dt><dd>Enter</dd>
+            <dt>Select</dt><dd>Backspace</dd>
+        </dl>
+        <p>Click Play to start with audio. Playback pauses when the page loses focus.
+            In-game saves are stored in this browser, not in the local ROM or save file.</p>
+        <footer>
+            Powered by <a href="https://github.com/andychase/gbajs2">gbajs2</a>
+            (<a href="COPYING">license</a>).
+            <a href="../README.md">Project documentation</a>
+        </footer>
+    </main>
+</body>
+</html>

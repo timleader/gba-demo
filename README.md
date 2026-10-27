@@ -64,6 +64,53 @@ and `build/gba-debug/`. `make clean` cleans release outputs;
 `make clean DEBUG=1` cleans debug outputs. The ROM Makefile retains legacy
 type-conversion diagnostics as warnings for compatibility with newer GCC.
 
+## Browser player
+
+The static page in [`web/`](web/index.html) plays the built ROM using
+[gbajs2](https://github.com/andychase/gbajs2). Build the release ROM with `make`,
+then serve the **repository root** over HTTP, for example:
+
+```sh
+python3 -m http.server 8000 --bind 127.0.0.1
+```
+
+Open <http://127.0.0.1:8000/web/> and click **Play** to enable playback and audio.
+Opening the HTML directly via `file://` does not work. The player loads
+`gba-demo.gba` from the repository root without caching it, so refresh after a
+rebuild. To play a debug build, visit
+<http://127.0.0.1:8000/web/?rom=../gba-demo-debug.gba>. The `rom` query parameter
+also supports other output names; paths are relative to the player page.
+
+Controls: arrows for the D-pad, X/Z for A/B, Q/E for L/R, Enter for Start, and
+Backspace for Select. The player offers pause/resume, restart, and mute, and
+automatically pauses when focus is lost. In-game saves use gbajs2's browser
+local storage; they do not read or modify the repository's `.sav` files.
+Restart resets the console, not the saved game.
+
+The generated `web/gbajs2.js` bundle is included, so no frontend build step
+or runtime CDN access is needed. To deploy on a static
+host, publish `web/` together with the built ROM in its parent directory (or
+set `?rom=` to the ROM's deployed URL). ROMs are ignored by Git, so include
+the build output explicitly when deploying.
+
+The unmodified gbajs2 runtime in `web/js/` and its replacement BIOS in
+`web/resources/biosbin.js` are vendored from commit
+`5f575bf5db71e6e5bc88eed7af41f426d36ce95d`; its redistribution license is
+[`web/COPYING`](web/COPYING). The page loads the minified `web/gbajs2.js`,
+which combines the emulator scripts and replacement BIOS in dependency order.
+The renderer still runs separately: preserve `web/js/video/worker.js` and
+`web/js/video/software.js`, which it loads relative to the player page.
+
+After changing the vendored sources, regenerate the bundle with Make and
+[Terser](https://terser.org/) installed:
+
+```sh
+make -C web
+```
+
+Commit the regenerated `web/gbajs2.js` alongside source changes. The other
+files in `web/js/` and `web/resources/` are retained as readable build inputs.
+
 ## VS Code
 
 Install the recommended Microsoft C/C++ extension. The default build task
@@ -116,4 +163,3 @@ https://www.cs.cmu.edu/~gilpin/tutorial/
   + https://problemkaputt.de/gbatek.htm
   + https://www.youtube.com/watch?v=Qh4ttJB48i8&list=PLiZOOWHhACurd6iF5LC-NRxKu3wpv9gX4
   + https://www.youtube.com/watch?v=sP1DHYzK_Cs
-

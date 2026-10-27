@@ -1,0 +1,74 @@
+:root {
+    color-scheme: dark;
+    font-family: system-ui, sans-serif;
+    background: #10131b;
+    color: #e4e9f2;
+}
+
+body {
+    margin: 0;
+    padding: 1.5rem;
+}
+
+main {
+    max-width: 48rem;
+    margin: auto;
+}
+
+h1 {
+    margin-bottom: 0;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    background: #000;
+    image-rendering: pixelated;
+    border-radius: 0.25rem;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+button {
+    font: inherit;
+    padding: 0.6rem 1.25rem;
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+:focus-visible {
+    outline: 3px solid #90caff;
+    outline-offset: 3px;
+}
+
+dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.4rem 1.5rem;
+}
+
+dd {
+    margin: 0;
+}
+
+a {
+    color: #90caff;
+}
+
+#status[data-error="true"], #warning {
+    color: #ffb3aa;
+}
+
+footer {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
