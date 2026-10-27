@@ -78,7 +78,7 @@ Open <http://127.0.0.1:8000/web/> and click **Play** to enable playback and audi
 Opening the HTML directly via `file://` does not work. The player loads
 `gba-demo.gba` from the repository root without caching it, so refresh after a
 rebuild. To play a debug build, visit
-<http://127.0.0.1:8000/web/?rom=../gba-demo-debug.gba>. The `rom` query parameter
+<http://127.0.0.1:8000/web/?rom=gba-demo-debug.gba>. The `rom` query parameter
 also supports other output names; paths are relative to the player page.
 
 Controls: arrows for the D-pad, X/Z for A/B, Q/E for L/R, Enter for Start, and
@@ -89,8 +89,8 @@ Restart resets the console, not the saved game.
 
 The generated `web/gbajs2.js` bundle is included, so no frontend build step
 or runtime CDN access is needed. To deploy on a static
-host, publish `web/` together with the built ROM in its parent directory (or
-set `?rom=` to the ROM's deployed URL). ROMs are ignored by Git, so include
+host, publish the built ROM alongside the files in `web/` (or set `?rom=` to
+the ROM's deployed URL). ROMs are ignored by Git, so include
 the build output explicitly when deploying.
 
 The unmodified gbajs2 runtime in `web/js/` and its replacement BIOS in

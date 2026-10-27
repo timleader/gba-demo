@@ -7,7 +7,7 @@
     const mute = document.getElementById("mute");
     const status = document.getElementById("status");
     const warning = document.getElementById("warning");
-    const romPath = new URLSearchParams(location.search).get("rom") || "../gba-demo.gba";
+    const romPath = new URLSearchParams(location.search).get("rom") || "gba-demo.gba";
     let gba;
     let rom;
     let state = "loading";
