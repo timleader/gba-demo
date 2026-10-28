@@ -36,6 +36,7 @@ A selected reading and viewing list for story, characters, puzzles, and player e
 
 Play or replay these as design case studies, not just as stories. Keep notes on what the player knows at each point, what they can try, how the game signals progress, and what happens when they get stuck.
 
+- **[Grim Fandango Puzzle Document](https://grimfandango.network/media/Grim_Fandango_Puzzle_Document.pdf)** — a primary-source design document to compare with the released game. Trace how documented puzzle steps relate to prerequisites, story beats, and what the player actually experiences.
 - **Broken Sword: The Shadow of the Templars** — study investigation, scene-to-scene pacing, character-led exposition, and how a grounded mystery makes room for comedy.
 - **Grim Fandango** — study worldbuilding, voice, character arcs, and how a strong setting can unify a large episodic journey.
 - **The Secret of Monkey Island** — study comic voice, memorable characters, readable puzzle logic, and how a game teaches its rules.

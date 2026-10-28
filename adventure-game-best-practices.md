@@ -26,6 +26,7 @@ Practical principles distilled from the resources and example games in [Resource
 - **Design around the player’s knowledge.** For each scene, note the player’s goal, what they know, what they can try, and what feedback follows.
 - **Make the game’s central mechanics productive.** A strong recurring mechanic can generate connected puzzles and story situations, as in *Day of the Tentacle*.
 - **Prototype puzzle sequences early.** Check that clues arrive in a useful order and that each step leads naturally to the next.
+- **Compare design intent with the player’s experience.** Use puzzle documents such as the [Grim Fandango Puzzle Document](https://grimfandango.network/media/Grim_Fandango_Puzzle_Document.pdf) alongside the released game; trace prerequisites and story beats, then check whether the clues and transitions are clear in play.
 - **Playtest with people who do not know the solution.** Ask them to think aloud; observe where they get stuck or misunderstand the game, then revise the clueing or feedback.
 - **Treat confusion as design feedback.** If multiple testers miss the same inference, clarify what the game communicates rather than blaming the player.
 - **Study examples deliberately.** When replaying games such as *Broken Sword*, *Grim Fandango*, or *Monkey Island*, track goals, clues, pacing, character moments, and how the game handles failed attempts.
@@ -40,4 +41,3 @@ Before considering a scene or puzzle finished, ask:
 - Does the game respond clearly to useful and unsuccessful attempts?
 - Does this moment advance the story, develop a character, or create an enjoyable challenge?
 - Can a new player make progress without guessing or getting trapped?
-
